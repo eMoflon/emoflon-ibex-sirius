@@ -153,25 +153,31 @@ public class Services {
 		return false;
 	}
 
-	public List<CorrVariablePattern> toggleCorrOperator(Rule rule, DEdge edgeView) {
-		ObjectVariablePattern sourceObject = getSourceObjectFromEdge(edgeView);
-		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
+	/*
+	 * public List<CorrVariablePattern> toggleCorrOperator(Rule rule, DEdge
+	 * edgeView) { ObjectVariablePattern sourceObject =
+	 * getSourceObjectFromEdge(edgeView); ObjectVariablePattern targetObject =
+	 * getTargetObjectFromEdge(edgeView);
+	 * 
+	 * // find correspondence between source and target objects CorrVariablePattern
+	 * corr = findCorrespondence(rule, sourceObject, targetObject);
+	 * 
+	 * if (corr != null) { // Toggle correspondence operator if (corr.getOp() ==
+	 * null) { Operator operator = TggFactory.eINSTANCE.createOperator();
+	 * operator.setValue("++"); corr.setOp(operator); } else { corr.setOp(null); } }
+	 * 
+	 * return rule.getCorrespondencePatterns(); }
+	 */
 
-		// find correspondence between source and target objects
-		CorrVariablePattern corr = findCorrespondence(rule, sourceObject, targetObject);
-
-		if (corr != null) {
-			// Toggle correspondence operator
-			if (corr.getOp() == null) {
-				Operator operator = TggFactory.eINSTANCE.createOperator();
-				operator.setValue("++");
-				corr.setOp(operator);
-			} else {
-				corr.setOp(null);
-			}
+	public Operator toggleCorrOperator(CorrVariablePattern corr) {
+		// Toggle correspondence operator
+		if (corr.getOp() == null) {
+			Operator op = TggFactory.eINSTANCE.createOperator();
+			op.setValue("++");
+			return op;
+		} else {
+			return null;
 		}
-
-		return rule.getCorrespondencePatterns();
 	}
 
 	public Operator toggleObjectOperator(ObjectVariablePattern object) {
@@ -260,25 +266,25 @@ public class Services {
 
 		return rule.getCorrespondencePatterns();
 	}
-	
+
 	public List<CorrVariablePattern> deleteCorrespondence(Rule rule, DEdge edgeView) {
 		ObjectVariablePattern sourceObject = getSourceObjectFromEdge(edgeView);
 		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
-		
+
 		// find correspondence between source and target objects
 		CorrVariablePattern corr = findCorrespondence(rule, sourceObject, targetObject);
-		
+
 		// Delete correspondence from rule
 		rule.getCorrespondencePatterns().remove(corr);
-		
+
 		// Delete correspondence type from schema
 		Schema schema = rule.getSchema();
 		schema.getCorrespondenceTypes().remove(corr.getType());
 		return rule.getCorrespondencePatterns();
 	}
-	
+
 	public String deleteNode(DSemanticDiagram diagram, DNode node) {
-		Rule rootRule = (Rule)diagram.getTarget();
+		Rule rootRule = (Rule) diagram.getTarget();
 		Schema schema = rootRule.getSchema();
 		List<CorrVariablePattern> correspondenceList = rootRule.getCorrespondencePatterns();
 		return null;
