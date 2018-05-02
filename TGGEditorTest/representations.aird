@@ -1,0 +1,1418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:diagram="http://www.eclipse.org/sirius/diagram/1.1.0" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tgg="http://www.moflon.org/ide/tgg/mosl/TGG" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" xsi:schemaLocation="http://www.eclipse.org/sirius/description/1.1.0 http://www.eclipse.org/sirius/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description http://www.eclipse.org/sirius/diagram/description/style/1.1.0 http://www.eclipse.org/sirius/diagram/1.1.0#//description/style">
+  <viewpoint:DAnalysis xmi:id="_foWDUE19EeispcpRkVUppA" selectedViews="_hRjc0E19EeispcpRkVUppA" version="12.1.0.201708031200">
+    <semanticResources>FamiliesToPersons_MA.editor.xmi</semanticResources>
+    <semanticResources>platform:/resource/Families/model/Families.ecore</semanticResources>
+    <semanticResources>platform:/resource/Persons/model/Persons.ecore</semanticResources>
+    <semanticResources>http://www.eclipse.org/emf/2002/Ecore</semanticResources>
+    <ownedViews xmi:type="viewpoint:DView" xmi:id="_hRjc0E19EeispcpRkVUppA">
+      <viewpoint xmi:type="description:Viewpoint" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']"/>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hRucBU19EeispcpRkVUppA" name="TGGRule - CreateFamily" repPath="#_hRoVUE19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+        <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hRw4PE19EeispcpRkVUppA" name="TGGRule - Families2Persons" repPath="#_hRvqEE19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+        <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.1"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hR1Juk19EeispcpRkVUppA" name="Complement TGGRule - Daughter2Female" repPath="#_hRyGUE19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+        <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hR5bKk19EeispcpRkVUppA" name="Complement TGGRule - Father2Male" repPath="#_hR2-1k19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+        <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hR9smk19EeispcpRkVUppA" name="Complement TGGRule - Mother2Female" repPath="#_hR7QQE19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+        <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hSBW-k19EeispcpRkVUppA" name="Complement TGGRule - Son2Male" repPath="#_hR_hsE19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+        <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" xmi:id="_hfcu_U19EeispcpRkVUppA" name="FamiliesToPersons_MA" repPath="#_hfbgwE19EeispcpRkVUppA">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']"/>
+        <target xmi:type="tgg:TripleGraphGrammarFile" href="FamiliesToPersons_MA.editor.xmi#/"/>
+      </ownedRepresentationDescriptors>
+    </ownedViews>
+  </viewpoint:DAnalysis>
+  <diagram:DSemanticDiagram xmi:id="_hRub8E19EeispcpRkVUppA" name="TGGRule - CreateFamily" uid="_hRoVUE19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hRub8U19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hRub8k19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hRucBk19EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hRucB019EeispcpRkVUppA" type="Sirius" element="_hRub8E19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hRucCU19EeispcpRkVUppA" type="2001" element="_hRub9E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRucDE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hRucDU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_2xStUE2oEeiZKIu2yQQCzg" type="3003" element="_2xQ4IE2oEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_2xStUU2oEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2xStUk2oEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRucCk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRucC019EeispcpRkVUppA" x="396" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hRucDk19EeispcpRkVUppA" type="2001" element="_hRub9k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRucEU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hRucEk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_v5M0IE2oEeiZKIu2yQQCzg" type="3003" element="_v5LmAE2oEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_v5M0IU2oEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_v5M0Ik2oEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRucD019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRucEE19EeispcpRkVUppA" x="528" y="144" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hRucE019EeispcpRkVUppA" type="2001" element="_hRub-E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRucFk19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hRucF019EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_xLQ48E2oEeiZKIu2yQQCzg" type="3003" element="_xLPq0E2oEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_xLQ48U2oEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xLQ48k2oEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRucFE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRucFU19EeispcpRkVUppA" x="228" y="144" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hRucGE19EeispcpRkVUppA" type="2003" element="_hRub-k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRucG019EeispcpRkVUppA" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_hRucHE19EeispcpRkVUppA" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_hRucKE19EeispcpRkVUppA" type="3010" element="_hRub_E19EeispcpRkVUppA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_hRucKU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_hRucKk19EeispcpRkVUppA"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_hRucHU19EeispcpRkVUppA"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_hRucHk19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRucGU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="10" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRucGk19EeispcpRkVUppA"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_Oat64E2XEeiZKIu2yQQCzg" type="2001" element="_Oal_EE2XEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_Oauh8E2XEeiZKIu2yQQCzg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_Oauh8U2XEeiZKIu2yQQCzg" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_wttaQE2oEeiZKIu2yQQCzg" type="3003" element="_wtrlEE2oEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_wttaQU2oEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wttaQk2oEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_Oat64U2XEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Oat64k2XEeiZKIu2yQQCzg" x="912" y="96" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_QhokEE2XEeiZKIu2yQQCzg" type="2001" element="_QhmH0E2XEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_QhokE02XEeiZKIu2yQQCzg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_QhokFE2XEeiZKIu2yQQCzg" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_wX1Q4E2oEeiZKIu2yQQCzg" type="3003" element="_wX0CwE2oEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_wX1Q4U2oEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wX1Q4k2oEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_QhokEU2XEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QhokEk2XEeiZKIu2yQQCzg" x="972" y="240" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_DB1R4E2pEeiZKIu2yQQCzg" type="2001" element="_DBxngE2pEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_DB1R402pEeiZKIu2yQQCzg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_DB1R5E2pEeiZKIu2yQQCzg" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_gLRGME2pEeiZKIu2yQQCzg" type="3003" element="_gLP4EE2pEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_gLRGMU2pEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gLRGMk2pEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_DB1R4U2pEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DB1R4k2pEeiZKIu2yQQCzg" x="768" y="264" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_P172gE2pEeiZKIu2yQQCzg" type="2001" element="_P14MIE2pEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_P18dkE2pEeiZKIu2yQQCzg" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_P18dkU2pEeiZKIu2yQQCzg" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_P18dkk2pEeiZKIu2yQQCzg" type="3003" element="_P14MIU2pEeiZKIu2yQQCzg">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_P18dk02pEeiZKIu2yQQCzg" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P18dlE2pEeiZKIu2yQQCzg"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_P172gU2pEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P172gk2pEeiZKIu2yQQCzg" x="600" y="396" width="180" height="70"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hRucCE19EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hRucK019EeispcpRkVUppA" type="4001" element="_hRub_k19EeispcpRkVUppA" source="_hRucCU19EeispcpRkVUppA" target="_hRucDk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRvDAE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRvDAU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hRvDAk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRvDA019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hRvDBE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRvDBU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hRucLE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hRucLU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hRucLk19EeispcpRkVUppA" points="[0, 0, -130, -80]$[130, 80, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hRvDBk19EeispcpRkVUppA" id="(0.5,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hRvDB019EeispcpRkVUppA" id="(0.5,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_CeTkgE2dEeiZKIu2yQQCzg" type="4001" element="_CeRvUE2dEeiZKIu2yQQCzg" source="_hRucCU19EeispcpRkVUppA" target="_hRucE019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_CeTkhE2dEeiZKIu2yQQCzg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CeTkhU2dEeiZKIu2yQQCzg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_CeTkhk2dEeiZKIu2yQQCzg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CeTkh02dEeiZKIu2yQQCzg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_CeTkiE2dEeiZKIu2yQQCzg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CeTkiU2dEeiZKIu2yQQCzg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_CeTkgU2dEeiZKIu2yQQCzg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_CeTkgk2dEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_CeTkg02dEeiZKIu2yQQCzg" points="[-41, 35, 127, -109]$[-128, 109, 40, -35]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CeTkik2dEeiZKIu2yQQCzg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CeTki02dEeiZKIu2yQQCzg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_CeULkE2dEeiZKIu2yQQCzg" type="4001" element="_CeRvU02dEeiZKIu2yQQCzg" source="_Oat64E2XEeiZKIu2yQQCzg" target="_QhokEE2XEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_CeULlE2dEeiZKIu2yQQCzg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CeULlU2dEeiZKIu2yQQCzg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_CeULlk2dEeiZKIu2yQQCzg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CeULl02dEeiZKIu2yQQCzg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_CeULmE2dEeiZKIu2yQQCzg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CeULmU2dEeiZKIu2yQQCzg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_CeULkU2dEeiZKIu2yQQCzg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_CeULkk2dEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_CeULk02dEeiZKIu2yQQCzg" points="[14, 35, -46, -109]$[45, 109, -15, -35]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CeULmk2dEeiZKIu2yQQCzg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_CeULm02dEeiZKIu2yQQCzg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_ETZncE2pEeiZKIu2yQQCzg" type="4001" element="_ETV9EE2pEeiZKIu2yQQCzg" source="_Oat64E2XEeiZKIu2yQQCzg" target="_DB1R4E2pEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_ETZndE2pEeiZKIu2yQQCzg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETZndU2pEeiZKIu2yQQCzg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_ETZndk2pEeiZKIu2yQQCzg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETZnd02pEeiZKIu2yQQCzg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_ETZneE2pEeiZKIu2yQQCzg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ETZneU2pEeiZKIu2yQQCzg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_ETZncU2pEeiZKIu2yQQCzg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_ETZnck2pEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ETZnc02pEeiZKIu2yQQCzg" points="[0, 0, 156, -98]$[-156, 98, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ETZnek2pEeiZKIu2yQQCzg" id="(0.4666666666666667,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ETZne02pEeiZKIu2yQQCzg" id="(0.4,0.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_TZ7hsE2pEeiZKIu2yQQCzg" type="4001" element="_TZ33UE2pEeiZKIu2yQQCzg" source="_Oat64E2XEeiZKIu2yQQCzg" target="_P172gE2pEeiZKIu2yQQCzg">
+          <children xmi:type="notation:Node" xmi:id="_TZ7htE2pEeiZKIu2yQQCzg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TZ7htU2pEeiZKIu2yQQCzg" x="-8" y="6"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_TZ7htk2pEeiZKIu2yQQCzg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TZ7ht02pEeiZKIu2yQQCzg" x="1" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_TZ7huE2pEeiZKIu2yQQCzg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TZ7huU2pEeiZKIu2yQQCzg" x="8" y="-6"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_TZ7hsU2pEeiZKIu2yQQCzg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_TZ7hsk2pEeiZKIu2yQQCzg" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TZ7hs02pEeiZKIu2yQQCzg" points="[0, 0, 372, -230]$[-216, 14, 156, -216]$[-372, 230, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TZ7huk2pEeiZKIu2yQQCzg" id="(0.4666666666666667,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TZ8IwE2pEeiZKIu2yQQCzg" id="(0.13333333333333333,0.0)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hRub9E19EeispcpRkVUppA" name="familyReg : FamilyRegister" outgoingEdges="_hRub_k19EeispcpRkVUppA _CeRvUE2dEeiZKIu2yQQCzg" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_2xQ4IE2oEeiZKIu2yQQCzg" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@conditionnalStyles.1/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hRub9k19EeispcpRkVUppA" name="family : Family" incomingEdges="_hRub_k19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_v5LmAE2oEeiZKIu2yQQCzg" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@conditionnalStyles.0/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_Oal_EE2XEeiZKIu2yQQCzg" name="test : Family" outgoingEdges="_CeRvU02dEeiZKIu2yQQCzg _ETV9EE2pEeiZKIu2yQQCzg _TZ33UE2pEeiZKIu2yQQCzg" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.2"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.2"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_wtrlEE2oEeiZKIu2yQQCzg" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@conditionnalStyles.1/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_DBxngE2pEeiZKIu2yQQCzg" name="dfd : Family" incomingEdges="_ETV9EE2pEeiZKIu2yQQCzg" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.3"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.3"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_gLP4EE2pEeiZKIu2yQQCzg" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@conditionnalStyles.1/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_P14MIE2pEeiZKIu2yQQCzg" name="dsd : Family" incomingEdges="_TZ33UE2pEeiZKIu2yQQCzg" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.4"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.4"/>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_P14MIU2pEeiZKIu2yQQCzg" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@conditionnalStyles.1/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hRub-E19EeispcpRkVUppA" name="personReg : PersonRegister" incomingEdges="_CeRvUE2dEeiZKIu2yQQCzg" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@targetPatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_xLPq0E2oEeiZKIu2yQQCzg" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@conditionnalStyles.1/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_QhmH0E2XEeiZKIu2yQQCzg" name="robert : Person" incomingEdges="_CeRvU02dEeiZKIu2yQQCzg" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@targetPatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@targetPatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_wX0CwE2oEeiZKIu2yQQCzg" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@conditionnalStyles.1/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_hRub-k19EeispcpRkVUppA" name="Conditional Attributes">
+      <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <semanticElements xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_hRub-019EeispcpRkVUppA" labelSize="10" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_hRub_E19EeispcpRkVUppA" name="setRandomString(family.name)">
+        <target xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@attrConditions.0"/>
+        <semanticElements xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@attrConditions.0"/>
+        <ownedStyle xmi:type="diagram:Square" xmi:id="_hRub_U19EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']"/>
+      </ownedElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hRub_k19EeispcpRkVUppA" name="families" sourceNode="_hRub9E19EeispcpRkVUppA" targetNode="_hRub9k19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hRub_019EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hRucAE19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_CeRvUE2dEeiZKIu2yQQCzg" sourceNode="_hRub9E19EeispcpRkVUppA" targetNode="_hRub-E19EeispcpRkVUppA">
+      <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <semanticElements xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_yJAwEE2nEeiZKIu2yQQCzg" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="0,0,0">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_yJAwEU2nEeiZKIu2yQQCzg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_CeRvU02dEeiZKIu2yQQCzg" sourceNode="_Oal_EE2XEeiZKIu2yQQCzg" targetNode="_QhmH0E2XEeiZKIu2yQQCzg">
+      <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <semanticElements xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_sK5L0E2nEeiZKIu2yQQCzg" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="0,0,0">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_sK5L0U2nEeiZKIu2yQQCzg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_ETV9EE2pEeiZKIu2yQQCzg" name="daughters" sourceNode="_Oal_EE2XEeiZKIu2yQQCzg" targetNode="_DBxngE2pEeiZKIu2yQQCzg">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_iwRZkE2pEeiZKIu2yQQCzg" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_iwRZkU2pEeiZKIu2yQQCzg" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_TZ33UE2pEeiZKIu2yQQCzg" name="mother" sourceNode="_Oal_EE2XEeiZKIu2yQQCzg" targetNode="_P14MIE2pEeiZKIu2yQQCzg">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.0/@sourcePatterns.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_iwRZkk2pEeiZKIu2yQQCzg" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_iwRZk02pEeiZKIu2yQQCzg" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hRucBE19EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer"/>
+    <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_hRw4ME19EeispcpRkVUppA" name="TGGRule - Families2Persons" uid="_hRvqEE19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hRw4MU19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hRw4Mk19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hRw4PU19EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hRw4Pk19EeispcpRkVUppA" type="Sirius" element="_hRw4ME19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hRw4QE19EeispcpRkVUppA" type="2001" element="_hRw4NE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRxfQE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hRxfQU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hRxfR019EeispcpRkVUppA" type="3003" element="_hRw4NU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hRxfSE19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRxfSU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRw4QU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRw4Qk19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hRxfQk19EeispcpRkVUppA" type="2001" element="_hRw4Nk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRxfRU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hRxfRk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hRxfSk19EeispcpRkVUppA" type="3003" element="_hRw4N019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hRxfS019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRxfTE19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hRxfQ019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRxfRE19EeispcpRkVUppA" y="144" width="180" height="70"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hRw4P019EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hRxfTU19EeispcpRkVUppA" type="4001" element="_hRw4OE19EeispcpRkVUppA" source="_hRw4QE19EeispcpRkVUppA" target="_hRxfQk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hRxfUU19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRxfUk19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hRxfU019EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRxfVE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hRxfVU19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hRxfVk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hRxfTk19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hRxfT019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hRxfUE19EeispcpRkVUppA" points="[0, 0, 0, -80]$[0, 80, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hRxfV019EeispcpRkVUppA" id="(0.5,1.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hRxfWE19EeispcpRkVUppA" id="(0.5,0.0)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hRw4NE19EeispcpRkVUppA" name="familyReg : FamilyRegister" outgoingEdges="_hRw4OE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.1/@sourcePatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.1/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hRw4NU19EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@conditionnalStyles.0/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hRw4Nk19EeispcpRkVUppA" name="personReg : PersonRegister" incomingEdges="_hRw4OE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.1/@targetPatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@rules.1/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hRw4N019EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@conditionnalStyles.0/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hRw4OE19EeispcpRkVUppA" sourceNode="_hRw4NE19EeispcpRkVUppA" targetNode="_hRw4Nk19EeispcpRkVUppA">
+      <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.1"/>
+      <semanticElements xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_g73WUE2hEeiZKIu2yQQCzg" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="0,0,0">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']/@conditionnalStyles.0/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_g73WUU2hEeiZKIu2yQQCzg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hRw4O019EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer"/>
+    <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.1"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_hR1JoE19EeispcpRkVUppA" name="Complement TGGRule - Daughter2Female" uid="_hRyGUE19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hR1JoU19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hR1Jok19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hR1Ju019EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hR1JvE19EeispcpRkVUppA" type="Sirius" element="_hR1JoE19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hR1Jvk19EeispcpRkVUppA" type="2001" element="_hR1JpE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR1wsE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR1wsU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR1wyE19EeispcpRkVUppA" type="3003" element="_hR1JpU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1wyU19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1wyk19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1Jv019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1JwE19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR1wsk19EeispcpRkVUppA" type="2001" element="_hR1Jpk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR1wtU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR1wtk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR1wy019EeispcpRkVUppA" type="3003" element="_hR1Jp019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1wzE19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1wzU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1ws019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1wtE19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR1wt019EeispcpRkVUppA" type="2001" element="_hR1JqE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR1wuk19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR1wu019EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR1wzk19EeispcpRkVUppA" type="3003" element="_hR1JqU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1wz019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1w0E19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1wuE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1wuU19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR1wvE19EeispcpRkVUppA" type="2001" element="_hR1Jqk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR1wv019EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR1wwE19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2XwE19EeispcpRkVUppA" type="3003" element="_hR1Jq019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR2XwU19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2Xwk19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1wvU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1wvk19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR1wwU19EeispcpRkVUppA" type="2003" element="_hR1JrE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR1wxE19EeispcpRkVUppA" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_hR1wxU19EeispcpRkVUppA" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_hR2Xw019EeispcpRkVUppA" type="3010" element="_hR1Jrk19EeispcpRkVUppA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_hR2XxE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_hR2XxU19EeispcpRkVUppA"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_hR1wxk19EeispcpRkVUppA"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_hR1wx019EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR1wwk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="10" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR1ww019EeispcpRkVUppA"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hR1JvU19EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hR2Xxk19EeispcpRkVUppA" type="4001" element="_hR1JsE19EeispcpRkVUppA" source="_hR1wt019EeispcpRkVUppA" target="_hR1Jvk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR2Xyk19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2Xy019EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2XzE19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2XzU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2Xzk19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2Xz019EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR2Xx019EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR2XyE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR2XyU19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR2X0E19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR2X0U19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hR2X0k19EeispcpRkVUppA" type="4001" element="_hR1Js019EeispcpRkVUppA" source="_hR1wvE19EeispcpRkVUppA" target="_hR1wsk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR2X1k19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2X1019EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2X2E19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2X2U19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2X2k19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2X2019EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR2X0019EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR2X1E19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR2X1U19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR2X3E19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR2X3U19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hR2X3k19EeispcpRkVUppA" type="4001" element="_hR1Jtk19EeispcpRkVUppA" source="_hR1Jvk19EeispcpRkVUppA" target="_hR1wsk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR2X4k19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2X4019EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2-0E19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2-0U19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR2-0k19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR2-0019EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR2X3019EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR2X4E19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR2X4U19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR2-1E19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR2-1U19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR1JpE19EeispcpRkVUppA" name="daughter : FamilyMember" outgoingEdges="_hR1Jtk19EeispcpRkVUppA" incomingEdges="_hR1JsE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@sourcePatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@sourcePatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR1JpU19EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR1Jpk19EeispcpRkVUppA" name="femalePerson : Female" incomingEdges="_hR1Js019EeispcpRkVUppA _hR1Jtk19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@targetPatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@targetPatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR1Jp019EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR1JqE19EeispcpRkVUppA" name="family : Family" outgoingEdges="_hR1JsE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@sourcePatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR1JqU19EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR1Jqk19EeispcpRkVUppA" name="personReg : PersonRegister" outgoingEdges="_hR1Js019EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@targetPatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR1Jq019EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_hR1JrE19EeispcpRkVUppA" name="Conditional Attributes">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_hR1JrU19EeispcpRkVUppA" labelSize="10" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_hR1Jrk19EeispcpRkVUppA" name="concat(&quot;, &quot;, family.name, daughter.name, femalePerson.name)">
+        <target xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@attrConditions.0"/>
+        <semanticElements xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@attrConditions.0"/>
+        <ownedStyle xmi:type="diagram:Square" xmi:id="_hR1Jr019EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']"/>
+      </ownedElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR1JsE19EeispcpRkVUppA" name="[daughters]" sourceNode="_hR1JqE19EeispcpRkVUppA" targetNode="_hR1JpE19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR1JsU19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR1Jsk19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR1Js019EeispcpRkVUppA" name="[persons]" sourceNode="_hR1Jqk19EeispcpRkVUppA" targetNode="_hR1Jpk19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR1JtE19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR1JtU19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR1Jtk19EeispcpRkVUppA" sourceNode="_hR1JpE19EeispcpRkVUppA" targetNode="_hR1Jpk19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR1Jt019EeispcpRkVUppA" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR1JuE19EeispcpRkVUppA"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hR1JuU19EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer"/>
+    <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_hR5bEE19EeispcpRkVUppA" name="Complement TGGRule - Father2Male" uid="_hR2-1k19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hR5bEU19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hR5bEk19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hR5bK019EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hR5bLE19EeispcpRkVUppA" type="Sirius" element="_hR5bEE19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hR5bLk19EeispcpRkVUppA" type="2001" element="_hR5bFE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR5bMU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR5bMk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6CLk19EeispcpRkVUppA" type="3003" element="_hR5bFU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR6CL019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6CME19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR5bL019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR5bME19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR5bM019EeispcpRkVUppA" type="2001" element="_hR5bFk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR5bNk19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR5bN019EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6CMU19EeispcpRkVUppA" type="3003" element="_hR5bF019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR6CMk19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6CM019EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR5bNE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR5bNU19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR5bOE19EeispcpRkVUppA" type="2001" element="_hR5bGE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR6CIE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR6CIU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6CNE19EeispcpRkVUppA" type="3003" element="_hR5bGU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR6CNU19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6CNk19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR5bOU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR5bOk19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR6CIk19EeispcpRkVUppA" type="2001" element="_hR5bGk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR6CJU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR6CJk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6CN019EeispcpRkVUppA" type="3003" element="_hR5bG019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR6COE19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6COU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR6CI019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6CJE19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR6CJ019EeispcpRkVUppA" type="2003" element="_hR5bHE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR6CKk19EeispcpRkVUppA" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_hR6CK019EeispcpRkVUppA" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_hR6pME19EeispcpRkVUppA" type="3010" element="_hR5bHk19EeispcpRkVUppA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_hR6pMU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_hR6pMk19EeispcpRkVUppA"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_hR6CLE19EeispcpRkVUppA"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_hR6CLU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR6CKE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="10" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6CKU19EeispcpRkVUppA"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hR5bLU19EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hR6pM019EeispcpRkVUppA" type="4001" element="_hR5bIE19EeispcpRkVUppA" source="_hR5bOE19EeispcpRkVUppA" target="_hR5bLk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR6pN019EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pOE19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6pOU19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pOk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6pO019EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pPE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR6pNE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR6pNU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR6pNk19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR6pPU19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR6pPk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hR6pP019EeispcpRkVUppA" type="4001" element="_hR5bI019EeispcpRkVUppA" source="_hR6CIk19EeispcpRkVUppA" target="_hR5bM019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR6pQ019EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pRE19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6pRU19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pRk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6pR019EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pSE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR6pQE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR6pQU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR6pQk19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR6pSU19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR6pSk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hR6pS019EeispcpRkVUppA" type="4001" element="_hR5bJk19EeispcpRkVUppA" source="_hR5bLk19EeispcpRkVUppA" target="_hR5bM019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR6pT019EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pUE19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6pUU19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pUk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR6pU019EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR6pVE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR6pTE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR6pTU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR6pTk19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR6pVU19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR6pVk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR5bFE19EeispcpRkVUppA" name="father : FamilyMember" outgoingEdges="_hR5bJk19EeispcpRkVUppA" incomingEdges="_hR5bIE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@sourcePatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@sourcePatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR5bFU19EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR5bFk19EeispcpRkVUppA" name="malePerson : Male" incomingEdges="_hR5bI019EeispcpRkVUppA _hR5bJk19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@targetPatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@targetPatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR5bF019EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR5bGE19EeispcpRkVUppA" name="family : Family" outgoingEdges="_hR5bIE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@sourcePatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR5bGU19EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR5bGk19EeispcpRkVUppA" name="personReg : PersonRegister" outgoingEdges="_hR5bI019EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@targetPatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR5bG019EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_hR5bHE19EeispcpRkVUppA" name="Conditional Attributes">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_hR5bHU19EeispcpRkVUppA" labelSize="10" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_hR5bHk19EeispcpRkVUppA" name="concat(&quot;, &quot;, family.name, father.name, malePerson.name)">
+        <target xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@attrConditions.0"/>
+        <semanticElements xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@attrConditions.0"/>
+        <ownedStyle xmi:type="diagram:Square" xmi:id="_hR5bH019EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']"/>
+      </ownedElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR5bIE19EeispcpRkVUppA" name="[father]" sourceNode="_hR5bGE19EeispcpRkVUppA" targetNode="_hR5bFE19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR5bIU19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR5bIk19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR5bI019EeispcpRkVUppA" name="[persons]" sourceNode="_hR5bGk19EeispcpRkVUppA" targetNode="_hR5bFk19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR5bJE19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR5bJU19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR5bJk19EeispcpRkVUppA" sourceNode="_hR5bFE19EeispcpRkVUppA" targetNode="_hR5bFk19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR5bJ019EeispcpRkVUppA" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR5bKE19EeispcpRkVUppA"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hR5bKU19EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer"/>
+    <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_hR9sgE19EeispcpRkVUppA" name="Complement TGGRule - Mother2Female" uid="_hR7QQE19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hR9sgU19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hR9sgk19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hR9sm019EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hR9snE19EeispcpRkVUppA" type="Sirius" element="_hR9sgE19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hR9snk19EeispcpRkVUppA" type="2001" element="_hR9shE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR9soU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR9sok19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-ToU19EeispcpRkVUppA" type="3003" element="_hR9shU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-Tok19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-To019EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR9sn019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR9soE19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR9so019EeispcpRkVUppA" type="2001" element="_hR9shk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR9spk19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR9sp019EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-TpE19EeispcpRkVUppA" type="3003" element="_hR9sh019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-TpU19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-Tpk19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR9spE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR9spU19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR-TkE19EeispcpRkVUppA" type="2001" element="_hR9siE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR-Tk019EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR-TlE19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-Tp019EeispcpRkVUppA" type="3003" element="_hR9siU19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-TqE19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-TqU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-TkU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-Tkk19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR-TlU19EeispcpRkVUppA" type="2001" element="_hR9sik19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR-TmE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hR-TmU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-Tqk19EeispcpRkVUppA" type="3003" element="_hR9si019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-Tq019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-TrE19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-Tlk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-Tl019EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hR-Tmk19EeispcpRkVUppA" type="2003" element="_hR9sjE19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR-TnU19EeispcpRkVUppA" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_hR-Tnk19EeispcpRkVUppA" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_hR-TrU19EeispcpRkVUppA" type="3010" element="_hR9sjk19EeispcpRkVUppA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_hR-Trk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_hR-Tr019EeispcpRkVUppA"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_hR-Tn019EeispcpRkVUppA"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_hR-ToE19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hR-Tm019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="10" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-TnE19EeispcpRkVUppA"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hR9snU19EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hR-6oE19EeispcpRkVUppA" type="4001" element="_hR9skE19EeispcpRkVUppA" source="_hR-TkE19EeispcpRkVUppA" target="_hR9snk19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR-6pE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6pU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-6pk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6p019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-6qE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6qU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR-6oU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR-6ok19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR-6o019EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR-6qk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR-6q019EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hR-6rE19EeispcpRkVUppA" type="4001" element="_hR9sk019EeispcpRkVUppA" source="_hR-TlU19EeispcpRkVUppA" target="_hR9so019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR-6sE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6sU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-6sk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6s019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-6tE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6tU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR-6rU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR-6rk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR-6r019EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR-6tk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR-6t019EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hR-6uE19EeispcpRkVUppA" type="4001" element="_hR9slk19EeispcpRkVUppA" source="_hR9snk19EeispcpRkVUppA" target="_hR9so019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hR-6vE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6vU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-6vk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6v019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hR-6wE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hR-6wU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hR-6uU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hR-6uk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hR-6u019EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR-6wk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hR-6w019EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR9shE19EeispcpRkVUppA" name="mother : FamilyMember" outgoingEdges="_hR9slk19EeispcpRkVUppA" incomingEdges="_hR9skE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@sourcePatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@sourcePatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR9shU19EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR9shk19EeispcpRkVUppA" name="femalePerson : Female" incomingEdges="_hR9sk019EeispcpRkVUppA _hR9slk19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@targetPatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@targetPatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR9sh019EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR9siE19EeispcpRkVUppA" name="family : Family" outgoingEdges="_hR9skE19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@sourcePatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR9siU19EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hR9sik19EeispcpRkVUppA" name="personReg : PersonRegister" outgoingEdges="_hR9sk019EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@targetPatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hR9si019EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_hR9sjE19EeispcpRkVUppA" name="Conditional Attributes">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_hR9sjU19EeispcpRkVUppA" labelSize="10" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_hR9sjk19EeispcpRkVUppA" name="concat(&quot;, &quot;, family.name, mother.name, femalePerson.name)">
+        <target xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@attrConditions.0"/>
+        <semanticElements xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@attrConditions.0"/>
+        <ownedStyle xmi:type="diagram:Square" xmi:id="_hR9sj019EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']"/>
+      </ownedElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR9skE19EeispcpRkVUppA" name="[mother]" sourceNode="_hR9siE19EeispcpRkVUppA" targetNode="_hR9shE19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR9skU19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR9skk19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR9sk019EeispcpRkVUppA" name="[persons]" sourceNode="_hR9sik19EeispcpRkVUppA" targetNode="_hR9shk19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR9slE19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR9slU19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hR9slk19EeispcpRkVUppA" sourceNode="_hR9shE19EeispcpRkVUppA" targetNode="_hR9shk19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hR9sl019EeispcpRkVUppA" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hR9smE19EeispcpRkVUppA"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hR9smU19EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer"/>
+    <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_hSBW4E19EeispcpRkVUppA" name="Complement TGGRule - Son2Male" uid="_hR_hsE19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hSBW4U19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hSBW4k19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hSBW-019EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hSBW_E19EeispcpRkVUppA" type="Sirius" element="_hSBW4E19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hSBW_k19EeispcpRkVUppA" type="2001" element="_hSBW5E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSBXAU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hSBXAk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSB-Bk19EeispcpRkVUppA" type="3003" element="_hSBW5U19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB-B019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB-CE19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hSBW_019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSBXAE19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hSB98E19EeispcpRkVUppA" type="2001" element="_hSBW5k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSB98019EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hSB99E19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSB-CU19EeispcpRkVUppA" type="3003" element="_hSBW5019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB-Ck19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB-C019EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB98U19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB98k19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hSB99U19EeispcpRkVUppA" type="2001" element="_hSBW6E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSB9-E19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hSB9-U19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSB-DE19EeispcpRkVUppA" type="3003" element="_hSBW6U19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB-DU19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB-Dk19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB99k19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB99019EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hSB9-k19EeispcpRkVUppA" type="2001" element="_hSBW6k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSB9_U19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hSB9_k19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSB-D019EeispcpRkVUppA" type="3003" element="_hSBW6019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB-EE19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB-EU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB9-019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB9_E19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hSB9_019EeispcpRkVUppA" type="2003" element="_hSBW7E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSB-Ak19EeispcpRkVUppA" type="5007"/>
+          <children xmi:type="notation:Node" xmi:id="_hSB-A019EeispcpRkVUppA" type="7004">
+            <children xmi:type="notation:Node" xmi:id="_hSClAE19EeispcpRkVUppA" type="3010" element="_hSBW7k19EeispcpRkVUppA">
+              <styles xmi:type="notation:FontStyle" xmi:id="_hSClAU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_hSClAk19EeispcpRkVUppA"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_hSB-BE19EeispcpRkVUppA"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_hSB-BU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hSB-AE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="10" bold="true"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSB-AU19EeispcpRkVUppA"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hSBW_U19EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hSClA019EeispcpRkVUppA" type="4001" element="_hSBW8E19EeispcpRkVUppA" source="_hSB99U19EeispcpRkVUppA" target="_hSBW_k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSClB019EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClCE19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSClCU19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClCk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSClC019EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClDE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hSClBE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hSClBU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hSClBk19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hSClDU19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hSClDk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hSClD019EeispcpRkVUppA" type="4001" element="_hSBW8019EeispcpRkVUppA" source="_hSB9-k19EeispcpRkVUppA" target="_hSB98E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSClE019EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClFE19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSClFU19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClFk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSClF019EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClGE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hSClEE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hSClEU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hSClEk19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hSClGU19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hSClGk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hSClG019EeispcpRkVUppA" type="4001" element="_hSBW9k19EeispcpRkVUppA" source="_hSBW_k19EeispcpRkVUppA" target="_hSB98E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hSClH019EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClIE19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSClIU19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClIk19EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hSClI019EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hSClJE19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hSClHE19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hSClHU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hSClHk19EeispcpRkVUppA" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hSClJU19EeispcpRkVUppA" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hSClJk19EeispcpRkVUppA" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hSBW5E19EeispcpRkVUppA" name="son : FamilyMember" outgoingEdges="_hSBW9k19EeispcpRkVUppA" incomingEdges="_hSBW8E19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@sourcePatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@sourcePatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hSBW5U19EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hSBW5k19EeispcpRkVUppA" name="malePerson : Male" incomingEdges="_hSBW8019EeispcpRkVUppA _hSBW9k19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@targetPatterns.1"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@targetPatterns.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hSBW5019EeispcpRkVUppA" borderSize="3" borderSizeComputationExpression="3" borderColor="138,226,52" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hSBW6E19EeispcpRkVUppA" name="family : Family" outgoingEdges="_hSBW8E19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@sourcePatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hSBW6U19EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="255,245,181">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hSBW6k19EeispcpRkVUppA" name="personReg : PersonRegister" outgoingEdges="_hSBW8019EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@targetPatterns.0"/>
+      <semanticElements xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hSBW6019EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="246,139,139">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNodeList" xmi:id="_hSBW7E19EeispcpRkVUppA" name="Conditional Attributes">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" xmi:id="_hSBW7U19EeispcpRkVUppA" labelSize="10" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <labelFormat>bold</labelFormat>
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
+      <ownedElements xmi:type="diagram:DNodeListElement" xmi:id="_hSBW7k19EeispcpRkVUppA" name="concat(&quot;, &quot;, family.name, son.name, malePerson.name)">
+        <target xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@attrConditions.0"/>
+        <semanticElements xmi:type="tgg:AttrCond" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@attrConditions.0"/>
+        <ownedStyle xmi:type="diagram:Square" xmi:id="_hSBW7019EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+          <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']"/>
+      </ownedElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hSBW8E19EeispcpRkVUppA" name="[sons]" sourceNode="_hSBW6E19EeispcpRkVUppA" targetNode="_hSBW5E19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@sourcePatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hSBW8U19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hSBW8k19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hSBW8019EeispcpRkVUppA" name="[persons]" sourceNode="_hSBW6k19EeispcpRkVUppA" targetNode="_hSBW5k19EeispcpRkVUppA">
+      <target xmi:type="tgg:ObjectVariablePattern" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3/@targetPatterns.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hSBW9E19EeispcpRkVUppA" size="2" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hSBW9U19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkGreenEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hSBW9k19EeispcpRkVUppA" sourceNode="_hSBW5E19EeispcpRkVUppA" targetNode="_hSBW5k19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hSBW9019EeispcpRkVUppA" lineStyle="dash" targetArrow="NoDecoration" size="5" strokeColor="138,226,52">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hSBW-E19EeispcpRkVUppA"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='corrGreenEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hSBW-U19EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer"/>
+    <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram xmi:id="_hfcu4E19EeispcpRkVUppA" name="FamiliesToPersons_MA" uid="_hfbgwE19EeispcpRkVUppA">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hfcu4U19EeispcpRkVUppA" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" xmi:id="_hfcu4k19EeispcpRkVUppA"/>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" xmi:id="_hfdV8E19EeispcpRkVUppA" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_hfdV8U19EeispcpRkVUppA" type="Sirius" element="_hfcu4E19EeispcpRkVUppA" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_hfdV8019EeispcpRkVUppA" type="2001" element="_hfcu5E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfdV9k19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hfdV9019EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9Ak19EeispcpRkVUppA" type="3003" element="_hfcu5U19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hfd9A019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9BE19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hfdV9E19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfdV9U19EeispcpRkVUppA" x="600" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hfdV-E19EeispcpRkVUppA" type="2001" element="_hfcu5k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfdV-019EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hfdV_E19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9BU19EeispcpRkVUppA" type="3003" element="_hfcu5019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hfd9Bk19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9B019EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hfdV-U19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfdV-k19EeispcpRkVUppA" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hfdV_U19EeispcpRkVUppA" type="2001" element="_hfcu6E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfdWAE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hfdWAU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9CE19EeispcpRkVUppA" type="3003" element="_hfcu6U19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hfd9CU19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9Ck19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hfdV_k19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfdV_019EeispcpRkVUppA" x="960" y="132" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hfdWAk19EeispcpRkVUppA" type="2001" element="_hfcu6k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfdWBU19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hfdWBk19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9C019EeispcpRkVUppA" type="3003" element="_hfcu6019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hfd9DE19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9DU19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hfdWA019EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfdWBE19EeispcpRkVUppA" x="216" y="132" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hfdWB019EeispcpRkVUppA" type="2001" element="_hfcu7E19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfdWCk19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hfdWC019EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9Dk19EeispcpRkVUppA" type="3003" element="_hfcu7U19EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hfd9D019EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9EE19EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hfdWCE19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfdWCU19EeispcpRkVUppA" x="720" y="132" width="180" height="70"/>
+        </children>
+        <children xmi:type="notation:Node" xmi:id="_hfdWDE19EeispcpRkVUppA" type="2001" element="_hfcu7k19EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfd9AE19EeispcpRkVUppA" type="5002">
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_hfd9AU19EeispcpRkVUppA" y="5"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9EU19EeispcpRkVUppA" type="3003" element="_hfcu7019EeispcpRkVUppA">
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_hfd9Ek19EeispcpRkVUppA" fontName="Segoe UI"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9E019EeispcpRkVUppA"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_hfdWDU19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfdWDk19EeispcpRkVUppA" x="480" y="132" width="180" height="70"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_hfdV8k19EeispcpRkVUppA"/>
+        <edges xmi:type="notation:Edge" xmi:id="_hfd9FE19EeispcpRkVUppA" type="4001" element="_hfcu8E19EeispcpRkVUppA" source="_hfdV_U19EeispcpRkVUppA" target="_hfdV8019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfd9GE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9GU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9Gk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9G019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfd9HE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfd9HU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hfd9FU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hfd9Fk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hfd9F019EeispcpRkVUppA" points="[0, 0, 360, 60]$[-360, -60, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfd9Hk19EeispcpRkVUppA" id="(0.5,0.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfd9H019EeispcpRkVUppA" id="(0.5,1.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hfd9IE19EeispcpRkVUppA" type="4001" element="_hfcu8019EeispcpRkVUppA" source="_hfdWAk19EeispcpRkVUppA" target="_hfdV8019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfekEE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekEU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfekEk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekE019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfekFE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekFU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hfd9IU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hfd9Ik19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hfd9I019EeispcpRkVUppA" points="[0, 0, -360, 60]$[360, -60, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfekFk19EeispcpRkVUppA" id="(0.5,0.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfekF019EeispcpRkVUppA" id="(0.5,1.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hfekGE19EeispcpRkVUppA" type="4001" element="_hfcu9k19EeispcpRkVUppA" source="_hfdWB019EeispcpRkVUppA" target="_hfdV8019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfekHE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekHU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfekHk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekH019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfekIE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekIU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hfekGU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hfekGk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hfekG019EeispcpRkVUppA" points="[0, 0, 120, 60]$[-120, -60, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfekIk19EeispcpRkVUppA" id="(0.5,0.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfekI019EeispcpRkVUppA" id="(0.5,1.0)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_hfekJE19EeispcpRkVUppA" type="4001" element="_hfcu-U19EeispcpRkVUppA" source="_hfdWDE19EeispcpRkVUppA" target="_hfdV8019EeispcpRkVUppA">
+          <children xmi:type="notation:Node" xmi:id="_hfekKE19EeispcpRkVUppA" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekKU19EeispcpRkVUppA" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfekKk19EeispcpRkVUppA" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekK019EeispcpRkVUppA" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_hfekLE19EeispcpRkVUppA" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hfekLU19EeispcpRkVUppA" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_hfekJU19EeispcpRkVUppA"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_hfekJk19EeispcpRkVUppA" fontName="Segoe UI" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_hfekJ019EeispcpRkVUppA" points="[0, 0, -120, 60]$[120, -60, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfekLk19EeispcpRkVUppA" id="(0.5,0.0)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hfekL019EeispcpRkVUppA" id="(0.5,1.0)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hfcu5E19EeispcpRkVUppA" name="CreateFamily : TGGRule" incomingEdges="_hfcu8E19EeispcpRkVUppA _hfcu8019EeispcpRkVUppA _hfcu9k19EeispcpRkVUppA _hfcu-U19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <semanticElements xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hfcu5U19EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="255,255,255">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hfcu5k19EeispcpRkVUppA" name="Families2Persons : TGGRule" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.1"/>
+      <semanticElements xmi:type="tgg:Rule" href="FamiliesToPersons_MA.editor.xmi#//@rules.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hfcu5019EeispcpRkVUppA" labelPosition="node" width="18" height="7" color="255,255,255">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hfcu6E19EeispcpRkVUppA" name="Daughter2Female : ComplementTGGRule" outgoingEdges="_hfcu8E19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hfcu6U19EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hfcu6k19EeispcpRkVUppA" name="Father2Male : ComplementTGGRule" outgoingEdges="_hfcu8019EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hfcu6019EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hfcu7E19EeispcpRkVUppA" name="Mother2Female : ComplementTGGRule" outgoingEdges="_hfcu9k19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hfcu7U19EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DNode" xmi:id="_hfcu7k19EeispcpRkVUppA" name="Son2Male : ComplementTGGRule" outgoingEdges="_hfcu-U19EeispcpRkVUppA" width="18" height="7" resizeKind="NSEW">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <semanticElements xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <ownedStyle xmi:type="diagram:Square" xmi:id="_hfcu7019EeispcpRkVUppA" labelPosition="node" width="18" height="7">
+        <description xmi:type="style:SquareDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:NodeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hfcu8E19EeispcpRkVUppA" sourceNode="_hfcu6E19EeispcpRkVUppA" targetNode="_hfcu5E19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.0"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hfcu8U19EeispcpRkVUppA" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hfcu8k19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hfcu8019EeispcpRkVUppA" sourceNode="_hfcu6k19EeispcpRkVUppA" targetNode="_hfcu5E19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.1"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hfcu9E19EeispcpRkVUppA" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hfcu9U19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hfcu9k19EeispcpRkVUppA" sourceNode="_hfcu7E19EeispcpRkVUppA" targetNode="_hfcu5E19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.2"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hfcu9019EeispcpRkVUppA" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hfcu-E19EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" xmi:id="_hfcu-U19EeispcpRkVUppA" sourceNode="_hfcu7k19EeispcpRkVUppA" targetNode="_hfcu5E19EeispcpRkVUppA">
+      <target xmi:type="tgg:ComplementRule" href="FamiliesToPersons_MA.editor.xmi#//@complementRules.3"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" xmi:id="_hfcu-k19EeispcpRkVUppA" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" xmi:id="_hfcu-019EeispcpRkVUppA" showIcon="false"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" xmi:id="_hfcu_E19EeispcpRkVUppA"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/resource/org.emoflon.ibex.tgg.editor.design/description/editor.odesign#//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer"/>
+    <target xmi:type="tgg:TripleGraphGrammarFile" href="FamiliesToPersons_MA.editor.xmi#/"/>
+  </diagram:DSemanticDiagram>
+</xmi:XMI>

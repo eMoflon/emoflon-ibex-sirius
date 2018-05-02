@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="editor" version="12.0.0.2017041100">
+  <ownedViewpoints name="tggEditor" modelFileExtension="xmi">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRoot" label="TGG" titleExpression="aql:self.oclAsType(tgg::TripleGraphGrammarFile).schema.name" domainClass="tgg::TripleGraphGrammarFile">
+      <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="tggRule" label="TGGRule" semanticCandidatesExpression="feature:rules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.0/@ownedTools[name='ruleDoubleClick']" domainClass="tgg::Rule">
+          <style xsi:type="style:SquareDescription" labelExpression="aql:self.name+' : TGGRule'" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="complementRule" label="ComplementRule" semanticCandidatesExpression="feature:complementRules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.0/@ownedTools[name='complementRuleDoubleClick']" domainClass="tgg::ComplementRule">
+          <style xsi:type="style:SquareDescription" labelExpression="aql:self.name+' : ComplementTGGRule'" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="refineEdge" label="RefineEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteRefineEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']" targetFinderExpression="feature:kernel" reconnections="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.0/@ownedTools[name='reconnectRefine']">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription showIcon="false">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="ruleDoubleClick" label="RuleDoubleClickoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="complementRuleDoubleClick" label="ComplementRuleDoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createRule" label="Create Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::Rule" referenceName="rules">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Rule','Name:','UnnamedRule')"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createComplementRule" label="Create Complement Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ComplementRule" referenceName="complementRules">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Complement Rule','Name:','UnnamedRule')"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createRefineEdge" label="Create Refine Edge" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="kernel" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteRefineEdge" label="DeleteRefineEdge">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:Unset" featureName="kernel"/>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="reconnectRefine" label="ReconnectRefine">
+            <source name="source"/>
+            <target name="target"/>
+            <sourceView name="sourceView"/>
+            <targetView name="targetView"/>
+            <element name="element"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="kernel" valueExpression="var:target"/>
+              </firstModelOperations>
+            </initialOperation>
+            <edgeView name="edgeView"/>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRule" label="TGGRule" titleExpression="aql:'TGGRule - '+self.name" initialisation="true" domainClass="tgg::Rule" enablePopupBars="true">
+      <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
+      <layout xsi:type="description_1:CompositeLayout" padding="40"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="tggSourceNode" label="TGGSourceNode" semanticCandidatesExpression="feature:sourcePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern">
+          <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
+            <style xsi:type="style:SquareDescription" borderSizeComputationExpression="3" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
+            <style xsi:type="style:SquareDescription" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+            </style>
+          </conditionnalStyles>
+        </nodeMappings>
+        <nodeMappings name="tggTargetNode" label="TGGTargetNode" semanticCandidatesExpression="feature:targetPatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern">
+          <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
+            <style xsi:type="style:SquareDescription" borderSizeComputationExpression="3" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
+            <style xsi:type="style:SquareDescription" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+            </style>
+          </conditionnalStyles>
+        </nodeMappings>
+        <edgeMappings name="linkEdge" label="LinkEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteLink']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']" targetFinderExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.target">
+          <conditionnalStyles predicateExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.op.value->toString()= '++'">
+            <style sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.op.value->toString()= ''">
+            <style sizeComputationExpression="2">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <edgeMappings name="corrEdge" label="CorrEdge" preconditionExpression="aql:self.checkCorrespondence(source,target)" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleCorrOperator']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']" targetFinderExpression="aql:self.oclAsType(tgg::Rule).correspondencePatterns.target" sourceFinderExpression="aql:self.oclAsType(tgg::Rule).correspondencePatterns.source" domainClass="tgg::Rule" useDomainElement="true">
+          <conditionnalStyles predicateExpression="aql:self.equalCorrespondenceOperator(view,'')">
+            <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="5">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.equalCorrespondenceOperator(view,'++')">
+            <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="5">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              <centerLabelStyleDescription>
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
+        <containerMappings name="attrCondContainer" label="AttrCondContainer" preconditionExpression="aql:self.attrConditions->size()>0" semanticCandidatesExpression="var:self" domainClass="tgg::Rule" childrenPresentation="List">
+          <subNodeMappings name="atrrConditionNode" label="AtrrConditionNode" semanticCandidatesExpression="feature:attrConditions" domainClass="tgg::AttrCond">
+            <style xsi:type="style:SquareDescription" labelExpression="service:getCondAttribute" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="10" showIcon="false" labelExpression="Conditional Attributes" roundedCorner="true">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelFormat>bold</labelFormat>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
+          </style>
+        </containerMappings>
+        <toolSections name="newItems" label="Creation Tools">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createTGGSourceNode" label="Create Source Node" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:Let" variableName="typeName" valueExpression="aql:self.askTypeFromUser('New Object Variable Pattern','Select the type of the new object','UnknownType',true)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ObjectVariablePattern" referenceName="sourcePatterns">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:typeName"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Object Variable Pattern','Name:','NewObject')"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createTGGTargetNode" label="Create Target Node" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:Let" variableName="typeName" valueExpression="aql:self.askTypeFromUser('New Object Variable Pattern','Select the type of the new object','UnknownType',false)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ObjectVariablePattern" referenceName="targetPatterns">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:typeName"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Object Variable Pattern','Name:','NewObject')"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLink" label="Create Link" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:source">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="linkVariablePatterns" valueExpression="aql:self.addLinkEdge(target)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteLink" label="DeleteLink">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <containerView name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="linkVariablePatterns" valueExpression="aql:self.deleteLinkEdge(elementView)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createCorrEdge" label="Create Correspondence" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="feature:eContainer">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="correspondencePatterns" valueExpression="aql:self.addCorrespondenceEdge(source,target)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleCorrOperator" label="toggleCorrOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdge']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="correspondencePatterns" valueExpression="aql:self.toggleCorrOperator(elementView)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleNodeOperator" label="toggleNodeOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="op" valueExpression="aql:self.toggleObjectOperator()"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="ComplementRule" titleExpression="aql:'Complement TGGRule - '+self.name" initialisation="true" domainClass="tgg::ComplementRule" enablePopupBars="true">
+      <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
+      <layout xsi:type="description_1:CompositeLayout" padding="40"/>
+      <defaultLayer name="Default">
+        <nodeMappings name="tggSourceNode" label="TGGSourceNode" preconditionExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).op.value->toString()= '++'" semanticCandidatesExpression="feature:sourcePatterns" domainClass="tgg::ObjectVariablePattern">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="3" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="tggTargetNode" label="TGGTargetNode" preconditionExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).op.value->toString()= '++'" semanticCandidatesExpression="feature:targetPatterns" domainClass="tgg::ObjectVariablePattern">
+          <style xsi:type="style:SquareDescription" borderSizeComputationExpression="3" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="tggContextSourceNode" label="TGGContextSourceNode" preconditionExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).op.value->toString()= ''" semanticCandidatesExpression="feature:sourcePatterns" domainClass="tgg::ObjectVariablePattern">
+          <style xsi:type="style:SquareDescription" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+          </style>
+        </nodeMappings>
+        <nodeMappings name="tggContextTargetNode" label="TGGContextTargetNode" preconditionExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).op.value->toString()= ''" semanticCandidatesExpression="feature:targetPatterns" domainClass="tgg::ObjectVariablePattern">
+          <style xsi:type="style:SquareDescription" labelExpression="aql:self.name+' : '+self.type.name" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="linkGreenEdge" label="LinkGreenEdge" preconditionExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.op.value->toString()= '++'" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']" targetFinderExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.target">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.linkVariablePatterns.type.name">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="corrContextEdge" label="CorrContextEdge" preconditionExpression="aql:self.oclAsType(tgg::ComplementRule).correspondencePatterns.op.value->toString()=''" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']" targetFinderExpression="aql:self.oclAsType(tgg::ComplementRule).correspondencePatterns.target" sourceFinderExpression="aql:self.oclAsType(tgg::ComplementRule).correspondencePatterns.source" domainClass="tgg::ComplementRule" useDomainElement="true">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="5">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="corrGreenEdge" label="CorrGreenEdge" preconditionExpression="aql:self.oclAsType(tgg::ComplementRule).correspondencePatterns.op.value->toString()='++'" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggSourceNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggContextTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='tggTargetNode']" targetFinderExpression="aql:self.oclAsType(tgg::ComplementRule).correspondencePatterns.target" sourceFinderExpression="aql:self.oclAsType(tgg::ComplementRule).correspondencePatterns.source" domainClass="tgg::ComplementRule" useDomainElement="true">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="5">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="attrCondContainer" label="AttrCondContainer" preconditionExpression="aql:self.attrConditions->size()>0" semanticCandidatesExpression="var:self" domainClass="tgg::ComplementRule" childrenPresentation="List">
+          <subNodeMappings name="atrrConditionNode" label="AtrrConditionNode" semanticCandidatesExpression="feature:attrConditions" domainClass="tgg::AttrCond">
+            <style xsi:type="style:SquareDescription" labelExpression="service:getCondAttribute" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="10" showIcon="false" labelExpression="Conditional Attributes" roundedCorner="true">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelFormat>bold</labelFormat>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
+          </style>
+        </containerMappings>
+      </defaultLayer>
+      <additionalLayers name="context" label="context">
+        <containerMappings name="contextRuleContainer" label="ContextRuleContainer" semanticCandidatesExpression="feature:kernel" domainClass="tgg::Rule">
+          <subNodeMappings name="tggContextSourceNode" label="TGGContextSourceNode" semanticCandidatesExpression="feature:sourcePatterns" domainClass="tgg::ObjectVariablePattern">
+            <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
+            </style>
+          </subNodeMappings>
+          <subNodeMappings name="tggContextTargetNode" label="TGGContextTargetNode" semanticCandidatesExpression="feature:targetPatterns" domainClass="tgg::ObjectVariablePattern">
+            <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW" width="18" height="7">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
+            </style>
+          </subNodeMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="10">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelFormat>bold</labelFormat>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
+          </style>
+        </containerMappings>
+      </additionalLayers>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.design.Services"/>
+  </ownedViewpoints>
+</description:Group>
