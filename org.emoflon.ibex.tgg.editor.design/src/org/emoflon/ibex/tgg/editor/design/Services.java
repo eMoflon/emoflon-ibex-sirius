@@ -37,6 +37,8 @@ import org.eclipse.sirius.business.api.query.EObjectQuery;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
+import org.eclipse.sirius.diagram.DNode;
+import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.sirius.ecore.extender.business.api.accessor.ModelAccessor;
 
 /**
@@ -257,6 +259,29 @@ public class Services {
 		rule.getCorrespondencePatterns().add(corr);
 
 		return rule.getCorrespondencePatterns();
+	}
+	
+	public List<CorrVariablePattern> deleteCorrespondence(Rule rule, DEdge edgeView) {
+		ObjectVariablePattern sourceObject = getSourceObjectFromEdge(edgeView);
+		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
+		
+		// find correspondence between source and target objects
+		CorrVariablePattern corr = findCorrespondence(rule, sourceObject, targetObject);
+		
+		// Delete correspondence from rule
+		rule.getCorrespondencePatterns().remove(corr);
+		
+		// Delete correspondence type from schema
+		Schema schema = rule.getSchema();
+		schema.getCorrespondenceTypes().remove(corr.getType());
+		return rule.getCorrespondencePatterns();
+	}
+	
+	public String deleteNode(DSemanticDiagram diagram, DNode node) {
+		Rule rootRule = (Rule)diagram.getTarget();
+		Schema schema = rootRule.getSchema();
+		List<CorrVariablePattern> correspondenceList = rootRule.getCorrespondencePatterns();
+		return null;
 	}
 
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
