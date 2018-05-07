@@ -102,7 +102,7 @@
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
-        <nodeMappings name="corrNode" label="CorrNode" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleCorrOperator']" domainClass="tgg::CorrVariablePattern">
+        <nodeMappings name="corrNode" label="CorrNode" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperator']" domainClass="tgg::CorrVariablePattern">
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
             <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.design/icons/corrBlack.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -116,7 +116,7 @@
             </style>
           </conditionnalStyles>
         </nodeMappings>
-        <edgeMappings name="linkEdge" label="LinkEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='deleteLink']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleLinkOperator']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.target">
+        <edgeMappings name="linkEdge" label="LinkEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteLink']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleLinkOperator']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.target">
           <conditionnalStyles predicateExpression="aql:self.oclAsType(tgg::ObjectVariablePattern).linkVariablePatterns.op.value->toString()= '++'">
             <style sizeComputationExpression="2">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
@@ -134,7 +134,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeSource" label="CorrEdgeSource" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="feature:source">
+        <edgeMappings name="corrEdgeSource" label="CorrEdgeSource" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="feature:source">
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
             <style sizeComputationExpression="2">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -152,9 +152,9 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeTarget" label="CorrEdgeTarget" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="feature:target">
+        <edgeMappings name="corrEdgeTarget" label="CorrEdgeTarget" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="feature:target">
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Source">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -162,7 +162,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Source">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -187,7 +187,7 @@
             <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
           </style>
         </containerMappings>
-        <containerMappings name="sourceNodeContainer" label="SourceNodeContainer" semanticCandidatesExpression="feature:sourcePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern">
+        <containerMappings name="sourceNodeContainer" label="SourceNodeContainer" semanticCandidatesExpression="feature:sourcePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern">
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
             <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
@@ -207,7 +207,7 @@
             </style>
           </conditionnalStyles>
         </containerMappings>
-        <containerMappings name="targetNodeContainer" label="targetNodeContainer" semanticCandidatesExpression="feature:targetPatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern">
+        <containerMappings name="targetNodeContainer" label="targetNodeContainer" semanticCandidatesExpression="feature:targetPatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern">
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
             <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="3" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
@@ -239,6 +239,52 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="createSourceNodeContainer" label="Create Source Node" containerMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:Let" variableName="typeName" valueExpression="aql:self.askTypeFromUser('New Object Variable Pattern','Select the type of the new object','UnknownType',true)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ObjectVariablePattern" referenceName="sourcePatterns">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:typeName"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Object Variable Pattern','Name:','NewObject')"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="op" valueExpression="service:getDefaultOperator()"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:ContainerCreationDescription" name="createTargetNodeContainer" label="Create Target Node" containerMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:Let" variableName="typeName" valueExpression="aql:self.askNodeTypeFromUser('New Object Variable Pattern','Select the type of the new object','UnknownType',false)">
+                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ObjectVariablePattern" referenceName="targetPatterns">
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:typeName"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Object Variable Pattern','Name:','NewObject')"/>
+                    <subModelOperations xsi:type="tool_1:SetValue" featureName="op" valueExpression="service:getDefaultOperator()"/>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createCorrespondence" label="Create Correspondence" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:Let" variableName="corrType" valueExpression="aql:self.askCorrTypeFromUser('New Correspondence Variable Pattern','Select the type of the new correspondence','UnknownType')"/>
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::CorrVariablePattern" referenceName="correspondencePatterns">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:corrType"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Correspondence Variable Pattern','Name:','NewCorrespondence')"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="op" valueExpression="service:getDefaultOperator()"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="editionTools" label="EditionTools">
           <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteLink" label="DeleteLink">
             <element name="element"/>
             <elementView name="elementView"/>
@@ -246,17 +292,6 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
                 <subModelOperations xsi:type="tool_1:SetValue" featureName="linkVariablePatterns" valueExpression="aql:self.deleteLinkEdge(elementView)"/>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createCorrEdge" label="Create Correspondence" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdgeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdgeTarget']">
-            <sourceVariable name="source"/>
-            <targetVariable name="target"/>
-            <sourceViewVariable name="sourceView"/>
-            <targetViewVariable name="targetView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="feature:eContainer">
-                <subModelOperations xsi:type="tool_1:SetValue" featureName="correspondencePatterns" valueExpression="aql:self.addCorrespondenceEdge(source,target)"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -281,33 +316,18 @@
           <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleLinkOperator" label="ToggleLinkOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']">
             <element name="element"/>
             <elementView name="elementView"/>
-            <initialOperation/>
-          </ownedTools>
-          <ownedTools xsi:type="tool:ContainerCreationDescription" name="createSourceNodeContainer" label="Create Source Node" containerMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']">
-            <variable name="container"/>
-            <viewVariable name="containerView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:Let" variableName="typeName" valueExpression="aql:self.askTypeFromUser('New Object Variable Pattern','Select the type of the new object','UnknownType',true)">
-                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ObjectVariablePattern" referenceName="sourcePatterns">
-                    <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:typeName"/>
-                    <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Object Variable Pattern','Name:','NewObject')"/>
-                  </subModelOperations>
-                </subModelOperations>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:Let" variableName="opUpdate" valueExpression="aql:self.toggleLinkOperator(elementView)"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:ContainerCreationDescription" name="createTargetNodeContainer" label="Create Target Node" containerMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']">
-            <variable name="container"/>
-            <viewVariable name="containerView"/>
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleCorrOperatorEdge" label="toggleCorrOperatorEdge" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdgeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='corrEdgeTarget']">
+            <element name="element"/>
+            <elementView name="elementView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:Let" variableName="typeName" valueExpression="aql:self.askTypeFromUser('New Object Variable Pattern','Select the type of the new object','UnknownType',false)">
-                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ObjectVariablePattern" referenceName="sourcePatterns">
-                    <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:typeName"/>
-                    <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Object Variable Pattern','Name:','NewObject')"/>
-                  </subModelOperations>
-                </subModelOperations>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
+                <subModelOperations xsi:type="tool_1:SetValue" featureName="op" valueExpression="aql:self.toggleCorrOperator()"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>

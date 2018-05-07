@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -16,8 +17,13 @@ import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.window.Window;
+import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.emoflon.ibex.tgg.editor.wizards.BaseWizardPage;
+import org.emoflon.ibex.tgg.editor.wizards.CorrWizard;
+import org.emoflon.ibex.tgg.editor.wizards.NamedElementLabelProvider;
+import org.emoflon.ibex.tgg.editor.wizards.WizardState;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
@@ -33,6 +39,7 @@ import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
+
 import org.eclipse.sirius.business.api.query.EObjectQuery;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.diagram.DDiagramElement;
@@ -80,7 +87,12 @@ public class Services {
 		// targetObject
 		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
 		if (link != null) {
-			return link.getType().getName();
+			String op = "";
+			if (link.getOp() != null) {
+				op = link.getOp().getValue();
+			}
+			String label = op + " " + link.getType().getName();
+			return label;
 		}
 
 		return null;
@@ -172,23 +184,46 @@ public class Services {
 	public Operator toggleCorrOperator(CorrVariablePattern corr) {
 		// Toggle correspondence operator
 		if (corr.getOp() == null) {
-			Operator op = TggFactory.eINSTANCE.createOperator();
-			op.setValue("++");
-			return op;
+			return getDefaultOperator(null);
 		} else {
 			return null;
 		}
 	}
 
+	public Operator toggleLinkOperator(ObjectVariablePattern sourceObject, DEdge edgeView) {
+		// Get the target object from the edge view
+		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
+
+		// find the link variable pattern between object patterns sourceObject and
+		// targetObject
+		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
+		if (link != null) {
+			// Toggle link operator
+			if (link.getOp() == null) {
+				Operator op = getDefaultOperator(null);
+				link.setOp(op);
+				return op;
+			} else {
+				link.setOp(null);
+			}
+		}
+
+		return null;
+	}
+
 	public Operator toggleObjectOperator(ObjectVariablePattern object) {
 		Operator op = object.getOp();
 		if (op == null) {
-			Operator operator = TggFactory.eINSTANCE.createOperator();
-			operator.setValue("++");
-			return operator;
+			return getDefaultOperator(null);
 		} else {
 			return null;
 		}
+	}
+
+	public Operator getDefaultOperator(EObject self) {
+		Operator operator = TggFactory.eINSTANCE.createOperator();
+		operator.setValue("++");
+		return operator;
 	}
 
 	public List<LinkVariablePattern> addLinkEdge(ObjectVariablePattern sourceObject,
@@ -196,11 +231,12 @@ public class Services {
 
 		LinkVariablePattern link = TggFactory.eINSTANCE.createLinkVariablePattern();
 		link.setTarget(targetObject);
+		link.setOp(getDefaultOperator(null));
 
 		List<EReference> referenceList = sourceObject.getType().getEReferences();
 
 		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
-				new ENamedElementLabelProvider());
+				new NamedElementLabelProvider());
 		dlg.setTitle("New Link");
 		dlg.setMessage("Type of the new link relation");
 		dlg.setElements(referenceList.toArray());
@@ -257,8 +293,7 @@ public class Services {
 		corr.setTarget(targetObject);
 		corr.setName(corrName);
 		// Default Operator for correspondence is ++
-		Operator operator = TggFactory.eINSTANCE.createOperator();
-		operator.setValue("++");
+		Operator operator = getDefaultOperator(null);
 		corr.setOp(operator);
 
 		// Add the actual correspondence to the rule
@@ -309,7 +344,7 @@ public class Services {
 		}
 	}
 
-	public EClass askTypeFromUser(EObject self, String title, String message, String initialValue,
+	public EClass askNodeTypeFromUser(EObject self, String title, String message, String initialValue,
 			boolean isSourceNode) {
 		Rule tgg = (Rule) self;
 		Schema schema = tgg.getSchema();
@@ -328,7 +363,7 @@ public class Services {
 		}
 
 		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
-				new ENamedElementLabelProvider());
+				new NamedElementLabelProvider());
 		dlg.setTitle(title);
 		dlg.setMessage(message);
 		dlg.setElements(outputList.toArray());
@@ -340,6 +375,29 @@ public class Services {
 			return createEClass(initialValue);
 		}
 
+	}
+	
+	public CorrType askCorrTypeFromUser(EObject self, String title, String message, String initialValue) {
+		Rule tgg = (Rule) self;
+		Schema schema = tgg.getSchema();
+		List<CorrType> corrTypes = new ArrayList<CorrType>(schema.getCorrespondenceTypes());
+		WizardState state = openCorrWizard(schema.getCorrespondenceTypes(), tgg.getSourcePatterns(), tgg.getTargetPatterns());
+		if(state.isDone()) {
+			CorrType type = state.getSelectedType();
+			if(type != null && !corrTypes.contains(type)) {
+				System.out.println("new type");
+				corrTypes.add(type);
+			}
+		}
+		return null;
+
+	}
+	
+	public WizardState openCorrWizard(List<CorrType> corrTypeList, List<ObjectVariablePattern> sourceObjects, List<ObjectVariablePattern> targetObjects) {
+		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new CorrWizard(corrTypeList, sourceObjects, targetObjects));
+		dialog.open();
+		BaseWizardPage lastPage = (BaseWizardPage)dialog.getCurrentPage();
+		return lastPage.getState();
 	}
 
 	public String getCondAttribute(AttrCond attrCond) {
