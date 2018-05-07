@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -260,8 +261,48 @@ public class Services {
 
 		return sourceObject.getLinkVariablePatterns();
 	}
+	
+	public int addCorrespondence(Rule tgg, DSemanticDiagram diagram) {
+		Schema schema = tgg.getSchema();
+		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
+		List<CorrVariablePattern> corrList = tgg.getCorrespondencePatterns();
+		
+		WizardState state = new WizardState(corrTypes, tgg.getSourcePatterns(), tgg.getTargetPatterns());
+		openCorrWizard(state);
+		if(state.isDone()) {
+			
+			CorrType type = state.getSelectedType();
+			
+			if(!corrTypes.contains(type)) {
+				System.out.println("new type");
+				corrTypes.add(type);
+			}
+			
+			ObjectVariablePattern source = state.getSelectedSource();
+			ObjectVariablePattern target = state.getSelectedTarget();
+			String corrName = state.getCorrName();
+			
+			CorrVariablePattern correspondence = TggFactory.eINSTANCE.createCorrVariablePattern();
+			correspondence.setType(type);
+			correspondence.setSource(source);
+			correspondence.setTarget(target);
+			correspondence.setName(corrName);
+			
+			// Set the default operator "++" for the new correspondence
+			Operator op = TggFactory.eINSTANCE.createOperator();
+			op.setValue("++");
+			correspondence.setOp(op);
+			
+			// Add the new correspondence to the TGG rule
+			corrList.add(correspondence);
+			
+		}
+		return 0;
+	}
 
-	public List<CorrVariablePattern> addCorrespondenceEdge(Rule rule, ObjectVariablePattern sourceObject,
+	/*
+	 public List<CorrVariablePattern> addCorrespondenceEdge(Rule rule, ObjectVariablePattern sourceObject,
+	 
 			ObjectVariablePattern targetObject) {
 
 		// Create a new correspondence type
@@ -301,6 +342,8 @@ public class Services {
 
 		return rule.getCorrespondencePatterns();
 	}
+	
+	
 
 	public List<CorrVariablePattern> deleteCorrespondence(Rule rule, DEdge edgeView) {
 		ObjectVariablePattern sourceObject = getSourceObjectFromEdge(edgeView);
@@ -324,6 +367,7 @@ public class Services {
 		List<CorrVariablePattern> correspondenceList = rootRule.getCorrespondencePatterns();
 		return null;
 	}
+	*/
 
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
 		// K: Package name, V: List of the classifiers inside that package
@@ -343,6 +387,16 @@ public class Services {
 			return initialValue;
 		}
 	}
+	
+	private List<EClassifier> combineObjectClassifierLists(Map<String, List<EClassifier>> input) {
+		Set<String> keys = input.keySet();
+		List<EClassifier> outputList = new ArrayList<EClassifier>();
+		for(String key : keys) {
+			outputList.addAll(input.get(key));
+		}
+		
+		return outputList;
+	}
 
 	public EClass askNodeTypeFromUser(EObject self, String title, String message, String initialValue,
 			boolean isSourceNode) {
@@ -356,7 +410,7 @@ public class Services {
 			classifiers = getClassifiersInPackageList(schema.getTargetTypes());
 		}
 
-		List<EClassifier> outputList = new ArrayList<EClassifier>();
+		List<EClassifier> outputList = combineObjectClassifierLists(classifiers);
 
 		for (String key : classifiers.keySet()) {
 			outputList.addAll(classifiers.get(key));
@@ -377,24 +431,8 @@ public class Services {
 
 	}
 	
-	public CorrType askCorrTypeFromUser(EObject self, String title, String message, String initialValue) {
-		Rule tgg = (Rule) self;
-		Schema schema = tgg.getSchema();
-		List<CorrType> corrTypes = new ArrayList<CorrType>(schema.getCorrespondenceTypes());
-		WizardState state = openCorrWizard(schema.getCorrespondenceTypes(), tgg.getSourcePatterns(), tgg.getTargetPatterns());
-		if(state.isDone()) {
-			CorrType type = state.getSelectedType();
-			if(type != null && !corrTypes.contains(type)) {
-				System.out.println("new type");
-				corrTypes.add(type);
-			}
-		}
-		return null;
-
-	}
-	
-	public WizardState openCorrWizard(List<CorrType> corrTypeList, List<ObjectVariablePattern> sourceObjects, List<ObjectVariablePattern> targetObjects) {
-		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new CorrWizard(corrTypeList, sourceObjects, targetObjects));
+	public WizardState openCorrWizard(WizardState state) {
+		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new CorrWizard(state));
 		dialog.open();
 		BaseWizardPage lastPage = (BaseWizardPage)dialog.getCurrentPage();
 		return lastPage.getState();

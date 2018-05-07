@@ -274,12 +274,7 @@
             <viewVariable name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
-                <subModelOperations xsi:type="tool_1:Let" variableName="corrType" valueExpression="aql:self.askCorrTypeFromUser('New Correspondence Variable Pattern','Select the type of the new correspondence','UnknownType')"/>
-                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::CorrVariablePattern" referenceName="correspondencePatterns">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="var:corrType"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Correspondence Variable Pattern','Name:','NewCorrespondence')"/>
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="op" valueExpression="service:getDefaultOperator()"/>
-                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.addCorrespondence(containerView)"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
