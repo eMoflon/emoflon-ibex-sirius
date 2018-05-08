@@ -29,12 +29,16 @@ import org.emoflon.ibex.tgg.editor.wizards.NodeWizardState;
 import org.emoflon.ibex.tgg.editor.wizards.CorrWizardState;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
+import org.moflon.tgg.mosl.tgg.AttributeAssignment;
+import org.moflon.tgg.mosl.tgg.AttributeConstraint;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
+import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.CorrVariablePattern;
 import org.moflon.tgg.mosl.tgg.LinkVariablePattern;
 import org.moflon.tgg.mosl.tgg.LiteralExpression;
 import org.moflon.tgg.mosl.tgg.LocalVariable;
+import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 import org.moflon.tgg.mosl.tgg.Operator;
 import org.moflon.tgg.mosl.tgg.ParamValue;
@@ -47,7 +51,6 @@ import org.eclipse.sirius.business.api.query.EObjectQuery;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
-import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.sirius.ecore.extender.business.api.accessor.ModelAccessor;
 
@@ -149,9 +152,40 @@ public class Services {
 
 	public Operator toggleObjectOperator(ObjectVariablePattern object) {
 		Operator op = object.getOp();
+
 		if (op == null) {
+			List<AttributeConstraint> attrConstraints = new ArrayList<AttributeConstraint>(
+					object.getAttributeConstraints());
+			for (AttributeConstraint constr : attrConstraints) {
+				if (constr.getOp().equals("==")) {
+					// transform the "==" constraint into an ":=" assignment
+					AttributeAssignment asgn = TggFactory.eINSTANCE.createAttributeAssignment();
+					asgn.setOp(":=");
+					asgn.setAttribute(constr.getAttribute());
+					asgn.setValueExp(constr.getValueExp());
+					// delete attribute constraint
+					object.getAttributeConstraints().remove(constr);
+					// add attribute assignment
+					object.getAttributeAssignments().add(asgn);
+				}
+			}
 			return getDefaultOperator(null);
 		} else {
+			List<AttributeAssignment> attrAssignments = new ArrayList<AttributeAssignment>(
+					object.getAttributeAssignments());
+			for (AttributeAssignment asgn : attrAssignments) {
+				if (asgn.getOp().equals(":=")) {
+					// transform the ":=" assignment into a "==" constraint
+					AttributeConstraint constr = TggFactory.eINSTANCE.createAttributeConstraint();
+					constr.setOp("==");
+					constr.setAttribute(asgn.getAttribute());
+					constr.setValueExp(asgn.getValueExp());
+					// delete attribute assignment
+					object.getAttributeAssignments().remove(asgn);
+					// add attribute constraint
+					object.getAttributeConstraints().add(constr);
+				}
+			}
 			return null;
 		}
 	}
@@ -162,8 +196,7 @@ public class Services {
 		return operator;
 	}
 
-	public List<LinkVariablePattern> addLinkEdge(ObjectVariablePattern sourceObject,
-			ObjectVariablePattern targetObject) {
+	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject) {
 
 		LinkVariablePattern link = TggFactory.eINSTANCE.createLinkVariablePattern();
 		link.setTarget(targetObject);
@@ -174,7 +207,7 @@ public class Services {
 		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
 				new NamedElementLabelProvider());
 		dlg.setTitle("New Link");
-		dlg.setMessage("Type of the new link relation");
+		dlg.setMessage("Type of the link relation");
 		dlg.setElements(referenceList.toArray());
 		dlg.setMultipleSelection(false);
 		EReference selectedType = null;
@@ -183,9 +216,10 @@ public class Services {
 			selectedType = (EReference) dlg.getResult()[0];
 			link.setType(selectedType);
 			sourceObject.getLinkVariablePatterns().add(link);
+			return true;
 		}
 
-		return sourceObject.getLinkVariablePatterns();
+		return false;
 	}
 
 	public List<LinkVariablePattern> deleteLinkEdge(ObjectVariablePattern sourceObject, DEdge edgeView) {
@@ -233,8 +267,24 @@ public class Services {
 		return 0;
 	}
 
-	public int addNode(Rule tgg, DSemanticDiagram diagram, boolean isSourceNode) {
-		Schema schema = tgg.getSchema();
+	public boolean addNode(NamedElements tgg, DSemanticDiagram diagram, boolean isSourceNode) {
+		Schema schema;
+		List<ObjectVariablePattern> sourceObjects;
+		List<ObjectVariablePattern> targetObjects;
+		if(tgg instanceof Rule) {
+			schema = ((Rule) tgg).getSchema();
+			sourceObjects = ((Rule) tgg).getSourcePatterns();
+			targetObjects = ((Rule) tgg).getSourcePatterns();
+		}
+		else if(tgg instanceof ComplementRule) {
+			schema = ((ComplementRule) tgg).getKernel().getSchema();
+			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
+			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
+		}
+		else {
+			return false;
+		}
+		
 		Map<String, List<EClassifier>> classifiers;
 		String wizardTitel = null;
 		if (isSourceNode) {
@@ -265,11 +315,11 @@ public class Services {
 
 			// Add the new node to the TGG rule
 			if (isSourceNode)
-				tgg.getSourcePatterns().add(node);
+				sourceObjects.add(node);
 			else
-				tgg.getTargetPatterns().add(node);
+				targetObjects.add(node);
 		}
-		return 0;
+		return true;
 	}
 
 	public int deleteCorrespondence(CorrVariablePattern corr, DSemanticDiagram diagram) {
@@ -336,6 +386,17 @@ public class Services {
 		return 0;
 	}
 
+	public int reconnectLinkTarget(ObjectVariablePattern source, ObjectVariablePattern target,
+			ObjectVariablePattern newTarget) {
+		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
+		if (link != null)
+			if (addLinkEdge(source, newTarget)) {
+				// Remove old link relation
+				source.getLinkVariablePatterns().remove(link);
+			}
+		return 0;
+	}
+
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
 		// K: Package name, V: List of the classifiers inside that package
 		Map<String, List<EClassifier>> classifierNames = new HashMap<String, List<EClassifier>>();
@@ -365,14 +426,14 @@ public class Services {
 		return outputList;
 	}
 
-	public CorrWizardState openCorrWizard(CorrWizardState state) {
+	private CorrWizardState openCorrWizard(CorrWizardState state) {
 		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new CorrWizard(state));
 		dialog.open();
 		BaseCorrPage lastPage = (BaseCorrPage) dialog.getCurrentPage();
 		return lastPage.getState();
 	}
 
-	public NodeWizardState openNodeWizard(NodeWizardState state, String titel) {
+	private NodeWizardState openNodeWizard(NodeWizardState state, String titel) {
 		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new NodeWizard(state, titel));
 		dialog.open();
 		BaseNodePage lastPage = (BaseNodePage) dialog.getCurrentPage();
