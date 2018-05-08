@@ -3,6 +3,7 @@ package org.emoflon.ibex.tgg.editor.wizards;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ListViewer;
+import org.eclipse.jface.viewers.ViewerComparator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -11,8 +12,8 @@ import org.eclipse.swt.widgets.List;
 public class CustomListViewer extends ListViewer {
 
 	public CustomListViewer(Composite parent) {
-		super(parent,  SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL);
-		GridData gd = new GridData();
+		super(parent,  SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
+		final GridData gd = new GridData();
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		getList().setLayoutData(gd);
@@ -27,6 +28,8 @@ public class CustomListViewer extends ListViewer {
 				return l.toArray();
 			}
 		});
+		
+		setComparator(new ViewerComparator());
 		
 	}
 

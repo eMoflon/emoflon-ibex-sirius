@@ -9,11 +9,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class CorrPageThree extends BaseWizardPage {
-
-	public CorrPageThree(WizardState state) {
+public class CorrPageThree extends BaseCorrPage {
+	private Text textField;
+	
+	public CorrPageThree(CorrWizardState state) {
 		super(state, "Name", "Name of Correspondence", "Enter a name for the new correspondence");
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -23,9 +23,9 @@ public class CorrPageThree extends BaseWizardPage {
 		container.setLayout(layout1);
 
 		Label label1 = new Label(container, SWT.NONE);
-		label1.setText("Correspondence Name:");
+		label1.setText("Correspondence name:");
 
-		Text textField = new Text(container, SWT.BORDER | SWT.SINGLE);
+		textField = new Text(container, SWT.BORDER | SWT.SINGLE);
 		textField.setText("");
 		textField.addModifyListener(new ModifyListener() {
 			
@@ -56,6 +56,18 @@ public class CorrPageThree extends BaseWizardPage {
 		// required to avoid an error in the system
 		setControl(container);
 		setPageComplete(false);
+	}
+	
+	@Override
+	public void setVisible(final boolean visible) {
+		super.setVisible(visible);
+
+		if (visible) {
+			if (state.getCorrName() == null) {
+				setPageComplete(false);
+				textField.setText("");
+			}
+		}
 	}
 
 }

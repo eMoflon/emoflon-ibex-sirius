@@ -16,10 +16,10 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.moflon.tgg.mosl.tgg.CorrType;
 
-public class CorrPageOne extends BaseWizardPage {
+public class CorrPageOne extends BaseCorrPage {
 	private ListViewer lv;
 
-	public CorrPageOne(WizardState state) {
+	public CorrPageOne(CorrWizardState state) {
 		super(state, "SelectAction", "Select Type", "Select the correspondence's type");
 	}
 
@@ -35,7 +35,7 @@ public class CorrPageOne extends BaseWizardPage {
 		buttonExistingType.setText("Use an existing correspondence type");
 		Button buttonNewType = new Button(selectionGroup, SWT.RADIO);
 		buttonNewType.setText("Define a new correspondence type");
-		GridData gd = new GridData();
+		final GridData gd = new GridData();
 		gd.horizontalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
 		Composite listContainer = new Composite(container, SWT.NONE);

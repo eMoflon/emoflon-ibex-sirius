@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -21,10 +20,13 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.emoflon.ibex.tgg.editor.wizards.BaseWizardPage;
+import org.emoflon.ibex.tgg.editor.wizards.BaseCorrPage;
+import org.emoflon.ibex.tgg.editor.wizards.BaseNodePage;
 import org.emoflon.ibex.tgg.editor.wizards.CorrWizard;
 import org.emoflon.ibex.tgg.editor.wizards.NamedElementLabelProvider;
-import org.emoflon.ibex.tgg.editor.wizards.WizardState;
+import org.emoflon.ibex.tgg.editor.wizards.NodeWizard;
+import org.emoflon.ibex.tgg.editor.wizards.NodeWizardState;
+import org.emoflon.ibex.tgg.editor.wizards.CorrWizardState;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
@@ -53,12 +55,6 @@ import org.eclipse.sirius.ecore.extender.business.api.accessor.ModelAccessor;
  * The services class used by VSM.
  */
 public class Services {
-
-	private EClass createEClass(final String name) {
-		final EClass eClass = EcoreFactory.eINSTANCE.createEClass();
-		eClass.setName(name);
-		return eClass;
-	}
 
 	public int applyChanges(TripleGraphGrammarFile file, List<Rule> currentRuleList) {
 		EObjectQuery query = new EObjectQuery(file);
@@ -106,13 +102,6 @@ public class Services {
 		return targetObject;
 	}
 
-	private ObjectVariablePattern getSourceObjectFromEdge(DEdge edgeView) {
-		DDiagramElement s = (DDiagramElement) edgeView.getSourceNode();
-		ObjectVariablePattern targetObject = (ObjectVariablePattern) s.getTarget();
-
-		return targetObject;
-	}
-
 	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y) {
 		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
 		EqualityHelper eq = new EqualityHelper();
@@ -127,60 +116,6 @@ public class Services {
 
 		return null;
 	}
-
-	private CorrVariablePattern findCorrespondence(Rule rule, ObjectVariablePattern sourceObject,
-			ObjectVariablePattern targetObject) {
-		List<CorrVariablePattern> corrList = rule.getCorrespondencePatterns();
-		EqualityHelper eq = new EqualityHelper();
-
-		for (CorrVariablePattern corr : corrList) {
-			if (eq.equals(corr.getSource(), sourceObject) && eq.equals(corr.getTarget(), targetObject)) {
-				return corr;
-			}
-		}
-
-		return null;
-	}
-
-	public boolean checkCorrespondence(Rule rule, ObjectVariablePattern sourceObject,
-			ObjectVariablePattern targetObject) {
-
-		CorrVariablePattern corr = findCorrespondence(rule, sourceObject, targetObject);
-
-		return corr != null ? true : false;
-	}
-
-	public boolean equalCorrespondenceOperator(Rule rule, DEdge edgeView, String op) {
-		ObjectVariablePattern sourceObject = getSourceObjectFromEdge(edgeView);
-		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
-
-		// find correspondence between source and target objects
-		CorrVariablePattern corr = findCorrespondence(rule, sourceObject, targetObject);
-		if (corr != null) {
-			if (corr.getOp() != null) {
-				return corr.getOp().getValue().equals(op) ? true : false;
-			} else if (op.equals("")) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/*
-	 * public List<CorrVariablePattern> toggleCorrOperator(Rule rule, DEdge
-	 * edgeView) { ObjectVariablePattern sourceObject =
-	 * getSourceObjectFromEdge(edgeView); ObjectVariablePattern targetObject =
-	 * getTargetObjectFromEdge(edgeView);
-	 * 
-	 * // find correspondence between source and target objects CorrVariablePattern
-	 * corr = findCorrespondence(rule, sourceObject, targetObject);
-	 * 
-	 * if (corr != null) { // Toggle correspondence operator if (corr.getOp() ==
-	 * null) { Operator operator = TggFactory.eINSTANCE.createOperator();
-	 * operator.setValue("++"); corr.setOp(operator); } else { corr.setOp(null); } }
-	 * 
-	 * return rule.getCorrespondencePatterns(); }
-	 */
 
 	public Operator toggleCorrOperator(CorrVariablePattern corr) {
 		// Toggle correspondence operator
@@ -246,10 +181,9 @@ public class Services {
 
 		if (dlg.open() == Window.OK) {
 			selectedType = (EReference) dlg.getResult()[0];
+			link.setType(selectedType);
+			sourceObject.getLinkVariablePatterns().add(link);
 		}
-
-		link.setType(selectedType);
-		sourceObject.getLinkVariablePatterns().add(link);
 
 		return sourceObject.getLinkVariablePatterns();
 	}
@@ -261,113 +195,146 @@ public class Services {
 
 		return sourceObject.getLinkVariablePatterns();
 	}
-	
+
 	public int addCorrespondence(Rule tgg, DSemanticDiagram diagram) {
 		Schema schema = tgg.getSchema();
 		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
 		List<CorrVariablePattern> corrList = tgg.getCorrespondencePatterns();
-		
-		WizardState state = new WizardState(corrTypes, tgg.getSourcePatterns(), tgg.getTargetPatterns());
+
+		CorrWizardState state = new CorrWizardState(corrTypes, tgg.getSourcePatterns(), tgg.getTargetPatterns());
 		openCorrWizard(state);
-		if(state.isDone()) {
-			
+		if (state.isDone()) {
+
 			CorrType type = state.getSelectedType();
-			
-			if(!corrTypes.contains(type)) {
-				System.out.println("new type");
+			if (!corrTypes.contains(type)) {
+				// Add new correspondence type to the schema
 				corrTypes.add(type);
 			}
-			
+
 			ObjectVariablePattern source = state.getSelectedSource();
 			ObjectVariablePattern target = state.getSelectedTarget();
 			String corrName = state.getCorrName();
-			
+
 			CorrVariablePattern correspondence = TggFactory.eINSTANCE.createCorrVariablePattern();
 			correspondence.setType(type);
 			correspondence.setSource(source);
 			correspondence.setTarget(target);
 			correspondence.setName(corrName);
-			
+
 			// Set the default operator "++" for the new correspondence
 			Operator op = TggFactory.eINSTANCE.createOperator();
 			op.setValue("++");
 			correspondence.setOp(op);
-			
+
 			// Add the new correspondence to the TGG rule
 			corrList.add(correspondence);
-			
+
 		}
 		return 0;
 	}
 
-	/*
-	 public List<CorrVariablePattern> addCorrespondenceEdge(Rule rule, ObjectVariablePattern sourceObject,
-	 
-			ObjectVariablePattern targetObject) {
-
-		// Create a new correspondence type
-		CorrType corrType = TggFactory.eINSTANCE.createCorrType();
-		String corrName = askStringFromUser(null, "New Correspondence", "Name:", "NewCorrespondence");
-		corrType.setName(corrName);
-		corrType.setSource(sourceObject.getType());
-		corrType.setTarget(targetObject.getType());
-
-		// Add correspondence type to the schema if it was not already there
-		Schema schema = rule.getSchema();
-		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
-		EqualityHelper eq = new EqualityHelper();
-		boolean containsType = false;
-		for (CorrType t : corrTypes) {
-			if (eq.equals(t, corrType)) {
-				containsType = true;
-				break;
-			}
-		}
-		if (!containsType) {
-			schema.getCorrespondenceTypes().add(corrType);
+	public int addNode(Rule tgg, DSemanticDiagram diagram, boolean isSourceNode) {
+		Schema schema = tgg.getSchema();
+		Map<String, List<EClassifier>> classifiers;
+		String wizardTitel = null;
+		if (isSourceNode) {
+			classifiers = getClassifiersInPackageList(schema.getSourceTypes());
+			wizardTitel = "New Source Node";
+		} else {
+			classifiers = getClassifiersInPackageList(schema.getTargetTypes());
+			wizardTitel = "New Target Node";
 		}
 
-		// Set the new correspondence
-		CorrVariablePattern corr = TggFactory.eINSTANCE.createCorrVariablePattern();
-		corr.setType(corrType);
-		corr.setSource(sourceObject);
-		corr.setTarget(targetObject);
-		corr.setName(corrName);
-		// Default Operator for correspondence is ++
-		Operator operator = getDefaultOperator(null);
-		corr.setOp(operator);
+		List<EClassifier> outputList = combineObjectClassifierLists(classifiers);
 
-		// Add the actual correspondence to the rule
-		rule.getCorrespondencePatterns().add(corr);
+		NodeWizardState state = new NodeWizardState(outputList);
+		openNodeWizard(state, wizardTitel);
 
-		return rule.getCorrespondencePatterns();
-	}
-	
-	
+		if (state.isDone()) {
+			EClass type = (EClass) state.getSelectedType();
+			String nodeName = state.getNodeName();
 
-	public List<CorrVariablePattern> deleteCorrespondence(Rule rule, DEdge edgeView) {
-		ObjectVariablePattern sourceObject = getSourceObjectFromEdge(edgeView);
-		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
+			ObjectVariablePattern node = TggFactory.eINSTANCE.createObjectVariablePattern();
+			node.setName(nodeName);
+			node.setType(type);
 
-		// find correspondence between source and target objects
-		CorrVariablePattern corr = findCorrespondence(rule, sourceObject, targetObject);
+			// Set the default operator "++" for the new correspondence
+			Operator op = TggFactory.eINSTANCE.createOperator();
+			op.setValue("++");
+			node.setOp(op);
 
-		// Delete correspondence from rule
-		rule.getCorrespondencePatterns().remove(corr);
-
-		// Delete correspondence type from schema
-		Schema schema = rule.getSchema();
-		schema.getCorrespondenceTypes().remove(corr.getType());
-		return rule.getCorrespondencePatterns();
+			// Add the new node to the TGG rule
+			if (isSourceNode)
+				tgg.getSourcePatterns().add(node);
+			else
+				tgg.getTargetPatterns().add(node);
+		}
+		return 0;
 	}
 
-	public String deleteNode(DSemanticDiagram diagram, DNode node) {
+	public int deleteCorrespondence(CorrVariablePattern corr, DSemanticDiagram diagram) {
 		Rule rootRule = (Rule) diagram.getTarget();
 		Schema schema = rootRule.getSchema();
 		List<CorrVariablePattern> correspondenceList = rootRule.getCorrespondencePatterns();
-		return null;
+
+		// Delete correspondence type from schema if there are no more uses of it
+		CorrType corrType = corr.getType();
+		int numUses = 0;
+		for (CorrVariablePattern c : correspondenceList) {
+			if (c.getType() == corrType) {
+				numUses++;
+				if (numUses > 1)
+					break;
+			}
+		}
+
+		if (numUses == 1) {
+			schema.getCorrespondenceTypes().remove(corrType);
+		}
+
+		// Delete correspondence from rule
+		rootRule.getCorrespondencePatterns().remove(corr);
+		return 0;
 	}
-	*/
+
+	public int deleteNode(ObjectVariablePattern node, DSemanticDiagram diagram, boolean isSourceNode) {
+		Rule rootRule = (Rule) diagram.getTarget();
+		List<CorrVariablePattern> correspondenceList = new ArrayList<CorrVariablePattern>(
+				rootRule.getCorrespondencePatterns());
+
+		// Delete all correspondences that involve this node
+		for (CorrVariablePattern corr : correspondenceList) {
+			if (isSourceNode && corr.getSource() == node || !isSourceNode && corr.getTarget() == node) {
+				deleteCorrespondence(corr, diagram);
+			}
+		}
+
+		List<ObjectVariablePattern> nodeList = null;
+		if (isSourceNode) {
+			nodeList = rootRule.getSourcePatterns();
+		} else {
+			nodeList = rootRule.getTargetPatterns();
+		}
+
+		// Delete all links that involve this node
+		for (ObjectVariablePattern obj : nodeList) {
+			List<LinkVariablePattern> links = new ArrayList<LinkVariablePattern>(obj.getLinkVariablePatterns());
+			for (LinkVariablePattern link : links) {
+				if (link.getTarget() == node) {
+					obj.getLinkVariablePatterns().remove(link);
+				}
+			}
+		}
+
+		// Delete node from rule
+		if (isSourceNode) {
+			rootRule.getSourcePatterns().remove(node);
+		} else {
+			rootRule.getTargetPatterns().remove(node);
+		}
+
+		return 0;
+	}
 
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
 		// K: Package name, V: List of the classifiers inside that package
@@ -387,54 +354,28 @@ public class Services {
 			return initialValue;
 		}
 	}
-	
+
 	private List<EClassifier> combineObjectClassifierLists(Map<String, List<EClassifier>> input) {
 		Set<String> keys = input.keySet();
 		List<EClassifier> outputList = new ArrayList<EClassifier>();
-		for(String key : keys) {
+		for (String key : keys) {
 			outputList.addAll(input.get(key));
 		}
-		
+
 		return outputList;
 	}
 
-	public EClass askNodeTypeFromUser(EObject self, String title, String message, String initialValue,
-			boolean isSourceNode) {
-		Rule tgg = (Rule) self;
-		Schema schema = tgg.getSchema();
-		Map<String, List<EClassifier>> classifiers;
-
-		if (isSourceNode) {
-			classifiers = getClassifiersInPackageList(schema.getSourceTypes());
-		} else {
-			classifiers = getClassifiersInPackageList(schema.getTargetTypes());
-		}
-
-		List<EClassifier> outputList = combineObjectClassifierLists(classifiers);
-
-		for (String key : classifiers.keySet()) {
-			outputList.addAll(classifiers.get(key));
-		}
-
-		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
-				new NamedElementLabelProvider());
-		dlg.setTitle(title);
-		dlg.setMessage(message);
-		dlg.setElements(outputList.toArray());
-		dlg.setMultipleSelection(false);
-
-		if (dlg.open() == Window.OK) {
-			return (EClass) dlg.getResult()[0];
-		} else {
-			return createEClass(initialValue);
-		}
-
-	}
-	
-	public WizardState openCorrWizard(WizardState state) {
+	public CorrWizardState openCorrWizard(CorrWizardState state) {
 		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new CorrWizard(state));
 		dialog.open();
-		BaseWizardPage lastPage = (BaseWizardPage)dialog.getCurrentPage();
+		BaseCorrPage lastPage = (BaseCorrPage) dialog.getCurrentPage();
+		return lastPage.getState();
+	}
+
+	public NodeWizardState openNodeWizard(NodeWizardState state, String titel) {
+		WizardDialog dialog = new WizardDialog(Display.getCurrent().getActiveShell(), new NodeWizard(state, titel));
+		dialog.open();
+		BaseNodePage lastPage = (BaseNodePage) dialog.getCurrentPage();
 		return lastPage.getState();
 	}
 

@@ -9,9 +9,9 @@ public class CorrWizard extends Wizard {
 	protected CorrPageTwo page2;
 	protected CorrPageThree page3;
 	protected CorrPageFour page4;
-	private WizardState state;
+	private CorrWizardState state;
 
-	public CorrWizard(WizardState state) {
+	public CorrWizard(CorrWizardState state) {
 		super();
 		this.state = state;
 		setNeedsProgressMonitor(true);
@@ -36,13 +36,17 @@ public class CorrWizard extends Wizard {
 
 	@Override
 	public IWizardPage getNextPage(IWizardPage currentPage) {
-		if (currentPage == page1 && state.isCreateNewType()) {
+		if (currentPage == page1) {
 			return page2;
-		} else if (currentPage == page1 && !state.isCreateNewType()) {
-			page4.setPageComplete(true);
-			page2.refreshViewers();
-			return page2;
-		} else if (currentPage == page2 && !state.isCreateNewType()) {
+
+		} else if (currentPage == page2) {
+			if (!state.isCreateNewType()) {
+				page4.setPageComplete(true);
+				return page3;
+			} else {
+				return page4;
+			}
+		} else if (currentPage == page4) {
 			return page3;
 		}
 		return null;
