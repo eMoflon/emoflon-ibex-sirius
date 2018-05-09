@@ -97,6 +97,29 @@ public class Services {
 
 		return null;
 	}
+	
+	public List<NamedElements> getChildren(NamedElements element) {
+		List<NamedElements> children = new ArrayList<NamedElements>();
+		if(element instanceof ObjectVariablePattern) {
+			List<LinkVariablePattern> links = ((ObjectVariablePattern) element).getLinkVariablePatterns();
+			
+			//leaf
+			if(links.size() == 0) {
+				return children;
+			}
+			
+			for(LinkVariablePattern link : links) {
+				ObjectVariablePattern child = link.getTarget();
+				children.add(child);
+				children.addAll(getChildren(child));
+			}
+		}
+		else if(element instanceof CorrVariablePattern) {
+			children.addAll(getChildren(((CorrVariablePattern) element).getSource()));
+			children.addAll(getChildren(((CorrVariablePattern) element).getTarget()));
+		}
+		return children;
+	}
 
 	private ObjectVariablePattern getTargetObjectFromEdge(DEdge edgeView) {
 		DDiagramElement t = (DDiagramElement) edgeView.getTargetNode();
@@ -230,12 +253,29 @@ public class Services {
 		return sourceObject.getLinkVariablePatterns();
 	}
 
-	public int addCorrespondence(Rule tgg, DSemanticDiagram diagram) {
-		Schema schema = tgg.getSchema();
-		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
-		List<CorrVariablePattern> corrList = tgg.getCorrespondencePatterns();
+	public boolean addCorrespondence(NamedElements tgg, DSemanticDiagram diagram) {
+		Schema schema;
+		List<CorrVariablePattern> corrList;
+		List<ObjectVariablePattern> sourceObjects;
+		List<ObjectVariablePattern> targetObjects;
 
-		CorrWizardState state = new CorrWizardState(corrTypes, tgg.getSourcePatterns(), tgg.getTargetPatterns());
+		if (tgg instanceof Rule) {
+			schema = ((Rule) tgg).getSchema();
+			corrList = ((Rule) tgg).getCorrespondencePatterns();
+			sourceObjects = ((Rule) tgg).getSourcePatterns();
+			targetObjects = ((Rule) tgg).getTargetPatterns();
+		} else if (tgg instanceof ComplementRule) {
+			schema = ((ComplementRule) tgg).getKernel().getSchema();
+			corrList = ((ComplementRule) tgg).getCorrespondencePatterns();
+			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
+			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
+		} else {
+			return false;
+		}
+
+		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
+
+		CorrWizardState state = new CorrWizardState(corrTypes, sourceObjects, targetObjects);
 		openCorrWizard(state);
 		if (state.isDone()) {
 
@@ -264,27 +304,25 @@ public class Services {
 			corrList.add(correspondence);
 
 		}
-		return 0;
+		return true;
 	}
 
 	public boolean addNode(NamedElements tgg, DSemanticDiagram diagram, boolean isSourceNode) {
 		Schema schema;
 		List<ObjectVariablePattern> sourceObjects;
 		List<ObjectVariablePattern> targetObjects;
-		if(tgg instanceof Rule) {
+		if (tgg instanceof Rule) {
 			schema = ((Rule) tgg).getSchema();
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
 			targetObjects = ((Rule) tgg).getSourcePatterns();
-		}
-		else if(tgg instanceof ComplementRule) {
+		} else if (tgg instanceof ComplementRule) {
 			schema = ((ComplementRule) tgg).getKernel().getSchema();
 			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
 			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
-		}
-		else {
+		} else {
 			return false;
 		}
-		
+
 		Map<String, List<EClassifier>> classifiers;
 		String wizardTitel = null;
 		if (isSourceNode) {
@@ -322,10 +360,30 @@ public class Services {
 		return true;
 	}
 
-	public int deleteCorrespondence(CorrVariablePattern corr, DSemanticDiagram diagram) {
-		Rule rootRule = (Rule) diagram.getTarget();
-		Schema schema = rootRule.getSchema();
-		List<CorrVariablePattern> correspondenceList = rootRule.getCorrespondencePatterns();
+	public boolean deleteCorrespondence(CorrVariablePattern corr, DSemanticDiagram diagram) {
+		List<CorrVariablePattern> correspondenceList;
+		Rule rootRule = null;
+		NamedElements tgg = (NamedElements) diagram.getTarget();
+
+		if (tgg == null)
+			return false;
+
+		if (tgg instanceof Rule) {
+			rootRule = (Rule) tgg;
+			correspondenceList = ((Rule) tgg).getCorrespondencePatterns();
+		} else if (tgg instanceof ComplementRule) {
+			rootRule = ((ComplementRule) tgg).getKernel();
+			correspondenceList = ((ComplementRule) tgg).getCorrespondencePatterns();
+		} else {
+			return false;
+		}
+
+		Schema schema = null;
+		if (rootRule == null)
+			return false;
+		schema = rootRule.getSchema();
+		if (schema == null)
+			return false;
 
 		// Delete correspondence type from schema if there are no more uses of it
 		CorrType corrType = corr.getType();
@@ -343,14 +401,38 @@ public class Services {
 		}
 
 		// Delete correspondence from rule
-		rootRule.getCorrespondencePatterns().remove(corr);
-		return 0;
+		correspondenceList.remove(corr);
+		return true;
 	}
 
-	public int deleteNode(ObjectVariablePattern node, DSemanticDiagram diagram, boolean isSourceNode) {
-		Rule rootRule = (Rule) diagram.getTarget();
-		List<CorrVariablePattern> correspondenceList = new ArrayList<CorrVariablePattern>(
-				rootRule.getCorrespondencePatterns());
+	public boolean deleteNode(ObjectVariablePattern node, DSemanticDiagram diagram, boolean isSourceNode) {
+		NamedElements tgg = (NamedElements) diagram.getTarget();
+		if(tgg == null)
+			return false;
+		
+		List<CorrVariablePattern> correspondenceList = null;
+		List<ObjectVariablePattern> sourceObjects = null;
+		List<ObjectVariablePattern> targetObjects = null;
+		
+		if(tgg instanceof Rule) {
+			correspondenceList = new ArrayList<CorrVariablePattern>(
+						((Rule) tgg).getCorrespondencePatterns());
+			sourceObjects = ((Rule) tgg).getSourcePatterns();
+			targetObjects = ((Rule) tgg).getTargetPatterns();
+		}
+		else if(tgg instanceof ComplementRule) {
+			correspondenceList = new ArrayList<CorrVariablePattern>(((ComplementRule) tgg).getCorrespondencePatterns());
+			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
+			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
+		}
+		
+		else {
+			return false;
+		}
+		
+		if(correspondenceList == null || sourceObjects == null || targetObjects == null) {
+			return false;
+		}
 
 		// Delete all correspondences that involve this node
 		for (CorrVariablePattern corr : correspondenceList) {
@@ -361,9 +443,9 @@ public class Services {
 
 		List<ObjectVariablePattern> nodeList = null;
 		if (isSourceNode) {
-			nodeList = rootRule.getSourcePatterns();
+			nodeList = sourceObjects;
 		} else {
-			nodeList = rootRule.getTargetPatterns();
+			nodeList = targetObjects;
 		}
 
 		// Delete all links that involve this node
@@ -378,12 +460,12 @@ public class Services {
 
 		// Delete node from rule
 		if (isSourceNode) {
-			rootRule.getSourcePatterns().remove(node);
+			sourceObjects.remove(node);
 		} else {
-			rootRule.getTargetPatterns().remove(node);
+			targetObjects.remove(node);
 		}
 
-		return 0;
+		return true;
 	}
 
 	public int reconnectLinkTarget(ObjectVariablePattern source, ObjectVariablePattern target,
