@@ -468,15 +468,31 @@ public class Services {
 		return true;
 	}
 
-	public int reconnectLinkTarget(ObjectVariablePattern source, ObjectVariablePattern target,
+	public boolean reconnectLinkTarget(ObjectVariablePattern source, ObjectVariablePattern target,
 			ObjectVariablePattern newTarget) {
 		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
-		if (link != null)
+		if (link != null) {
 			if (addLinkEdge(source, newTarget)) {
 				// Remove old link relation
 				source.getLinkVariablePatterns().remove(link);
+				return true;
 			}
-		return 0;
+		}
+		return false;
+	}
+	
+	public boolean reconnectLinkSource(ObjectVariablePattern source, ObjectVariablePattern target,
+			ObjectVariablePattern newSource) {
+		System.out.println(source.getName() + ", " + target.getName());
+		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
+		if (link != null) {
+			if (addLinkEdge(newSource, target)) {
+				// Remove old link relation
+				source.getLinkVariablePatterns().remove(link);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
