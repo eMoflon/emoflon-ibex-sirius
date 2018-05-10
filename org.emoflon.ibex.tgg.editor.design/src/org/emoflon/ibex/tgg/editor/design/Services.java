@@ -97,24 +97,23 @@ public class Services {
 
 		return null;
 	}
-	
+
 	public List<NamedElements> getChildren(NamedElements element) {
 		List<NamedElements> children = new ArrayList<NamedElements>();
-		if(element instanceof ObjectVariablePattern) {
+		if (element instanceof ObjectVariablePattern) {
 			List<LinkVariablePattern> links = ((ObjectVariablePattern) element).getLinkVariablePatterns();
-			
-			//leaf
-			if(links.size() == 0) {
+
+			// leaf
+			if (links.size() == 0) {
 				return children;
 			}
-			
-			for(LinkVariablePattern link : links) {
+
+			for (LinkVariablePattern link : links) {
 				ObjectVariablePattern child = link.getTarget();
 				children.add(child);
 				children.addAll(getChildren(child));
 			}
-		}
-		else if(element instanceof CorrVariablePattern) {
+		} else if (element instanceof CorrVariablePattern) {
 			children.addAll(getChildren(((CorrVariablePattern) element).getSource()));
 			children.addAll(getChildren(((CorrVariablePattern) element).getTarget()));
 		}
@@ -219,11 +218,11 @@ public class Services {
 		return operator;
 	}
 
-	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject) {
+	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
 
 		LinkVariablePattern link = TggFactory.eINSTANCE.createLinkVariablePattern();
 		link.setTarget(targetObject);
-		link.setOp(getDefaultOperator(null));
+		link.setOp(op);
 
 		List<EReference> referenceList = sourceObject.getType().getEReferences();
 
@@ -407,30 +406,28 @@ public class Services {
 
 	public boolean deleteNode(ObjectVariablePattern node, DSemanticDiagram diagram, boolean isSourceNode) {
 		NamedElements tgg = (NamedElements) diagram.getTarget();
-		if(tgg == null)
+		if (tgg == null)
 			return false;
-		
+
 		List<CorrVariablePattern> correspondenceList = null;
 		List<ObjectVariablePattern> sourceObjects = null;
 		List<ObjectVariablePattern> targetObjects = null;
-		
-		if(tgg instanceof Rule) {
-			correspondenceList = new ArrayList<CorrVariablePattern>(
-						((Rule) tgg).getCorrespondencePatterns());
+
+		if (tgg instanceof Rule) {
+			correspondenceList = new ArrayList<CorrVariablePattern>(((Rule) tgg).getCorrespondencePatterns());
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
 			targetObjects = ((Rule) tgg).getTargetPatterns();
-		}
-		else if(tgg instanceof ComplementRule) {
+		} else if (tgg instanceof ComplementRule) {
 			correspondenceList = new ArrayList<CorrVariablePattern>(((ComplementRule) tgg).getCorrespondencePatterns());
 			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
 			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
 		}
-		
+
 		else {
 			return false;
 		}
-		
-		if(correspondenceList == null || sourceObjects == null || targetObjects == null) {
+
+		if (correspondenceList == null || sourceObjects == null || targetObjects == null) {
 			return false;
 		}
 
@@ -472,7 +469,7 @@ public class Services {
 			ObjectVariablePattern newTarget) {
 		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
 		if (link != null) {
-			if (addLinkEdge(source, newTarget)) {
+			if (addLinkEdge(source, newTarget, link.getOp())) {
 				// Remove old link relation
 				source.getLinkVariablePatterns().remove(link);
 				return true;
@@ -480,19 +477,27 @@ public class Services {
 		}
 		return false;
 	}
-	
+
 	public boolean reconnectLinkSource(ObjectVariablePattern source, ObjectVariablePattern target,
 			ObjectVariablePattern newSource) {
-		System.out.println(source.getName() + ", " + target.getName());
 		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
 		if (link != null) {
-			if (addLinkEdge(newSource, target)) {
+			if (addLinkEdge(newSource, target, link.getOp())) {
 				// Remove old link relation
 				source.getLinkVariablePatterns().remove(link);
 				return true;
 			}
 		}
 		return false;
+	}
+
+	public boolean reconnectRefineEdgeSource(ComplementRule source, Rule target, NamedElements newSource) {
+		// Set new refine relation
+		System.out.println(newSource.getName());
+		((ComplementRule) newSource).setKernel(target);
+		// Remove old refine relation
+		source.setKernel(null);
+		return true;
 	}
 
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
