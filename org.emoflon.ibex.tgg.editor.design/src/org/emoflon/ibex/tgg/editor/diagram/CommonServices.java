@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.design;
+package org.emoflon.ibex.tgg.editor.diagram;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.InputDialog;

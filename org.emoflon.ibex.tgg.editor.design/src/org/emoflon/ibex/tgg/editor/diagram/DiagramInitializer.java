@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.design;
+package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;

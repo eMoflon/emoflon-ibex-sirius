@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.wizards;
+package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;

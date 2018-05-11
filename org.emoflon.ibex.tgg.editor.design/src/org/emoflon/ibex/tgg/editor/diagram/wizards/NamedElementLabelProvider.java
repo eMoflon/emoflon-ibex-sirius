@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.wizards;
+package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import org.eclipse.emf.ecore.ENamedElement;
 import org.eclipse.jface.viewers.BaseLabelProvider;

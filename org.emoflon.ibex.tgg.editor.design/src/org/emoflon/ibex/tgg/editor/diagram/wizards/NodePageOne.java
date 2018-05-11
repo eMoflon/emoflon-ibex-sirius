@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.wizards;
+package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.jface.viewers.ISelectionChangedListener;

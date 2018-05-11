@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.design;
+package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.util.HashSet;
 import java.util.Set;

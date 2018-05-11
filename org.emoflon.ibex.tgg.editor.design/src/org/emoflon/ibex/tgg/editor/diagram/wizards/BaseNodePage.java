@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.wizards;
+package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 public abstract class BaseNodePage extends BaseWizardPage {
 	protected NodeWizardState state;

@@ -151,13 +151,13 @@
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.design/icons/corrBlack.svg">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrBlack.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.design/icons/corrGreen.svg">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrGreen.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
@@ -718,8 +718,8 @@
         </containerMappings>
       </additionalLayers>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.design.DiagramInitializer"/>
-    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.design.Services"/>
-    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.design.DesignServices"/>
+    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.DiagramInitializer"/>
+    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.Services"/>
+    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.DesignServices"/>
   </ownedViewpoints>
 </description:Group>

@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.design;
+package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +18,13 @@ import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.emoflon.ibex.tgg.editor.wizards.BaseCorrPage;
-import org.emoflon.ibex.tgg.editor.wizards.BaseNodePage;
-import org.emoflon.ibex.tgg.editor.wizards.CorrWizard;
-import org.emoflon.ibex.tgg.editor.wizards.CorrWizardState;
-import org.emoflon.ibex.tgg.editor.wizards.NamedElementLabelProvider;
-import org.emoflon.ibex.tgg.editor.wizards.NodeWizard;
-import org.emoflon.ibex.tgg.editor.wizards.NodeWizardState;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseNodePage;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizardState;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.NamedElementLabelProvider;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
+import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
 import org.moflon.tgg.mosl.tgg.AttributeAssignment;
