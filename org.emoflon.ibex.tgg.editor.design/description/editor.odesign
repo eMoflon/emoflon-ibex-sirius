@@ -343,7 +343,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLink" label="Link" precondition="aql:preSource.differs(preTarget)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLink" label="Link" precondition="aql:preSource.differs(preTarget)" forceRefresh="true" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/linkEdge.png">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -484,7 +484,6 @@
           </vsmElementCustomizations>
         </customization>
       </additionalLayers>
-      <additionalLayers name="ruleCollection" label="Rule Collection"/>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="Complement Rule" titleExpression="aql:'Complement TGGRule - '+self.initDiagram()" initialisation="true" domainClass="tgg::ComplementRule" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
@@ -594,7 +593,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLinkCmpl" label="Link" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkEdgeCmpl']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLinkCmpl" label="Link" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkEdgeCmpl']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/linkEdge.png">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
