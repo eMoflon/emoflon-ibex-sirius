@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="editor" version="12.0.0.2017041100">
-  <ownedViewpoints name="tggEditor" modelFileExtension="tgg">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRoot" label="TGG" titleExpression="aql:self.initDiagram()" domainClass="tgg::TripleGraphGrammarFile" enablePopupBars="true">
+  <ownedViewpoints name="tggEditor" label="TGG Editor" modelFileExtension="tgg">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggFile" label="TGG File" titleExpression="aql:self.initDiagram()" domainClass="tgg::TripleGraphGrammarFile" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <defaultLayer name="Default">
-        <nodeMappings name="tggRule" label="TGGRule" semanticCandidatesExpression="feature:rules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.0/@ownedTools[name='ruleDoubleClick']" domainClass="tgg::Rule">
+        <nodeMappings name="tggRule" label="TGGRule" semanticCandidatesExpression="feature:rules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.0/@ownedTools[name='ruleDoubleClick']" domainClass="tgg::Rule">
           <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="aql:self.name+' : TGGRule'" labelPosition="node" resizeKind="NSEW" width="18" height="7">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="complementRule" label="ComplementRule" semanticCandidatesExpression="feature:complementRules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.0/@ownedTools[name='complementRuleDoubleClick']" domainClass="tgg::ComplementRule">
+        <nodeMappings name="complementRule" label="ComplementRule" semanticCandidatesExpression="feature:complementRules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.0/@ownedTools[name='complementRuleDoubleClick']" domainClass="tgg::ComplementRule">
           <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="aql:self.name+' : ComplementTGGRule'" labelPosition="node" resizeKind="NSEW" width="18" height="7">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
           </style>
         </nodeMappings>
-        <edgeMappings name="refineEdge" label="RefineEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteRefineEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']" targetFinderExpression="feature:kernel" reconnections="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectRefineTarget'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectRefineSource']">
+        <edgeMappings name="refineEdge" label="RefineEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteRefineEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@nodeMappings[name='complementRule']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@nodeMappings[name='tggRule']" targetFinderExpression="feature:kernel" reconnections="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectRefineTarget'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectRefineSource']">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription showIcon="false">
@@ -27,21 +27,21 @@
           </style>
         </edgeMappings>
         <toolSections name="creationTools" label="Creation Tools">
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="ruleDoubleClick" label="RuleDoubleClickoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="ruleDoubleClick" label="RuleDoubleClickoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@nodeMappings[name='tggRule']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="complementRuleDoubleClick" label="ComplementRuleDoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="complementRuleDoubleClick" label="ComplementRuleDoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@nodeMappings[name='complementRule']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="rule" label="Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='tggRule']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="rule" label="Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@nodeMappings[name='tggRule']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -52,7 +52,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="complementRule" label="Complement Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@nodeMappings[name='complementRule']">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="complementRule" label="Complement Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@nodeMappings[name='complementRule']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -63,7 +63,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="refineEdge" label="Refine Edge" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRoot']/@defaultLayer/@edgeMappings[name='refineEdge']">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="refineEdge" label="Refine Edge" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@edgeMappings[name='refineEdge']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
@@ -113,7 +113,7 @@
         </toolSections>
       </defaultLayer>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRule" label="TGGRule" titleExpression="aql:'TGGRule - '+self.initDiagram()" initialisation="true" showOnStartup="true" domainClass="tgg::Rule" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRule" label="TGG Rule" titleExpression="aql:'TGGRule - '+self.initDiagram()" initialisation="true" showOnStartup="true" domainClass="tgg::Rule" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
@@ -486,7 +486,7 @@
       </additionalLayers>
       <additionalLayers name="ruleCollection" label="Rule Collection"/>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="ComplementRule" titleExpression="aql:'Complement TGGRule - '+self.initDiagram()" initialisation="true" domainClass="tgg::ComplementRule" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="Complement Rule" titleExpression="aql:'Complement TGGRule - '+self.initDiagram()" initialisation="true" domainClass="tgg::ComplementRule" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
