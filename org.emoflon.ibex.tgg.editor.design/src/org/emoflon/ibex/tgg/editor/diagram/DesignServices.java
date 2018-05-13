@@ -44,7 +44,7 @@ import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 
-public class DesignServices extends CommonServices{
+public class DesignServices extends CommonServices {
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
 
 		LinkVariablePattern link = TggFactory.eINSTANCE.createLinkVariablePattern();
@@ -70,7 +70,7 @@ public class DesignServices extends CommonServices{
 
 		return false;
 	}
-	
+
 	public boolean addCorrespondence(NamedElements tgg, DSemanticDiagram diagram) {
 		Schema schema;
 		List<CorrVariablePattern> corrList;
@@ -132,7 +132,7 @@ public class DesignServices extends CommonServices{
 		if (tgg instanceof Rule) {
 			schema = ((Rule) tgg).getSchema();
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
-			targetObjects = ((Rule) tgg).getSourcePatterns();
+			targetObjects = ((Rule) tgg).getTargetPatterns();
 		} else if (tgg instanceof ComplementRule) {
 			schema = ((ComplementRule) tgg).getKernel().getSchema();
 			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
@@ -177,7 +177,7 @@ public class DesignServices extends CommonServices{
 		}
 		return true;
 	}
-	
+
 	public boolean deleteCorrespondence(CorrVariablePattern corr, DSemanticDiagram diagram) {
 		List<CorrVariablePattern> correspondenceList;
 		Rule rootRule = null;
@@ -222,7 +222,7 @@ public class DesignServices extends CommonServices{
 		correspondenceList.remove(corr);
 		return true;
 	}
-	
+
 	public boolean deleteNode(ObjectVariablePattern node, DSemanticDiagram diagram, boolean isSourceNode) {
 		NamedElements tgg = (NamedElements) diagram.getTarget();
 		if (tgg == null)
@@ -317,7 +317,7 @@ public class DesignServices extends CommonServices{
 		source.setKernel(null);
 		return true;
 	}
-	
+
 	public String getLinkEdgeName(ObjectVariablePattern sourceObject, DEdge edgeView) {
 
 		// Get the target object from the edge view
@@ -337,7 +337,7 @@ public class DesignServices extends CommonServices{
 
 		return null;
 	}
-	
+
 	public boolean toggleLinkOperator(ObjectVariablePattern sourceObject, DEdge edgeView) {
 		// Get the target object from the edge view
 		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
@@ -358,7 +358,7 @@ public class DesignServices extends CommonServices{
 
 		return false;
 	}
-	
+
 	public Operator toggleCorrOperator(CorrVariablePattern corr) {
 		// Toggle correspondence operator
 		if (corr.getOp() == null) {
@@ -367,7 +367,7 @@ public class DesignServices extends CommonServices{
 			return null;
 		}
 	}
-	
+
 	public Operator toggleObjectOperator(ObjectVariablePattern object) {
 		Operator op = object.getOp();
 
@@ -407,7 +407,7 @@ public class DesignServices extends CommonServices{
 			return null;
 		}
 	}
-	
+
 	public List<LinkVariablePattern> deleteLinkEdge(ObjectVariablePattern sourceObject, DEdge edgeView) {
 		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
 		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
@@ -446,14 +446,14 @@ public class DesignServices extends CommonServices{
 
 		return attr;
 	}
-	
+
 	private ObjectVariablePattern getTargetObjectFromEdge(DEdge edgeView) {
 		DDiagramElement t = (DDiagramElement) edgeView.getTargetNode();
 		ObjectVariablePattern targetObject = (ObjectVariablePattern) t.getTarget();
 
 		return targetObject;
 	}
-	
+
 	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y) {
 		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
 		EqualityHelper eq = new EqualityHelper();
@@ -468,7 +468,7 @@ public class DesignServices extends CommonServices{
 
 		return null;
 	}
-	
+
 	private Map<String, List<EClassifier>> getClassifiersInPackageList(List<EPackage> packages) {
 		// K: Package name, V: List of the classifiers inside that package
 		Map<String, List<EClassifier>> classifierNames = new HashMap<String, List<EClassifier>>();
@@ -478,7 +478,7 @@ public class DesignServices extends CommonServices{
 
 		return classifierNames;
 	}
-	
+
 	private List<EClassifier> combineObjectClassifierLists(Map<String, List<EClassifier>> input) {
 		Set<String> keys = input.keySet();
 		List<EClassifier> outputList = new ArrayList<EClassifier>();
