@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="editor" version="12.0.0.2017041100">
   <ownedViewpoints name="tggEditor" label="TGG Editor" modelFileExtension="tgg" icon="/org.emoflon.ibex.tgg.editor.diagram/icons/diagramEditor.png">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggFile" label="TGG File" titleExpression="aql:self.initDiagram()" domainClass="tgg::TripleGraphGrammarFile" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggFile" label="TGG File" titleExpression="New TGG File" domainClass="tgg::TripleGraphGrammarFile" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <defaultLayer name="Default">
         <nodeMappings name="tggRule" label="TGGRule" semanticCandidatesExpression="feature:rules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.0/@ownedTools[name='ruleDoubleClick']" domainClass="tgg::Rule">
@@ -685,27 +685,21 @@
         </customization>
       </additionalLayers>
       <additionalLayers name="context" label="Context">
-        <containerMappings name="contextRuleContainer" label="ContextRuleContainer" semanticCandidatesExpression="feature:kernel" domainClass="tgg::Rule">
-          <subNodeMappings name="tggContextSourceNode" label="TGGContextSourceNode" semanticCandidatesExpression="feature:sourcePatterns" domainClass="tgg::ObjectVariablePattern">
-            <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW" width="18" height="7">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_yellow']"/>
-            </style>
-          </subNodeMappings>
-          <subNodeMappings name="tggContextTargetNode" label="TGGContextTargetNode" semanticCandidatesExpression="feature:targetPatterns" domainClass="tgg::ObjectVariablePattern">
-            <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW" width="18" height="7">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_red']"/>
-            </style>
-          </subNodeMappings>
-          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" labelSize="10">
+        <containerMappings name="contextSourceNode" label="ContextSourceNode" semanticCandidatesExpression="aql:self.kernel.sourcePatterns->select( p | self.sourcePatterns->forAll(s | s.name &lt;> p.name))" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
+          <style xsi:type="style:FlatContainerStyleDescription" showIcon="false">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelFormat>bold</labelFormat>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
+          </style>
+        </containerMappings>
+        <containerMappings name="contextTargetNode" label="ContextTargetNode" semanticCandidatesExpression="aql:self.kernel.targetPatterns->select( p | self.targetPatterns->forAll(s | s.name &lt;> p.name))" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
+          <style xsi:type="style:FlatContainerStyleDescription" showIcon="false">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
             <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
           </style>
         </containerMappings>
