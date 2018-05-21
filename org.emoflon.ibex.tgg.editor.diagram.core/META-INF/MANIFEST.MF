@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: eMoflon::IBeX Editor for Triple Graph Grammars
+Bundle-SymbolicName: org.emoflon.ibex.tgg.editor.diagram.core;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.emoflon.ibex.tgg.editor.diagram.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: eMoflon::IBeX Developers
+Require-Bundle: org.eclipse.sirius,
+ org.eclipse.emf.transaction,
+ org.eclipse.sirius.ecore.extender;bundle-version="5.1.1",
+ org.eclipse.sirius.common;bundle-version="5.1.1",
+ org.eclipse.emf.emfstore.common,
+ org.eclipse.emf.workspace;bundle-version="1.5.1",
+ org.eclipse.sirius.ext.emf;bundle-version="5.1.1",
+ org.eclipse.sirius.ext.emf.tx;bundle-version="5.1.1",
+ org.eclipse.sirius.ext.base

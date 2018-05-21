@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.moflon.ide.ui.moflon?after=moflonGroupAnalysis">
+         <command
+               commandId="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagram"
+               icon="icons/diagramEditor.png"
+               label="Open with Graphical Editor"
+               style="push"
+               tooltip="Open current .tgg file as a diagram in a graphical editor">
+            <visibleWhen
+                  checkEnabled="false">
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagramHandler"
+            id="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagram"
+            name="Open with Graphical Editor">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagram"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M2+M3+E G">
+      </key>
+   </extension>
+
+</plugin>
