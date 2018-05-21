@@ -8,6 +8,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.List;
+import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 
 public class CustomListViewer extends ListViewer {
 

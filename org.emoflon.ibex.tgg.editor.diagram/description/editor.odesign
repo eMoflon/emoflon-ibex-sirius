@@ -113,7 +113,7 @@
         </toolSections>
       </defaultLayer>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRule" label="TGG Rule" titleExpression="aql:'TGGRule - '+self.initDiagram()" initialisation="true" domainClass="tgg::Rule" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="tggRule" label="TGG Rule" titleExpression="New TGGRule" domainClass="tgg::Rule" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
@@ -483,7 +483,7 @@
         </customization>
       </additionalLayers>
     </ownedRepresentations>
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="Complement Rule" titleExpression="aql:'Complement TGGRule - '+self.initDiagram()" initialisation="true" domainClass="tgg::ComplementRule" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="Complement Rule" titleExpression="New Complement TGGRule" domainClass="tgg::ComplementRule" enablePopupBars="true">
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
@@ -711,7 +711,6 @@
         </containerMappings>
       </additionalLayers>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.DiagramInitializer"/>
     <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.Services"/>
     <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.DesignServices"/>
   </ownedViewpoints>

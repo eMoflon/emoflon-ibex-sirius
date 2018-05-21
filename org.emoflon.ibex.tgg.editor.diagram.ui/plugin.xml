@@ -35,5 +35,16 @@
             sequence="M2+M3+E G">
       </key>
    </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            default="false"
+            extensions="tgg"
+            icon="icons/diagramEditor.png"
+            id="org.emoflon.ibex.tgg.editor.diagram.ui.TGGDiagramEditor"
+            launcher="org.emoflon.ibex.tgg.editor.diagram.ui.TGGGraphicalEditorLauncher"
+            name="TGG Graphical Editor">
+      </editor>
+   </extension>
 
 </plugin>

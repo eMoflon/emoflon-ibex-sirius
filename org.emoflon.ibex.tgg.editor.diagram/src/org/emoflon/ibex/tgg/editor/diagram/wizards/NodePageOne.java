@@ -9,6 +9,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 
 public class NodePageOne extends BaseNodePage {
 	private ListViewer typeSelector;

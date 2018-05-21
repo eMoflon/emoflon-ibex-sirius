@@ -1,4 +1,4 @@
-package org.emoflon.ibex.tgg.editor.diagram;
+package org.emoflon.ibex.tgg.editor.diagram.ui;
 
 import java.io.IOException;
 import java.util.function.BiConsumer;
@@ -8,17 +8,12 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ITreeSelection;
-import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -33,7 +28,7 @@ import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class DiagramInitializer {
-	public String initDiagram(EObject context) {
+	public String initDiagram(EObject context, IProject project) {
 
 		// check if the initialization has already been done and returns a name for the diagram
 		String diagramName = getDiagramName(context);
@@ -41,10 +36,9 @@ public class DiagramInitializer {
 			return diagramName;
 		
 		// Initialization: Find schema file and solve cross references
-		IProject iProject = getSelectedProjectInExplorer();
-		IFile schemaFile = findSchemaFileInProject(iProject);
+		IFile schemaFile = findSchemaFileInProject(project);
 		if (schemaFile == null || (schemaFile != null && !schemaFile.exists())) {
-			iProject = getActiveProject();
+			project = getActiveProject();
 		}
 		XtextResourceSet resourceSet = new XtextResourceSet();
 		if (schemaFile != null && schemaFile.exists()) {
@@ -57,7 +51,7 @@ public class DiagramInitializer {
 			if (schemaIsOfExpectedType(schemaResource)) {
 				// Load
 				try {
-					visitAllFiles(resourceSet, iProject.getFolder(IbexTGGBuilder.SRC_FOLDER), this::loadRules);
+					visitAllFiles(resourceSet, project.getFolder(IbexTGGBuilder.SRC_FOLDER), this::loadRules);
 				} catch (CoreException | IOException e) {
 					e.printStackTrace();
 				}
@@ -66,7 +60,7 @@ public class DiagramInitializer {
 				EcoreUtil.resolveAll(resourceSet);
 			}
 		}
-		return iProject.getName();
+		return project.getName();
 	}
 
 	private String getDiagramName(EObject element) {
@@ -95,24 +89,6 @@ public class DiagramInitializer {
 		}
 		
 		return null;
-	}
-
-	private IProject getSelectedProjectInExplorer() {
-		IWorkbench iWorkbench = PlatformUI.getWorkbench();
-		if (iWorkbench == null)
-			return null;
-		IWorkbenchWindow iWorkbenchWindow = iWorkbench.getActiveWorkbenchWindow();
-		if (iWorkbenchWindow == null)
-			return null;
-		IWorkbenchPage iWorkbenchPage = iWorkbenchWindow.getActivePage();
-		if (iWorkbenchPage == null)
-			return null;
-		ISelection iSelection = iWorkbenchPage.getSelection(IPageLayout.ID_PROJECT_EXPLORER);
-		IResource iResource = extractSelection(iSelection);
-		if (iResource == null)
-			return null;
-
-		return iResource.getProject();
 	}
 
 	private IProject getActiveProject() {
@@ -172,33 +148,6 @@ public class DiagramInitializer {
 	private boolean schemaIsOfExpectedType(XtextResource schemaResource) {
 		return schemaResource.getContents().size() == 1
 				&& schemaResource.getContents().get(0) instanceof TripleGraphGrammarFile;
-	}
-
-	private boolean objectIsResourceOrAdaptable(Object element) {
-		return (!(element instanceof IResource) || !(element instanceof IAdaptable));
-	}
-
-	private IResource extractSelection(ISelection sel) {
-		if (!(sel instanceof ITreeSelection))
-			return null;
-		ITreeSelection ss = (ITreeSelection) sel;
-		Object element = ss.getFirstElement();
-		TreePath treePath = ss.getPaths()[0];
-		int segmentCount = treePath.getSegmentCount();
-		if (objectIsResourceOrAdaptable(element)) {
-			while (objectIsResourceOrAdaptable(element) && segmentCount > 0) {
-				treePath = treePath.getParentPath();
-				element = treePath.getLastSegment();
-				--segmentCount;
-			}
-		}
-		if (element instanceof IResource)
-			return (IResource) element;
-		if (!(element instanceof IAdaptable))
-			return null;
-		IAdaptable adaptable = (IAdaptable) element;
-		Object adapter = adaptable.getAdapter(IResource.class);
-		return (IResource) adapter;
 	}
 
 }

@@ -23,7 +23,7 @@ import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseNodePage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizardState;
-import org.emoflon.ibex.tgg.editor.diagram.wizards.NamedElementLabelProvider;
+import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
 import org.moflon.tgg.mosl.tgg.AttrCond;

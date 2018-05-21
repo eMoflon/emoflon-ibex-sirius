@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
 public class CorrPageTwo extends BaseCorrPage {
