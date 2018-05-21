@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.jface.window.Window;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
 import org.eclipse.sirius.business.api.query.IdentifiedElementQuery;
 import org.eclipse.sirius.business.api.session.DefaultLocalSessionCreationOperation;
@@ -46,10 +47,12 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
 import org.moflon.core.ui.AbstractCommandHandler;
 import org.moflon.tgg.mosl.tgg.ComplementRule;
+import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
@@ -60,6 +63,8 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 	private Session session = null;
 	private URI ruleURI = null;
 	private DRepresentation representation = null;
+	private NamedElements selectedElement = null;
+	private RepresentationDescription repDescription = null;
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -67,7 +72,9 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 		session = null;
 		ruleURI = null;
 		representation = null;
-		
+		selectedElement = null;
+		repDescription = null;
+
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
 		IWorkbenchPage activePage = window.getActivePage();
 		IEditorInput input = activePage.getActiveEditor().getEditorInput();
@@ -84,13 +91,13 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 		} catch (CoreException e1) {
 			e1.printStackTrace();
 		}
+		// Representations file exist already
 		if (airdFile.exists() && SessionManager.INSTANCE.getSessions().size() > 0) {
-			System.out.println("File existente");
+			// Try to reopen a session
 			session = SessionManager.INSTANCE.getSession(sessionModelURI, new NullProgressMonitor());
 		}
-
+		// A new session has to be created
 		if (session == null) {
-			System.out.println("Nueva session");
 			session = createNewSession(sessionModelURI);
 			if (session == null) {
 				throw new ExecutionException("It was not possible to create a new sirius session");
@@ -134,7 +141,62 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 				}
 			}
 
-			// get representation
+			if (ruleURI != null) {
+				ResourceSet rs = session.getTransactionalEditingDomain().getResourceSet();
+				Resource res = rs.getResource(ruleURI, true);
+				EObject container = res.getContents().get(0);
+				if (!(container instanceof TripleGraphGrammarFile)) {
+					return null;
+				}
+
+				List<Rule> rules = ((TripleGraphGrammarFile) container).getRules();
+				List<ComplementRule> complementRules = ((TripleGraphGrammarFile) container).getComplementRules();
+
+				// TODO Change size of 3
+				if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3) {
+					return null;
+				}
+
+				if (rules.size() == 1 && complementRules.size() == 0) {
+					selectedElement = rules.get(0);
+					// Rule representation
+					repDescription = tggEditor.getOwnedRepresentations().get(1);
+				} else if (rules.size() == 0 && complementRules.size() == 1) {
+					selectedElement = complementRules.get(0);
+					// Complement Rule representation
+					repDescription = tggEditor.getOwnedRepresentations().get(2);
+				} else if (rules.size() > 1 || complementRules.size() > 1) {
+					ElementListSelectionDialog dlg = new ElementListSelectionDialog(HandlerUtil.getActiveShell(event),
+							new NamedElementLabelProvider());
+					List<NamedElements> elements = new ArrayList<NamedElements>();
+					elements.addAll(rules);
+					elements.addAll(complementRules);
+					dlg.setTitle("Select one Rule to Open with the Graphical Editor");
+					dlg.setMessage(
+							"More than one rule were found in this file. Please select one rule to open with the graphical editor");
+					dlg.setElements(elements.toArray());
+					dlg.setMultipleSelection(false);
+
+					if (dlg.open() == Window.OK) {
+						selectedElement = (NamedElements) dlg.getResult()[0];
+						if (selectedElement instanceof Rule) {
+							// Rule representation
+							repDescription = tggEditor.getOwnedRepresentations().get(1);
+						} else if (selectedElement instanceof ComplementRule) {
+							// Complement Rule representation
+							repDescription = tggEditor.getOwnedRepresentations().get(2);
+						} else {
+							return null;
+						}
+					} else {
+						return null;
+					}
+				} else {
+					return null;
+				}
+			}
+
+			// get representation (if there is already one)
 			DAnalysis root = (DAnalysis) session.getSessionResource().getContents().get(0);
 			List<DView> views = root.getOwnedViews();
 
@@ -156,10 +218,10 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 				}
 
 				Resource eResource = rootObject.eResource();
-				if(eResource == null)
+				if (eResource == null)
 					continue;
 				URI eUri = eResource.getURI();
-				if (eUri.equals(ruleURI)) {
+				if (eUri.equals(ruleURI) && ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
 					representation = currentRep;
 					break;
 				}
@@ -172,42 +234,12 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 
 							@Override
 							protected void doExecute() {
-								if (ruleURI != null) {
-									ResourceSet rs = session.getTransactionalEditingDomain().getResourceSet();
-									Resource res = rs.getResource(ruleURI, true);
-									EObject container = res.getContents().get(0);
-									if (!(container instanceof TripleGraphGrammarFile)) {
-										return;
-									}
-
-									List<Rule> rules = ((TripleGraphGrammarFile) container).getRules();
-									List<ComplementRule> complementRules = ((TripleGraphGrammarFile) container)
-											.getComplementRules();
-									EObject selectedObject = null;
-									RepresentationDescription repDescription = null;
-
-									// TODO Change size of 3
-									if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3) {
-										return;
-									}
-
-									if (rules.size() == 1 && complementRules.size() == 0) {
-										selectedObject = rules.get(0);
-										// Rule representation
-										repDescription = tggEditor.getOwnedRepresentations().get(1);
-									} else if (rules.size() == 0 && complementRules.size() == 1) {
-										selectedObject = complementRules.get(0);
-										// Complement Rule representation
-										repDescription = tggEditor.getOwnedRepresentations().get(2);
-									} else {
-										return;
-									}
-
-									IInterpreter interpreter = InterpreterUtil.getInterpreter(selectedObject);
+								if (selectedElement != null) {
+									IInterpreter interpreter = InterpreterUtil.getInterpreter(selectedElement);
 									String name = new IdentifiedElementQuery(repDescription).getLabel();
 									if (!StringUtil.isEmpty(repDescription.getTitleExpression())) {
 										try {
-											name = interpreter.evaluateString(selectedObject,
+											name = interpreter.evaluateString(selectedElement,
 													repDescription.getTitleExpression());
 										} catch (final EvaluationException e) {
 											// TODO exception logger
@@ -215,7 +247,7 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 										}
 									}
 
-									representation = DialectManager.INSTANCE.createRepresentation(name, selectedObject,
+									representation = DialectManager.INSTANCE.createRepresentation(name, selectedElement,
 											repDescription, session, new NullProgressMonitor());
 								}
 
