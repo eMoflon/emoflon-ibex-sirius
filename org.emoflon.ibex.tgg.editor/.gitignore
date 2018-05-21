@@ -1,0 +1,7 @@
+/bin/
+/src-gen/*
+/xtend-gen/*
+!/**/.keep*
+/model/generated
+/src-gen/
+/xtend-gen/
