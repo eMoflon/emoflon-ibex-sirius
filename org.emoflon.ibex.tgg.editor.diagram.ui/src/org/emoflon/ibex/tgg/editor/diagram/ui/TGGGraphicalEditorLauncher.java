@@ -1,5 +1,6 @@
 package org.emoflon.ibex.tgg.editor.diagram.ui;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +13,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.URI;
@@ -20,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
 import org.eclipse.sirius.business.api.session.DefaultLocalSessionCreationOperation;
@@ -48,7 +51,7 @@ import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class TGGGraphicalEditorLauncher implements IEditorLauncher {
-	
+
 	private final String REPRESENTATIONS_FILE_NAME = "representations.aird";
 	private final DiagramInitializer diagramInitializer = new DiagramInitializer();
 	private Viewpoint tggEditor = null;
@@ -58,9 +61,25 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 	private NamedElements selectedElement = null;
 	private RepresentationDescription repDescription = null;
 	private IProject project = null;
-		
+	private SubMonitor progressMonitor = null;
+
 	@Override
 	public void open(IPath filePath) {
+		Display display = Display.getCurrent();
+		ProgressMonitorDialog dialog = new ProgressMonitorDialog(display.getActiveShell());
+		try {
+			dialog.run(true, true, (monitor) -> {
+				progressMonitor = SubMonitor.convert(monitor, "Opening TGG Graphical Editor...", 100);
+				launchEditor(filePath, display);
+			});
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void launchEditor(IPath filePath, Display display) {
 		// reset attributes
 		session = null;
 		ruleURI = null;
@@ -68,44 +87,57 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 		selectedElement = null;
 		repDescription = null;
 		project = null;
+
+		progressMonitor.subTask("Loading representations file");
 		IFile tggFile = FileBuffers.getWorkspaceFileAtLocation(filePath);
-		if(tggFile == null || !tggFile.exists()) {
+		if (tggFile == null || !tggFile.exists()) {
+			progressMonitor.setCanceled(true);
 			return;
 		}
 		project = tggFile.getProject();
 		IFile airdFile = project.getFile(REPRESENTATIONS_FILE_NAME);
 		URI sessionModelURI = URI
 				.createPlatformResourceURI(project.getFullPath().append(REPRESENTATIONS_FILE_NAME).toString(), true);
-		ruleURI = URI.createPlatformResourceURI(tggFile.getFullPath().toString(), true);
+		progressMonitor.worked(5);
 
+		progressMonitor.subTask("Loading rules in project");
+		ruleURI = URI.createPlatformResourceURI(tggFile.getFullPath().toString(), true);
 		Collection<URI> ruleURIs = Collections.emptyList();
 		try {
 			ruleURIs = getRuleURIs(project.getFolder(IbexTGGBuilder.SRC_FOLDER));
 		} catch (CoreException e1) {
 			e1.printStackTrace();
 		}
+		progressMonitor.worked(5);
+
+		progressMonitor.subTask("Loading editor session");
 		// Representations file exist already
 		if (airdFile.exists() && SessionManager.INSTANCE.getSessions().size() > 0) {
 			// Try to reopen a session
-			session = SessionManager.INSTANCE.getSession(sessionModelURI, new NullProgressMonitor());
+			session = SessionManager.INSTANCE.getSession(sessionModelURI, progressMonitor.split(40));
 		}
 		// A new session has to be created
 		if (session == null) {
-			session = createNewSession(sessionModelURI);
+			progressMonitor.setWorkRemaining(90);
+			session = createNewSession(sessionModelURI, progressMonitor.split(40));
 			if (session == null) {
 				// TODO Error message!
-				//throw new ExecutionException("It was not possible to create a new sirius session");
+				progressMonitor.setCanceled(true);
+				// throw new ExecutionException("It was not possible to create a new sirius
+				// session");
 				return;
 			}
-			addRuleRessources(ruleURIs);
+			progressMonitor.subTask("Adding rules of this project to the editor's session");
+			addRuleRessources(ruleURIs, progressMonitor.split(10));
 		} else {
-			addRule(ruleURI);
+			progressMonitor.subTask("Adding rule's resources to the editor's session");
+			addRule(ruleURI, progressMonitor.split(10));
 		}
 
-		session.save(new NullProgressMonitor());
+		session.save(progressMonitor.split(1));
 		// ViewpointSelection.openViewpointsSelectionDialog(session);
 		// SessionHelper.openStartupRepresentations(session, null);
-
+		progressMonitor.subTask("Getting TGGEditor viewpoint");
 		Set<Viewpoint> viewpoints = org.eclipse.sirius.business.api.componentization.ViewpointRegistry.getInstance()
 				.getViewpoints();
 
@@ -115,18 +147,20 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 				break;
 			}
 		}
+		progressMonitor.worked(5);
 
 		if (tggEditor != null) {
+			progressMonitor.subTask("Setting the TGGEditor viewpoint to this session");
 			session.getTransactionalEditingDomain().getCommandStack()
 					.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
 
 						@Override
 						protected void doExecute() {
 							new ViewpointSelectionCallback().selectViewpoint(tggEditor, session, true,
-									new NullProgressMonitor());
+									progressMonitor.split(5));
 						}
 					});
-			session.save(new NullProgressMonitor());
+			session.save(progressMonitor.split(1));
 
 			Collection<Viewpoint> sessionViewpoints = session.getSelectedViewpoints(false);
 			for (Viewpoint vp : sessionViewpoints) {
@@ -135,12 +169,14 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 					break;
 				}
 			}
+			progressMonitor.worked(1);
 
 			if (ruleURI != null) {
 				ResourceSet rs = session.getTransactionalEditingDomain().getResourceSet();
 				Resource res = rs.getResource(ruleURI, true);
 				EObject container = res.getContents().get(0);
 				if (!(container instanceof TripleGraphGrammarFile)) {
+					progressMonitor.setCanceled(true);
 					return;
 				}
 
@@ -149,9 +185,12 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 
 				// TODO Change size of 3
 				if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3) {
+					progressMonitor.setCanceled(true);
 					return;
 				}
+				progressMonitor.worked(1);
 
+				progressMonitor.subTask("Getting rules representation");
 				if (rules.size() == 1 && complementRules.size() == 0) {
 					selectedElement = rules.get(0);
 					// Rule representation
@@ -161,32 +200,40 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 					// Complement Rule representation
 					repDescription = tggEditor.getOwnedRepresentations().get(2);
 				} else if (rules.size() > 1 || complementRules.size() > 1) {
-					ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
-							new NamedElementLabelProvider());
-					List<NamedElements> elements = new ArrayList<NamedElements>();
-					elements.addAll(rules);
-					elements.addAll(complementRules);
-					dlg.setTitle("Select one Rule to Open with the Graphical Editor");
-					dlg.setMessage(
-							"More than one rule were found in this file. Please select one rule to open with the graphical editor");
-					dlg.setElements(elements.toArray());
-					dlg.setMultipleSelection(false);
+					display.syncExec(new Runnable() {
 
-					if (dlg.open() == Window.OK) {
-						selectedElement = (NamedElements) dlg.getResult()[0];
-						if (selectedElement instanceof Rule) {
-							// Rule representation
-							repDescription = tggEditor.getOwnedRepresentations().get(1);
-						} else if (selectedElement instanceof ComplementRule) {
-							// Complement Rule representation
-							repDescription = tggEditor.getOwnedRepresentations().get(2);
-						} else {
-							return;
+						@Override
+						public void run() {
+							ElementListSelectionDialog dlg = new ElementListSelectionDialog(display.getActiveShell(),
+									new NamedElementLabelProvider());
+							List<NamedElements> elements = new ArrayList<NamedElements>();
+							elements.addAll(rules);
+							elements.addAll(complementRules);
+							dlg.setTitle("Select one Rule to Open with the Graphical Editor");
+							dlg.setMessage(
+									"More than one rule were found in this file. Please select one rule to open with the graphical editor");
+							dlg.setElements(elements.toArray());
+							dlg.setMultipleSelection(false);
+							if (dlg.open() == Window.OK) {
+								selectedElement = (NamedElements) dlg.getResult()[0];
+								if (selectedElement instanceof Rule) {
+									// Rule representation
+									repDescription = tggEditor.getOwnedRepresentations().get(1);
+								} else if (selectedElement instanceof ComplementRule) {
+									// Complement Rule representation
+									repDescription = tggEditor.getOwnedRepresentations().get(2);
+								} else {
+									progressMonitor.setCanceled(true);
+									return;
+								}
+							} else {
+								progressMonitor.setCanceled(true);
+								return;
+							}
 						}
-					} else {
-						return;
-					}
+					});
 				} else {
+					progressMonitor.setCanceled(true);
 					return;
 				}
 			}
@@ -216,13 +263,15 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 				if (eResource == null)
 					continue;
 				URI eUri = eResource.getURI();
-				if (eUri.equals(ruleURI) && ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
+				if (ruleURI != null && eUri.equals(ruleURI) && ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
 					representation = currentRep;
 					break;
 				}
 			}
+			progressMonitor.worked(5);
 
 			if (representation == null) {
+				progressMonitor.subTask("Creating new representation for the rule");
 				// create new representation
 				session.getTransactionalEditingDomain().getCommandStack()
 						.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
@@ -230,21 +279,30 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 							@Override
 							protected void doExecute() {
 								if (selectedElement != null) {
-									String name = diagramInitializer.initDiagram(selectedElement, project) + " - " + repDescription.getLabel();
+									String name = diagramInitializer.initDiagram(selectedElement, project) + " - "
+											+ repDescription.getLabel();
 									representation = DialectManager.INSTANCE.createRepresentation(name, selectedElement,
-											repDescription, session, new NullProgressMonitor());
+											repDescription, session, progressMonitor.split(10));
 								}
 
 							}
 						});
-				session.save(new NullProgressMonitor());
+				session.save(progressMonitor.split(1));
 			}
-
+			
+			progressMonitor.setWorkRemaining(10);
 			if (representation != null) {
-				DialectUIManager.INSTANCE.openEditor(session, representation, new NullProgressMonitor());
+				progressMonitor.subTask("Opening graphical editor");
+				DialectUIManager.INSTANCE.openEditor(session, representation, progressMonitor.split(10));
+			} else {
+				progressMonitor.setCanceled(true);
+				return;
 			}
+		} else {
+			progressMonitor.setCanceled(true);
+			return;
 		}
-
+		SubMonitor.done(progressMonitor);
 		return;
 	}
 
@@ -262,20 +320,21 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 		return URIs;
 	}
 
-	private void addRule(URI ruleURI) {
-		Command addSemanticResourceCmd = new AddSemanticResourceCommand(session, ruleURI, new NullProgressMonitor());
+	private void addRule(URI ruleURI, IProgressMonitor monitor) {
+		Command addSemanticResourceCmd = new AddSemanticResourceCommand(session, ruleURI, monitor);
 		session.getTransactionalEditingDomain().getCommandStack().execute(addSemanticResourceCmd);
 	}
 
-	private void addRuleRessources(Collection<URI> ruleURIs) {
+	private void addRuleRessources(Collection<URI> ruleURIs, IProgressMonitor monitor) {
+		SubMonitor progress = SubMonitor.convert(progressMonitor, ruleURIs.size());
 		for (URI uri : ruleURIs) {
-			addRule(uri);
+			addRule(uri, progress.split(1));
 		}
 	}
 
-	private Session createNewSession(URI sessionModelURI) {
+	private Session createNewSession(URI sessionModelURI, IProgressMonitor monitor) {
 		SessionCreationOperation sessionCreationOperation = new DefaultLocalSessionCreationOperation(sessionModelURI,
-				new NullProgressMonitor());
+				monitor);
 		try {
 			sessionCreationOperation.execute();
 		} catch (CoreException e) {
