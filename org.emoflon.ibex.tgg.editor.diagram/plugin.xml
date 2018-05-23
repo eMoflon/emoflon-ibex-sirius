@@ -3,7 +3,7 @@
 <plugin>
   <extension point="org.eclipse.sirius.componentization">
     <component class="org.emoflon.ibex.tgg.editor.diagram.Activator"
-               id="org.emoflon.ibex.tgg.editor.design"
+               id="org.emoflon.ibex.tgg.editor.diagram"
 	       name="editor">
     </component>
   </extension>
