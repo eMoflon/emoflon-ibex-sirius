@@ -684,9 +684,25 @@
           <vsmElementCustomizations xsi:type="description:VSMElementCustomizationReuse" reuse="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@additionalLayers[name='colorLayer']/@customization/@vsmElementCustomizations.2/@featureCustomizations.0 //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@additionalLayers[name='colorLayer']/@customization/@vsmElementCustomizations.3/@featureCustomizations.0" appliedOn="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']/@conditionnalStyles.1/@style //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']/@conditionnalStyles.0/@style"/>
         </customization>
       </additionalLayers>
-      <additionalLayers name="context" label="Context">
-        <containerMappings name="contextSourceNode" label="ContextSourceNode" semanticCandidatesExpression="aql:self.kernel.sourcePatterns->select( p | self.sourcePatterns->forAll(s | s.name &lt;> p.name))" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
-          <style xsi:type="style:FlatContainerStyleDescription" showIcon="false">
+      <additionalLayers name="globalView" label="Show Global View">
+        <edgeMappings name="globalSourceLinkEdge" label="GlobalSourceLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findChildNode(diagram, true)">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <edgeMappings name="globalTargetLinkEdge" label="GlobalTargetLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findChildNode(diagram, true)">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <containerMappings name="globalSourceNode" label="GlobalSourceNode" preconditionExpression="aql:container.sourcePatterns->select(s | s.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getNodes(true)" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
+          <style xsi:type="style:FlatContainerStyleDescription" showIcon="false" labelExpression="aql:self.name+' : '+self.type.name">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
@@ -694,8 +710,8 @@
             <labelBorderStyle href="environment:/viewpoint#//@labelBorderStyles/@labelBorderStyleDescriptions.1"/>
           </style>
         </containerMappings>
-        <containerMappings name="contextTargetNode" label="ContextTargetNode" semanticCandidatesExpression="aql:self.kernel.targetPatterns->select( p | self.targetPatterns->forAll(s | s.name &lt;> p.name))" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
-          <style xsi:type="style:FlatContainerStyleDescription" showIcon="false">
+        <containerMappings name="globalTargetNode" label="GlobalTargetNode" preconditionExpression="aql:container.targetPatterns->select(t | t.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getNodes(false)" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
+          <style xsi:type="style:FlatContainerStyleDescription" showIcon="false" labelExpression="aql:self.name+' : '+self.type.name">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>

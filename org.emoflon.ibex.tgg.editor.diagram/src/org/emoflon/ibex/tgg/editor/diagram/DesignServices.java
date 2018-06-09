@@ -2,21 +2,27 @@ package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
+import org.eclipse.sirius.diagram.description.ContainerMapping;
+import org.eclipse.sirius.diagram.description.Layer;
+import org.eclipse.sirius.diagram.description.NodeMapping;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
@@ -46,6 +52,8 @@ import org.moflon.tgg.mosl.tgg.ParamValue;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
+import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
+import org.emoflon.ibex.tgg.ide.transformation.EditorTGGtoFlattenedTGG;
 
 public class DesignServices extends CommonServices {
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
@@ -484,6 +492,57 @@ public class DesignServices extends CommonServices {
 		}
 
 		return sb.toString();
+	}
+	
+	public ObjectVariablePattern findChildNode(ObjectVariablePattern parent, DSemanticDiagram diagram, boolean isSourceNode) {
+		ObjectVariablePattern childNode = null;
+		ComplementRule rule = (ComplementRule)diagram.getTarget();
+		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
+		List<ObjectVariablePattern> nodeList = null;
+		if(isSourceNode) {
+			nodeList = rule.getSourcePatterns();
+		}
+		else {
+			nodeList = rule.getTargetPatterns();
+		}
+		for(ObjectVariablePattern node : nodeList) {
+			for(LinkVariablePattern link : linkList) {
+				if(node.getName().equals(link.getTarget().getName())) {
+					return node;
+				}
+			}
+		}
+		
+		
+		return childNode;
+	}
+	
+	public List<ObjectVariablePattern> getNodes(EObject context, boolean retrieveSourceNodes) {
+		List<ObjectVariablePattern> nodes = new ArrayList<ObjectVariablePattern>();
+		List<EObject> crossReferences = context.eCrossReferences();
+		Map<String, ObjectVariablePattern> nodeMap = new HashMap<String, ObjectVariablePattern>();
+		for(EObject element : crossReferences) {
+			if(element instanceof Rule && retrieveSourceNodes) {
+				addNodesToMap(((Rule)element).getSourcePatterns(), nodeMap);
+			}
+			else if(element instanceof Rule && !retrieveSourceNodes) {
+				addNodesToMap(((Rule)element).getTargetPatterns(), nodeMap);
+			}
+			else if(element instanceof ComplementRule && retrieveSourceNodes) {
+				addNodesToMap(((ComplementRule)element).getSourcePatterns(), nodeMap);
+			}
+			else if(element instanceof ComplementRule && !retrieveSourceNodes) {
+				addNodesToMap(((ComplementRule)element).getTargetPatterns(), nodeMap);
+			}
+		}
+		nodes.addAll(nodeMap.values());
+		return nodes;
+	}
+	
+	private void addNodesToMap(List<ObjectVariablePattern> nodes, Map<String, ObjectVariablePattern> map) {
+		for(ObjectVariablePattern n : nodes) {
+			map.put(n.getName(), n);
+		}
 	}
 
 	private ObjectVariablePattern getTargetObjectFromEdge(DEdge edgeView) {
