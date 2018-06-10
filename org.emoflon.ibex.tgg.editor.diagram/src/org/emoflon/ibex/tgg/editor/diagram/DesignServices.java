@@ -2,27 +2,19 @@ package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
-import org.eclipse.sirius.diagram.description.ContainerMapping;
-import org.eclipse.sirius.diagram.description.Layer;
-import org.eclipse.sirius.diagram.description.NodeMapping;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
@@ -52,8 +44,6 @@ import org.moflon.tgg.mosl.tgg.ParamValue;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
-import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
-import org.emoflon.ibex.tgg.ide.transformation.EditorTGGtoFlattenedTGG;
 
 public class DesignServices extends CommonServices {
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
@@ -493,54 +483,213 @@ public class DesignServices extends CommonServices {
 
 		return sb.toString();
 	}
-	
-	public ObjectVariablePattern findChildNode(ObjectVariablePattern parent, DSemanticDiagram diagram, boolean isSourceNode) {
-		ObjectVariablePattern childNode = null;
-		ComplementRule rule = (ComplementRule)diagram.getTarget();
+
+	public ObjectVariablePattern findChildNode(ObjectVariablePattern parent, DSemanticDiagram diagram,
+			boolean isSourceNode) {
+		NamedElements rule = (NamedElements) diagram.getTarget();
 		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
 		List<ObjectVariablePattern> nodeList = null;
-		if(isSourceNode) {
-			nodeList = rule.getSourcePatterns();
+		if (isSourceNode) {
+			if (rule instanceof Rule) {
+				nodeList = ((Rule) rule).getSourcePatterns();
+			} else if (rule instanceof ComplementRule) {
+				nodeList = ((ComplementRule) rule).getSourcePatterns();
+			} else {
+				return null;
+			}
+		} else {
+			if (rule instanceof Rule) {
+				nodeList = ((Rule) rule).getTargetPatterns();
+			} else if (rule instanceof ComplementRule) {
+				nodeList = ((ComplementRule) rule).getTargetPatterns();
+			} else {
+				return null;
+			}
 		}
-		else {
-			nodeList = rule.getTargetPatterns();
-		}
-		for(ObjectVariablePattern node : nodeList) {
-			for(LinkVariablePattern link : linkList) {
-				if(node.getName().equals(link.getTarget().getName())) {
+		for (ObjectVariablePattern node : nodeList) {
+			for (LinkVariablePattern link : linkList) {
+				if (node.getName().equals(link.getTarget().getName())) {
 					return node;
 				}
 			}
 		}
-		
-		
-		return childNode;
+
+		return null;
 	}
-	
-	public List<ObjectVariablePattern> getNodes(EObject context, boolean retrieveSourceNodes) {
-		List<ObjectVariablePattern> nodes = new ArrayList<ObjectVariablePattern>();
-		List<EObject> crossReferences = context.eCrossReferences();
-		Map<String, ObjectVariablePattern> nodeMap = new HashMap<String, ObjectVariablePattern>();
-		for(EObject element : crossReferences) {
-			if(element instanceof Rule && retrieveSourceNodes) {
-				addNodesToMap(((Rule)element).getSourcePatterns(), nodeMap);
+
+	public ObjectVariablePattern findGlobalChildNode(ObjectVariablePattern parent, DSemanticDiagram diagram) {
+		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
+		diagram.getContainers().forEach(c -> {
+			if (!c.getActualMapping().getName().contains("global")) {
+				return;
 			}
-			else if(element instanceof Rule && !retrieveSourceNodes) {
-				addNodesToMap(((Rule)element).getTargetPatterns(), nodeMap);
+			if (c.getTarget() instanceof ObjectVariablePattern) {
+				nodeList.add((ObjectVariablePattern) c.getTarget());
 			}
-			else if(element instanceof ComplementRule && retrieveSourceNodes) {
-				addNodesToMap(((ComplementRule)element).getSourcePatterns(), nodeMap);
-			}
-			else if(element instanceof ComplementRule && !retrieveSourceNodes) {
-				addNodesToMap(((ComplementRule)element).getTargetPatterns(), nodeMap);
+		});
+
+		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
+
+		for (ObjectVariablePattern node : nodeList) {
+			for (LinkVariablePattern link : linkList) {
+				if (node.getName().equals(link.getTarget().getName())) {
+					return node;
+				}
 			}
 		}
+
+		return null;
+	}
+
+	public List<NamedElements> getNodes(EObject context, DSemanticDiagram diagram, String populateTask) {
+		List<NamedElements> nodes = new ArrayList<NamedElements>();
+		List<Rule> visitedRules = new ArrayList<Rule>();
+		Map<String, NamedElements> nodeMap = new HashMap<String, NamedElements>();
+		if (context instanceof ComplementRule) {
+			nodeMap = populateHelper(((ComplementRule) context).getKernel(), nodeMap, visitedRules, populateTask);
+		} else if (context instanceof Rule) {
+			nodeMap = populateHelper(((Rule) context).getSupertypes(), nodeMap, visitedRules, populateTask);
+		}
+
 		nodes.addAll(nodeMap.values());
+
+		/*
+		 * if (visitedRules.size() > 0) {
+		 * 
+		 * Session session = SessionManager.INSTANCE.getSession(diagram);
+		 * List<AdditionalLayer> additionalLayers =
+		 * diagram.getDescription().getAdditionalLayers(); AdditionalLayer
+		 * globalViewLayer = null; for (AdditionalLayer layer : additionalLayers) { if
+		 * (layer.getName().equals("globalView")) { globalViewLayer = layer; break; } }
+		 * 
+		 * NodeMapping corrGlobalMapping = null; List<NodeMapping> nodeMappings =
+		 * globalViewLayer.getNodeMappings(); for (NodeMapping nm : nodeMappings) { if
+		 * (nm.getName().equals("corrNodeGlobal")) { corrGlobalMapping = nm; break; } }
+		 * 
+		 * List<DNode> nodeElements = diagram.getNodes(); List<String> corrNames = new
+		 * ArrayList<String>(); nodeElements.removeIf(n ->
+		 * !n.getActualMapping().getName().equals("corrNodeGlobal"));
+		 * nodeElements.forEach(n -> corrNames.add(((NamedElements)
+		 * n.getTarget()).getName()));
+		 * 
+		 * for (Rule visitedRule : visitedRules) { List<CorrVariablePattern>
+		 * correspondences = visitedRule.getCorrespondencePatterns(); for
+		 * (CorrVariablePattern corr : correspondences) { if
+		 * (!corrNames.contains(corr.getName())) { RecordingCommand cmd = new
+		 * CreateDDiagramElementCommand(session.getTransactionalEditingDomain(), corr,
+		 * corrGlobalMapping, diagram);
+		 * session.getTransactionalEditingDomain().getCommandStack().execute(cmd); } } }
+		 * }
+		 */
+
 		return nodes;
 	}
-	
-	private void addNodesToMap(List<ObjectVariablePattern> nodes, Map<String, ObjectVariablePattern> map) {
-		for(ObjectVariablePattern n : nodes) {
+
+	public List<NamedElements> getGlobalCorrespondences(EObject context, DSemanticDiagram diagram) {
+		List<NamedElements> globalCorr = new ArrayList<NamedElements>();
+		Map<String, NamedElements> corrMap = new HashMap<String, NamedElements>();
+		if (context instanceof ComplementRule) {
+			corrMap = populateHelper(((ComplementRule) context).getKernel(), corrMap, new ArrayList<Rule>(),
+					"correspondences");
+		} else if (context instanceof Rule) {
+			corrMap = populateHelper(((Rule) context).getSupertypes(), corrMap, new ArrayList<Rule>(),
+					"correspondences");
+		}
+
+		globalCorr.addAll(corrMap.values());
+		return globalCorr;
+	}
+
+	public ObjectVariablePattern findGlobalCorrPort(CorrVariablePattern correspondence, DSemanticDiagram diagram,
+			boolean isSourceNode) {
+		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
+		diagram.getContainers().forEach(c -> {
+			if (!c.getActualMapping().getName().contains("global")) {
+				return;
+			}
+			if (c.getTarget() instanceof ObjectVariablePattern) {
+				nodeList.add((ObjectVariablePattern) c.getTarget());
+			}
+		});
+
+		if (isSourceNode && diagram.getTarget() instanceof Rule) {
+			nodeList.addAll(((Rule) diagram.getTarget()).getSourcePatterns());
+		}
+
+		else if (isSourceNode && diagram.getTarget() instanceof ComplementRule) {
+			nodeList.addAll(((ComplementRule) diagram.getTarget()).getSourcePatterns());
+		}
+		
+		else if (!isSourceNode && diagram.getTarget() instanceof Rule) {
+			nodeList.addAll(((Rule) diagram.getTarget()).getTargetPatterns());
+		}
+
+		else if (!isSourceNode && diagram.getTarget() instanceof ComplementRule) {
+			nodeList.addAll(((ComplementRule) diagram.getTarget()).getTargetPatterns());
+		}
+
+		for (ObjectVariablePattern node : nodeList) {
+			if (isSourceNode && node.getName().equals(correspondence.getSource().getName())) {
+				return node;
+			} else if (!isSourceNode && node.getName().equals(correspondence.getTarget().getName())) {
+				return node;
+			}
+		}
+
+		return null;
+	}
+
+	/*
+	 * private void clearIrrelevantGlobalNodes(DSemanticDiagram diagram) {
+	 * List<DDiagramElementContainer> nodes = diagram.getContainers(); for
+	 * (DDiagramElementContainer node : nodes) { if
+	 * (node.getActualMapping().getName().contains("global") &&
+	 * node.getOutgoingEdges().size() < 1) {
+	 * SiriusPlugin.getDefault().getModelAccessorRegistry().getModelAccessor(node).
+	 * eRemove(node); } } }
+	 */
+
+	private Map<String, NamedElements> populateHelper(Rule contextRule, Map<String, NamedElements> populationMap,
+			List<Rule> visitedRules, String populateTask) {
+		if (contextRule == null || visitedRules.contains(contextRule)) {
+			return populationMap;
+		}
+
+		switch (populateTask) {
+		case "sourceNodes":
+			addNamedElementsToMap(contextRule.getSourcePatterns(), populationMap);
+			break;
+		case "targetNodes":
+			addNamedElementsToMap(contextRule.getTargetPatterns(), populationMap);
+			break;
+		case "correspondences":
+			addNamedElementsToMap(contextRule.getCorrespondencePatterns(), populationMap);
+			break;
+		}
+
+		visitedRules.add(contextRule);
+
+		if (contextRule.getSupertypes() != null) {
+			populationMap = populateHelper(contextRule.getSupertypes(), populationMap, visitedRules, populateTask);
+		}
+
+		return populationMap;
+	}
+
+	private Map<String, NamedElements> populateHelper(List<Rule> contextRules, Map<String, NamedElements> populationMap,
+			List<Rule> visitedRules, String populateTask) {
+
+		if (contextRules != null) {
+			for (Rule contextRule : contextRules) {
+				populationMap = populateHelper(contextRule, populationMap, visitedRules, populateTask);
+			}
+		}
+
+		return populationMap;
+	}
+
+	private void addNamedElementsToMap(List<? extends NamedElements> namedElements, Map<String, NamedElements> map) {
+		for (NamedElements n : namedElements) {
 			map.put(n.getName(), n);
 		}
 	}
@@ -554,11 +703,10 @@ public class DesignServices extends CommonServices {
 
 	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y) {
 		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
-		EqualityHelper eq = new EqualityHelper();
 
 		// find the link variable pattern between object patterns x and y
 		for (LinkVariablePattern link : linkList) {
-			if (eq.equals(link.getTarget(), y)) {
+			if (link.getTarget().getName().equals(y.getName())) {
 
 				return link;
 			}
