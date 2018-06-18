@@ -15,8 +15,6 @@ import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 public class CorrPageTwo extends BaseCorrPage {
 	private ListViewer sourceSelector;
 	private ListViewer targetSelector;
-	private TypeFilter sourceTypeFilter;
-	private TypeFilter targetTypeFilter;
 
 	public CorrPageTwo(CorrWizardState state) {
 		super(state, "SourceTargetSelection", "Select Source and Target Objects",
@@ -28,8 +26,6 @@ public class CorrPageTwo extends BaseCorrPage {
 		Composite container = new Composite(parent, SWT.NONE);
 		FillLayout layout1 = new FillLayout(SWT.HORIZONTAL);
 		container.setLayout(layout1);
-		sourceTypeFilter = new TypeFilter();
-		targetTypeFilter = new TypeFilter();
 		Composite sourceContainer = new Composite(container, SWT.NONE);
 		Composite targetContainer = new Composite(container, SWT.NONE);
 		GridLayout layout2 = new GridLayout();
@@ -46,8 +42,16 @@ public class CorrPageTwo extends BaseCorrPage {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				ObjectVariablePattern selectedSource = (ObjectVariablePattern) selection.getFirstElement();
 				state.setSelectedSource(selectedSource);
-				if (state.getSelectedTarget() != null)
-					setPageComplete(true);
+				if (state.getSelectedTarget() != null) {
+					if (state.isCreateNewType() && !isTypeAlreadyInSchema(selectedSource, state.getSelectedTarget())) {
+						setErrorMessage(null);
+						setPageComplete(true);
+					} else {
+						setPageComplete(false);
+						setErrorMessage(
+								"A correspondence type for the same source and target pattern types already exists in project's schema");
+					}
+				}
 			}
 		});
 
@@ -66,15 +70,20 @@ public class CorrPageTwo extends BaseCorrPage {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				ObjectVariablePattern selectedTarget = (ObjectVariablePattern) selection.getFirstElement();
 				state.setSelectedTarget(selectedTarget);
-				if (state.getSelectedSource() != null)
-					setPageComplete(true);
+				if (state.getSelectedSource() != null) {
+					if (state.isCreateNewType() && !isTypeAlreadyInSchema(state.getSelectedSource(), selectedTarget)) {
+						setErrorMessage(null);
+						setPageComplete(true);
+					} else {
+						setPageComplete(false);
+						setErrorMessage(
+								"A correspondence type for the same source and target pattern types already exists in project's schema");
+					}
+				}
 			}
 		});
 
 		targetSelector.setInput(state.getTargetObjects());
-
-		sourceSelector.addFilter(sourceTypeFilter);
-		targetSelector.addFilter(targetTypeFilter);
 
 		// required to avoid an error in the system
 		setControl(container);
@@ -89,18 +98,18 @@ public class CorrPageTwo extends BaseCorrPage {
 		if (visible) {
 			if (state.getSelectedTarget() == null || state.getSelectedSource() == null) {
 				setPageComplete(false);
+				setErrorMessage(null);
 				sourceSelector.getList().deselectAll();
 				targetSelector.getList().deselectAll();
 			}
-			sourceSelector.resetFilters();
-			targetSelector.resetFilters();
-			if (state.getSelectedType() != null) {
-				sourceTypeFilter.setType(state.getSelectedType().getSource());
-				targetTypeFilter.setType(state.getSelectedType().getTarget());
-				sourceSelector.addFilter(sourceTypeFilter);
-				targetSelector.addFilter(targetTypeFilter);
-			}
 		}
+	}
+
+	private boolean isTypeAlreadyInSchema(ObjectVariablePattern source, ObjectVariablePattern target) {
+		boolean alreadyInSchema = state.getCorrTypeList().stream()
+				.anyMatch(tp -> tp.getTarget().equals(target.getType()) && tp.getSource().equals(source.getType()));
+
+		return alreadyInSchema;
 	}
 
 }
