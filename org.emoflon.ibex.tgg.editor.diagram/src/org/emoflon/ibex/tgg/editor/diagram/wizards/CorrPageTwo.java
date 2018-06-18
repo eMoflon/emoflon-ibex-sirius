@@ -43,13 +43,18 @@ public class CorrPageTwo extends BaseCorrPage {
 				ObjectVariablePattern selectedSource = (ObjectVariablePattern) selection.getFirstElement();
 				state.setSelectedSource(selectedSource);
 				if (state.getSelectedTarget() != null) {
-					if (state.isCreateNewType() && !isTypeAlreadyInSchema(selectedSource, state.getSelectedTarget())) {
-						setErrorMessage(null);
+					if (state.isCreateNewType()) {
+						if (!isTypeAlreadyInSchema(selectedSource, state.getSelectedTarget())) {
+							setErrorMessage(null);
+							setPageComplete(true);
+						} else {
+							setPageComplete(false);
+							setErrorMessage(
+									"A correspondence type for the same source and target pattern types already exists in project's schema");
+						}
+					}
+					else {
 						setPageComplete(true);
-					} else {
-						setPageComplete(false);
-						setErrorMessage(
-								"A correspondence type for the same source and target pattern types already exists in project's schema");
 					}
 				}
 			}
@@ -71,13 +76,18 @@ public class CorrPageTwo extends BaseCorrPage {
 				ObjectVariablePattern selectedTarget = (ObjectVariablePattern) selection.getFirstElement();
 				state.setSelectedTarget(selectedTarget);
 				if (state.getSelectedSource() != null) {
-					if (state.isCreateNewType() && !isTypeAlreadyInSchema(state.getSelectedSource(), selectedTarget)) {
-						setErrorMessage(null);
+					if (state.isCreateNewType()) {
+						if (!isTypeAlreadyInSchema(selectedTarget, state.getSelectedSource())) {
+							setErrorMessage(null);
+							setPageComplete(true);
+						} else {
+							setPageComplete(false);
+							setErrorMessage(
+									"A correspondence type for the same source and target pattern types already exists in project's schema");
+						}
+					}
+					else {
 						setPageComplete(true);
-					} else {
-						setPageComplete(false);
-						setErrorMessage(
-								"A correspondence type for the same source and target pattern types already exists in project's schema");
 					}
 				}
 			}
