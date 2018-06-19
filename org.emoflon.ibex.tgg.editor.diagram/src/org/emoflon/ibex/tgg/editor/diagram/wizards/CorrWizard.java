@@ -58,6 +58,10 @@ public class CorrWizard extends Wizard {
 				&& state.getCorrName() != null) {
 			state.setDone(true);
 		}
+		else {
+			state.setDone(false);
+			
+		}
 		return true;
 	}
 

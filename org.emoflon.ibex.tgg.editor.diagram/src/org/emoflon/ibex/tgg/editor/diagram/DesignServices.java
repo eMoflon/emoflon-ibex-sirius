@@ -107,7 +107,6 @@ public class DesignServices extends CommonServices {
 		}
 
 		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
-
 		CorrWizardState state = new CorrWizardState(corrTypes, sourceObjects, targetObjects);
 		openCorrWizard(state);
 		if (state.isDone()) {
@@ -117,6 +116,7 @@ public class DesignServices extends CommonServices {
 				// Add new correspondence type to the schema
 				corrTypes.add(type);
 			}
+			
 
 			ObjectVariablePattern source = state.getSelectedSource();
 			ObjectVariablePattern target = state.getSelectedTarget();

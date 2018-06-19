@@ -15,6 +15,8 @@ import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 public class CorrPageTwo extends BaseCorrPage {
 	private ListViewer sourceSelector;
 	private ListViewer targetSelector;
+	private TypeFilter sourceTypeFilter;
+	private TypeFilter targetTypeFilter;
 
 	public CorrPageTwo(CorrWizardState state) {
 		super(state, "SourceTargetSelection", "Select Source and Target Objects",
@@ -28,6 +30,8 @@ public class CorrPageTwo extends BaseCorrPage {
 		container.setLayout(layout1);
 		Composite sourceContainer = new Composite(container, SWT.NONE);
 		Composite targetContainer = new Composite(container, SWT.NONE);
+		sourceTypeFilter = new TypeFilter();
+		targetTypeFilter = new TypeFilter();
 		GridLayout layout2 = new GridLayout();
 		sourceContainer.setLayout(layout2);
 		targetContainer.setLayout(layout2);
@@ -41,9 +45,19 @@ public class CorrPageTwo extends BaseCorrPage {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				ObjectVariablePattern selectedSource = (ObjectVariablePattern) selection.getFirstElement();
+				if (selectedSource == null) {
+					return;
+				}
 				state.setSelectedSource(selectedSource);
+				((BaseCorrPage) getNextPage()).setPageComplete(false);
 				if (state.getSelectedTarget() != null) {
 					if (state.isCreateNewType()) {
+						CorrPageFour p4 = (CorrPageFour) getWizard().getPage("NewCorrType");
+						CorrPageThree p3 = (CorrPageThree) getWizard().getPage("Name");
+						p4.setErrorMessage(null);
+						p4.textField.setText("");
+						p4.setPageComplete(false);
+						p3.setPageComplete(false);
 						if (!isTypeAlreadyInSchema(selectedSource, state.getSelectedTarget())) {
 							setErrorMessage(null);
 							setPageComplete(true);
@@ -52,8 +66,7 @@ public class CorrPageTwo extends BaseCorrPage {
 							setErrorMessage(
 									"A correspondence type for the same source and target pattern types already exists in project's schema");
 						}
-					}
-					else {
+					} else {
 						setPageComplete(true);
 					}
 				}
@@ -74,9 +87,19 @@ public class CorrPageTwo extends BaseCorrPage {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				ObjectVariablePattern selectedTarget = (ObjectVariablePattern) selection.getFirstElement();
+				if (selectedTarget == null) {
+					return;
+				}
 				state.setSelectedTarget(selectedTarget);
+				((BaseCorrPage) getNextPage()).setPageComplete(false);
 				if (state.getSelectedSource() != null) {
 					if (state.isCreateNewType()) {
+						CorrPageFour p4 = (CorrPageFour) getWizard().getPage("NewCorrType");
+						CorrPageThree p3 = (CorrPageThree) getWizard().getPage("Name");
+						p4.setErrorMessage(null);
+						p4.textField.setText("");
+						p4.setPageComplete(false);
+						p3.setPageComplete(false);
 						if (!isTypeAlreadyInSchema(selectedTarget, state.getSelectedSource())) {
 							setErrorMessage(null);
 							setPageComplete(true);
@@ -85,8 +108,7 @@ public class CorrPageTwo extends BaseCorrPage {
 							setErrorMessage(
 									"A correspondence type for the same source and target pattern types already exists in project's schema");
 						}
-					}
-					else {
+					} else {
 						setPageComplete(true);
 					}
 				}
@@ -94,6 +116,11 @@ public class CorrPageTwo extends BaseCorrPage {
 		});
 
 		targetSelector.setInput(state.getTargetObjects());
+
+		if (!state.isCreateNewType()) {
+			sourceSelector.addFilter(sourceTypeFilter);
+			targetSelector.addFilter(targetTypeFilter);
+		}
 
 		// required to avoid an error in the system
 		setControl(container);
@@ -111,6 +138,15 @@ public class CorrPageTwo extends BaseCorrPage {
 				setErrorMessage(null);
 				sourceSelector.getList().deselectAll();
 				targetSelector.getList().deselectAll();
+			}
+
+			sourceSelector.resetFilters();
+			targetSelector.resetFilters();
+			if (state.getSelectedType() != null && !state.isCreateNewType()) {
+				sourceTypeFilter.setType(state.getSelectedType().getSource());
+				targetTypeFilter.setType(state.getSelectedType().getTarget());
+				sourceSelector.addFilter(sourceTypeFilter);
+				targetSelector.addFilter(targetTypeFilter);
 			}
 		}
 	}

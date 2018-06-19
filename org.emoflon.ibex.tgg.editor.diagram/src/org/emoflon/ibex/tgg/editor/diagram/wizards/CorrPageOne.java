@@ -46,14 +46,18 @@ public class CorrPageOne extends BaseCorrPage {
 		Label label1 = new Label(listContainer, SWT.NONE);
 		label1.setText("Select desired type:");
 		lv = new CustomListViewer(listContainer);
-		
+
 		lv.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				CorrType selType = (CorrType) selection.getFirstElement();
+				if (selType == null) {
+					return;
+				}
 				state.setSelectedType(selType);
+				((BaseCorrPage) getNextPage()).setPageComplete(false);
 				setPageComplete(true);
 			}
 		});
@@ -66,6 +70,8 @@ public class CorrPageOne extends BaseCorrPage {
 				if (source.getSelection()) {
 					listContainer.setVisible(false);
 					state.setCreateNewType(true);
+					((BaseCorrPage) getNextPage()).setPageComplete(false);
+					((BaseCorrPage) getWizard().getPage("Name")).setPageComplete(false);
 					setPageComplete(true);
 				}
 			}
@@ -79,15 +85,16 @@ public class CorrPageOne extends BaseCorrPage {
 				Button source = (Button) e.getSource();
 
 				if (source.getSelection()) {
-					setPageComplete(false);
 					state.setCreateNewType(false);
 					listContainer.setVisible(true);
 					lv.setInput(state.getCorrTypeList());
+					((BaseCorrPage) getNextPage()).setPageComplete(false);
+					setPageComplete(false);
 				}
 			}
 
 		});
-		
+
 		// required to avoid an error in the system
 		setControl(container);
 		setPageComplete(false);
