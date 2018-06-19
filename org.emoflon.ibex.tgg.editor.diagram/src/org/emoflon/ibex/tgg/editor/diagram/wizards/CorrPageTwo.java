@@ -100,7 +100,7 @@ public class CorrPageTwo extends BaseCorrPage {
 						p4.textField.setText("");
 						p4.setPageComplete(false);
 						p3.setPageComplete(false);
-						if (!isTypeAlreadyInSchema(selectedTarget, state.getSelectedSource())) {
+						if (!isTypeAlreadyInSchema(state.getSelectedSource(), selectedTarget)) {
 							setErrorMessage(null);
 							setPageComplete(true);
 						} else {
