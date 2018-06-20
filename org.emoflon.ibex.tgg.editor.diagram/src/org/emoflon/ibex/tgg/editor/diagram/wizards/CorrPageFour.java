@@ -12,7 +12,7 @@ import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 
 public class CorrPageFour extends BaseCorrPage {
-	public Text textField;
+	Text textField;
 	private Label label1;
 
 	public CorrPageFour(CorrWizardState state) {
@@ -73,6 +73,15 @@ public class CorrPageFour extends BaseCorrPage {
 		// required to avoid an error in the system
 		setControl(container);
 		setPageComplete(false);
+	}
+
+	@Override
+	public void setVisible(final boolean visible) {
+		super.setVisible(visible);
+
+		if (visible) {
+			textField.setFocus();
+		}
 	}
 
 }

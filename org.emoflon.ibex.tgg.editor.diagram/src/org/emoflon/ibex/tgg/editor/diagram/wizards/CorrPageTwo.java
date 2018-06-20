@@ -38,7 +38,6 @@ public class CorrPageTwo extends BaseCorrPage {
 		Label label1 = new Label(sourceContainer, SWT.NONE);
 		label1.setText("Select source object:");
 		sourceSelector = new CustomListViewer(sourceContainer);
-		sourceSelector.setLabelProvider(new NamedElementLabelProvider());
 		sourceSelector.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			@Override

@@ -12,7 +12,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.moflon.tgg.mosl.tgg.CorrType;
 
@@ -29,11 +28,12 @@ public class CorrPageOne extends BaseCorrPage {
 		GridLayout layout1 = new GridLayout();
 		container.setLayout(layout1);
 		// Create a group to contain 2 radio
-		Group selectionGroup = new Group(container, SWT.NONE);
-		selectionGroup.setLayout(new RowLayout(SWT.VERTICAL));
-		Button buttonExistingType = new Button(selectionGroup, SWT.RADIO);
+		Composite selectionContainer = new Composite(container, SWT.NONE);
+		selectionContainer.setLayout(new RowLayout(SWT.VERTICAL));
+		Button buttonExistingType = new Button(selectionContainer, SWT.RADIO);
 		buttonExistingType.setText("Use an existing correspondence type");
-		Button buttonNewType = new Button(selectionGroup, SWT.RADIO);
+		buttonExistingType.setSelection(true);
+		Button buttonNewType = new Button(selectionContainer, SWT.RADIO);
 		buttonNewType.setText("Define a new correspondence type");
 		final GridData gd = new GridData();
 		gd.horizontalAlignment = GridData.FILL;
