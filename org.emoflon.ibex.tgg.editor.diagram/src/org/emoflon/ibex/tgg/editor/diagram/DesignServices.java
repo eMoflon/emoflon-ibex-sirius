@@ -40,6 +40,7 @@ import org.moflon.tgg.mosl.tgg.AttributeAssignment;
 import org.moflon.tgg.mosl.tgg.AttributeConstraint;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
 import org.moflon.tgg.mosl.tgg.ComplementRule;
+import org.moflon.tgg.mosl.tgg.ContextObjectVariablePattern;
 import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.CorrVariablePattern;
 import org.moflon.tgg.mosl.tgg.EnumExpression;
@@ -116,7 +117,6 @@ public class DesignServices extends CommonServices {
 				// Add new correspondence type to the schema
 				corrTypes.add(type);
 			}
-			
 
 			ObjectVariablePattern source = state.getSelectedSource();
 			ObjectVariablePattern target = state.getSelectedTarget();
@@ -267,9 +267,8 @@ public class DesignServices extends CommonServices {
 		// Check whether attribute conditions have to be deleted and open a confirmation
 		// dialog if so
 		List<AttrCond> attrConditionSelection = attrConditions.stream()
-				.filter(c -> c.getValues().stream()
-						.anyMatch(p -> p instanceof AttributeExpression
-								&& ((AttributeExpression) p).getObjectVar().getName().equals(node.getName())))
+				.filter(c -> c.getValues().stream().anyMatch(p -> p instanceof AttributeExpression
+						&& getObjectVariableName(((AttributeExpression) p).getObjectVar()).equals(node.getName())))
 				.collect(Collectors.toList());
 
 		StringBuilder sb = new StringBuilder();
@@ -285,11 +284,11 @@ public class DesignServices extends CommonServices {
 			continueOperation = MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
 					"Delete attribute condition?", sb.toString());
 		}
-		
-		if(!continueOperation) {
+
+		if (!continueOperation) {
 			return false;
 		}
-		
+
 		attrConditions.removeAll(attrConditionSelection);
 
 		// Delete all correspondences that involve this node
@@ -322,8 +321,7 @@ public class DesignServices extends CommonServices {
 		} else {
 			targetObjects.remove(node);
 		}
-		
-		
+
 		return true;
 	}
 
@@ -487,7 +485,7 @@ public class DesignServices extends CommonServices {
 		if (expr instanceof LiteralExpression) {
 			sb.append(((LiteralExpression) expr).getValue());
 		} else if (expr instanceof AttributeExpression) {
-			sb.append(((AttributeExpression) expr).getObjectVar().getName());
+			sb.append(getObjectVariableName(((AttributeExpression) expr).getObjectVar()));
 			sb.append(".");
 			sb.append(((AttributeExpression) expr).getAttribute().getName());
 		} else if (expr instanceof EnumExpression) {
@@ -827,7 +825,8 @@ public class DesignServices extends CommonServices {
 		for (ParamValue p : params) {
 			if (p instanceof AttributeExpression) {
 				AttributeExpression tmp = (AttributeExpression) p;
-				attr = attr + tmp.getObjectVar().getName() + "." + tmp.getAttribute().getName() + ", ";
+				EObject objVar = tmp.getObjectVar();
+				attr = attr + getObjectVariableName(objVar) + "." + tmp.getAttribute().getName() + ", ";
 			} else if (p instanceof LiteralExpression) {
 				LiteralExpression tmp = (LiteralExpression) p;
 				attr = attr + tmp.getValue() + ", ";
@@ -848,6 +847,17 @@ public class DesignServices extends CommonServices {
 		attr += ")";
 
 		return attr;
+	}
+
+	private String getObjectVariableName(EObject objVar) {
+		String objVarName = "";
+		if (objVar instanceof ObjectVariablePattern) {
+			objVarName = ((ObjectVariablePattern) objVar).getName();
+		} else if (objVar instanceof ContextObjectVariablePattern) {
+			objVarName = ((ContextObjectVariablePattern) objVar).getName();
+		}
+
+		return objVarName;
 	}
 
 }
