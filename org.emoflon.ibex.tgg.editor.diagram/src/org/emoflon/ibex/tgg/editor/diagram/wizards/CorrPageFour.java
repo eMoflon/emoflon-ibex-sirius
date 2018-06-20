@@ -12,7 +12,7 @@ import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 
 public class CorrPageFour extends BaseCorrPage {
-	private Text textField;
+	Text textField;
 	private Label label1;
 
 	public CorrPageFour(CorrWizardState state) {
@@ -48,8 +48,17 @@ public class CorrPageFour extends BaseCorrPage {
 						type.setName(text);
 						type.setSource(state.getSelectedSource().getType());
 						type.setTarget(state.getSelectedTarget().getType());
-						state.setNewType(type);
-						setPageComplete(true);
+						boolean alreadyInSchema = state.getCorrTypeList().stream()
+								.anyMatch(tp -> tp.getName().equals(type.getName()));
+						if (!alreadyInSchema) {
+							state.setNewType(type);
+							setErrorMessage(null);
+							setPageComplete(true);
+						} else {
+							setPageComplete(false);
+							setErrorMessage(
+									"A correspondence type with the same name already exists in the project's schema");
+						}
 					} else {
 						state.setNewType(null);
 						setPageComplete(false);
@@ -71,10 +80,7 @@ public class CorrPageFour extends BaseCorrPage {
 		super.setVisible(visible);
 
 		if (visible) {
-			if (state.getSelectedType() == null) {
-				setPageComplete(false);
-				textField.setText("");
-			}
+			textField.setFocus();
 		}
 	}
 

@@ -2,21 +2,29 @@ package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
+import org.eclipse.emf.ecore.EStructuralFeature.Setting;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.sirius.diagram.AbstractDNode;
+import org.eclipse.sirius.diagram.DDiagram;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
+import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
@@ -32,6 +40,7 @@ import org.moflon.tgg.mosl.tgg.AttributeAssignment;
 import org.moflon.tgg.mosl.tgg.AttributeConstraint;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
 import org.moflon.tgg.mosl.tgg.ComplementRule;
+import org.moflon.tgg.mosl.tgg.ContextObjectVariablePattern;
 import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.CorrVariablePattern;
 import org.moflon.tgg.mosl.tgg.EnumExpression;
@@ -46,6 +55,10 @@ import org.moflon.tgg.mosl.tgg.ParamValue;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Iterators;
+import com.google.common.collect.Sets;
 
 public class DesignServices extends CommonServices {
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
@@ -95,7 +108,6 @@ public class DesignServices extends CommonServices {
 		}
 
 		List<CorrType> corrTypes = schema.getCorrespondenceTypes();
-
 		CorrWizardState state = new CorrWizardState(corrTypes, sourceObjects, targetObjects);
 		openCorrWizard(state);
 		if (state.isDone()) {
@@ -207,20 +219,16 @@ public class DesignServices extends CommonServices {
 			return false;
 
 		// Delete correspondence type from schema if there are no more uses of it
-		CorrType corrType = corr.getType();
-		int numUses = 0;
-		for (CorrVariablePattern c : correspondenceList) {
-			if (c.getType() == corrType) {
-				numUses++;
-				if (numUses > 1)
-					break;
-			}
-		}
-
-		if (numUses == 1) {
-			schema.getCorrespondenceTypes().remove(corrType);
-		}
-
+		/*
+		 * CorrType corrType = corr.getType(); Map<String, Integer> corrTypeUses =
+		 * getCorrTypeUses(diagram); System.out.println("Num Uses: " +
+		 * corrTypeUses.get(corrType.getName())); if
+		 * (corrTypeUses.get(corrType.getName()) == 1) { String message =
+		 * "The correspon"; boolean deleteType =
+		 * MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
+		 * "Delete correspondence type?", message); if (deleteType)
+		 * schema.getCorrespondenceTypes().remove(corrType); }
+		 */
 		// Delete correspondence from rule
 		correspondenceList.remove(corr);
 		return true;
@@ -234,15 +242,18 @@ public class DesignServices extends CommonServices {
 		List<CorrVariablePattern> correspondenceList = null;
 		List<ObjectVariablePattern> sourceObjects = null;
 		List<ObjectVariablePattern> targetObjects = null;
+		List<AttrCond> attrConditions = null;
 
 		if (tgg instanceof Rule) {
 			correspondenceList = new ArrayList<CorrVariablePattern>(((Rule) tgg).getCorrespondencePatterns());
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
 			targetObjects = ((Rule) tgg).getTargetPatterns();
+			attrConditions = ((Rule) tgg).getAttrConditions();
 		} else if (tgg instanceof ComplementRule) {
 			correspondenceList = new ArrayList<CorrVariablePattern>(((ComplementRule) tgg).getCorrespondencePatterns());
 			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
 			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
+			attrConditions = ((ComplementRule) tgg).getAttrConditions();
 		}
 
 		else {
@@ -252,6 +263,33 @@ public class DesignServices extends CommonServices {
 		if (correspondenceList == null || sourceObjects == null || targetObjects == null) {
 			return false;
 		}
+
+		// Check whether attribute conditions have to be deleted and open a confirmation
+		// dialog if so
+		List<AttrCond> attrConditionSelection = attrConditions.stream()
+				.filter(c -> c.getValues().stream().anyMatch(p -> p instanceof AttributeExpression
+						&& getObjectVariableName(((AttributeExpression) p).getObjectVar()).equals(node.getName())))
+				.collect(Collectors.toList());
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("By executing this operation the following attribute conditions have to be deleted:\n\n");
+		for (AttrCond attrCond : attrConditionSelection) {
+			sb.append(getAttrCondLabel(attrCond));
+			sb.append("\n");
+		}
+		sb.append("\n\nDo you want to continue?");
+
+		boolean continueOperation = true;
+		if (attrConditionSelection.size() > 0) {
+			continueOperation = MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
+					"Delete attribute condition?", sb.toString());
+		}
+
+		if (!continueOperation) {
+			return false;
+		}
+
+		attrConditions.removeAll(attrConditionSelection);
 
 		// Delete all correspondences that involve this node
 		for (CorrVariablePattern corr : correspondenceList) {
@@ -420,34 +458,7 @@ public class DesignServices extends CommonServices {
 	}
 
 	public String getCondAttribute(AttrCond attrCond) {
-		AttrCondDef def = attrCond.getName();
-		String attr = def.getName();
-		attr += "(";
-		List<ParamValue> params = attrCond.getValues();
-		for (ParamValue p : params) {
-			if (p instanceof AttributeExpression) {
-				AttributeExpression tmp = (AttributeExpression) p;
-				attr = attr + tmp.getObjectVar().getName() + "." + tmp.getAttribute().getName() + ", ";
-			} else if (p instanceof LiteralExpression) {
-				LiteralExpression tmp = (LiteralExpression) p;
-				attr = attr + tmp.getValue() + ", ";
-			} else if (p instanceof LocalVariable) {
-				LocalVariable tmp = (LocalVariable) p;
-				attr = attr + tmp.getName() + ", ";
-			}
-
-			/*
-			 * TODO else if(p instanceof EnumExpression) { EnumExpression tmp =
-			 * (EnumExpression)p; attr = attr + tmp.getEenum().get + ", "; }
-			 */
-
-		}
-		if (attr.length() > 2) {
-			attr = attr.substring(0, attr.length() - 2);
-		}
-		attr += ")";
-
-		return attr;
+		return getAttrCondLabel(attrCond);
 	}
 
 	public String getAttrAssignmentLabel(EObject assgn) {
@@ -474,7 +485,7 @@ public class DesignServices extends CommonServices {
 		if (expr instanceof LiteralExpression) {
 			sb.append(((LiteralExpression) expr).getValue());
 		} else if (expr instanceof AttributeExpression) {
-			sb.append(((AttributeExpression) expr).getObjectVar().getName());
+			sb.append(getObjectVariableName(((AttributeExpression) expr).getObjectVar()));
 			sb.append(".");
 			sb.append(((AttributeExpression) expr).getAttribute().getName());
 		} else if (expr instanceof EnumExpression) {
@@ -486,6 +497,216 @@ public class DesignServices extends CommonServices {
 		return sb.toString();
 	}
 
+	public ObjectVariablePattern findChildNode(ObjectVariablePattern parent, DSemanticDiagram diagram,
+			boolean isSourceNode) {
+		NamedElements rule = (NamedElements) diagram.getTarget();
+		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
+		List<ObjectVariablePattern> nodeList = null;
+		if (isSourceNode) {
+			if (rule instanceof Rule) {
+				nodeList = ((Rule) rule).getSourcePatterns();
+			} else if (rule instanceof ComplementRule) {
+				nodeList = ((ComplementRule) rule).getSourcePatterns();
+			} else {
+				return null;
+			}
+		} else {
+			if (rule instanceof Rule) {
+				nodeList = ((Rule) rule).getTargetPatterns();
+			} else if (rule instanceof ComplementRule) {
+				nodeList = ((ComplementRule) rule).getTargetPatterns();
+			} else {
+				return null;
+			}
+		}
+		for (ObjectVariablePattern node : nodeList) {
+			for (LinkVariablePattern link : linkList) {
+				if (node.getName().equals(link.getTarget().getName())) {
+					return node;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public ObjectVariablePattern findGlobalChildNode(ObjectVariablePattern parent, DSemanticDiagram diagram) {
+		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
+		diagram.getContainers().forEach(c -> {
+			if (!c.getActualMapping().getName().contains("global")) {
+				return;
+			}
+			if (c.getTarget() instanceof ObjectVariablePattern) {
+				nodeList.add((ObjectVariablePattern) c.getTarget());
+			}
+		});
+
+		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
+
+		for (ObjectVariablePattern node : nodeList) {
+			for (LinkVariablePattern link : linkList) {
+				if (node.getName().equals(link.getTarget().getName())) {
+					return node;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public List<NamedElements> getNodes(EObject context, DSemanticDiagram diagram, String populateTask) {
+		List<NamedElements> nodes = new ArrayList<NamedElements>();
+		List<Rule> visitedRules = new ArrayList<Rule>();
+		Map<String, NamedElements> nodeMap = new HashMap<String, NamedElements>();
+		if (context instanceof ComplementRule) {
+			nodeMap = populateHelper(((ComplementRule) context).getKernel(), nodeMap, visitedRules, populateTask);
+		} else if (context instanceof Rule) {
+			nodeMap = populateHelper(((Rule) context).getSupertypes(), nodeMap, visitedRules, populateTask);
+		}
+
+		nodes.addAll(nodeMap.values());
+
+		/*
+		 * if (visitedRules.size() > 0) {
+		 * 
+		 * Session session = SessionManager.INSTANCE.getSession(diagram);
+		 * List<AdditionalLayer> additionalLayers =
+		 * diagram.getDescription().getAdditionalLayers(); AdditionalLayer
+		 * globalViewLayer = null; for (AdditionalLayer layer : additionalLayers) { if
+		 * (layer.getName().equals("globalView")) { globalViewLayer = layer; break; } }
+		 * 
+		 * NodeMapping corrGlobalMapping = null; List<NodeMapping> nodeMappings =
+		 * globalViewLayer.getNodeMappings(); for (NodeMapping nm : nodeMappings) { if
+		 * (nm.getName().equals("corrNodeGlobal")) { corrGlobalMapping = nm; break; } }
+		 * 
+		 * List<DNode> nodeElements = diagram.getNodes(); List<String> corrNames = new
+		 * ArrayList<String>(); nodeElements.removeIf(n ->
+		 * !n.getActualMapping().getName().equals("corrNodeGlobal"));
+		 * nodeElements.forEach(n -> corrNames.add(((NamedElements)
+		 * n.getTarget()).getName()));
+		 * 
+		 * for (Rule visitedRule : visitedRules) { List<CorrVariablePattern>
+		 * correspondences = visitedRule.getCorrespondencePatterns(); for
+		 * (CorrVariablePattern corr : correspondences) { if
+		 * (!corrNames.contains(corr.getName())) { RecordingCommand cmd = new
+		 * CreateDDiagramElementCommand(session.getTransactionalEditingDomain(), corr,
+		 * corrGlobalMapping, diagram);
+		 * session.getTransactionalEditingDomain().getCommandStack().execute(cmd); } } }
+		 * }
+		 */
+
+		return nodes;
+	}
+
+	public List<NamedElements> getGlobalCorrespondences(EObject context, DSemanticDiagram diagram) {
+		List<NamedElements> globalCorr = new ArrayList<NamedElements>();
+		Map<String, NamedElements> corrMap = new HashMap<String, NamedElements>();
+		if (context instanceof ComplementRule) {
+			corrMap = populateHelper(((ComplementRule) context).getKernel(), corrMap, new ArrayList<Rule>(),
+					"correspondences");
+		} else if (context instanceof Rule) {
+			corrMap = populateHelper(((Rule) context).getSupertypes(), corrMap, new ArrayList<Rule>(),
+					"correspondences");
+		}
+
+		globalCorr.addAll(corrMap.values());
+		return globalCorr;
+	}
+
+	public ObjectVariablePattern findGlobalCorrPort(CorrVariablePattern correspondence, DSemanticDiagram diagram,
+			boolean isSourceNode) {
+		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
+		diagram.getContainers().forEach(c -> {
+			if (!c.getActualMapping().getName().contains("global")) {
+				return;
+			}
+			if (c.getTarget() instanceof ObjectVariablePattern) {
+				nodeList.add((ObjectVariablePattern) c.getTarget());
+			}
+		});
+
+		if (isSourceNode && diagram.getTarget() instanceof Rule) {
+			nodeList.addAll(((Rule) diagram.getTarget()).getSourcePatterns());
+		}
+
+		else if (isSourceNode && diagram.getTarget() instanceof ComplementRule) {
+			nodeList.addAll(((ComplementRule) diagram.getTarget()).getSourcePatterns());
+		}
+
+		else if (!isSourceNode && diagram.getTarget() instanceof Rule) {
+			nodeList.addAll(((Rule) diagram.getTarget()).getTargetPatterns());
+		}
+
+		else if (!isSourceNode && diagram.getTarget() instanceof ComplementRule) {
+			nodeList.addAll(((ComplementRule) diagram.getTarget()).getTargetPatterns());
+		}
+
+		for (ObjectVariablePattern node : nodeList) {
+			if (isSourceNode && node.getName().equals(correspondence.getSource().getName())) {
+				return node;
+			} else if (!isSourceNode && node.getName().equals(correspondence.getTarget().getName())) {
+				return node;
+			}
+		}
+
+		return null;
+	}
+
+	/*
+	 * private void clearIrrelevantGlobalNodes(DSemanticDiagram diagram) {
+	 * List<DDiagramElementContainer> nodes = diagram.getContainers(); for
+	 * (DDiagramElementContainer node : nodes) { if
+	 * (node.getActualMapping().getName().contains("global") &&
+	 * node.getOutgoingEdges().size() < 1) {
+	 * SiriusPlugin.getDefault().getModelAccessorRegistry().getModelAccessor(node).
+	 * eRemove(node); } } }
+	 */
+
+	private Map<String, NamedElements> populateHelper(Rule contextRule, Map<String, NamedElements> populationMap,
+			List<Rule> visitedRules, String populateTask) {
+		if (contextRule == null || visitedRules.contains(contextRule)) {
+			return populationMap;
+		}
+
+		switch (populateTask) {
+		case "sourceNodes":
+			addNamedElementsToMap(contextRule.getSourcePatterns(), populationMap);
+			break;
+		case "targetNodes":
+			addNamedElementsToMap(contextRule.getTargetPatterns(), populationMap);
+			break;
+		case "correspondences":
+			addNamedElementsToMap(contextRule.getCorrespondencePatterns(), populationMap);
+			break;
+		}
+
+		visitedRules.add(contextRule);
+
+		if (contextRule.getSupertypes() != null) {
+			populationMap = populateHelper(contextRule.getSupertypes(), populationMap, visitedRules, populateTask);
+		}
+
+		return populationMap;
+	}
+
+	private Map<String, NamedElements> populateHelper(List<Rule> contextRules, Map<String, NamedElements> populationMap,
+			List<Rule> visitedRules, String populateTask) {
+
+		if (contextRules != null) {
+			for (Rule contextRule : contextRules) {
+				populationMap = populateHelper(contextRule, populationMap, visitedRules, populateTask);
+			}
+		}
+
+		return populationMap;
+	}
+
+	private void addNamedElementsToMap(List<? extends NamedElements> namedElements, Map<String, NamedElements> map) {
+		for (NamedElements n : namedElements) {
+			map.put(n.getName(), n);
+		}
+	}
+
 	private ObjectVariablePattern getTargetObjectFromEdge(DEdge edgeView) {
 		DDiagramElement t = (DDiagramElement) edgeView.getTargetNode();
 		ObjectVariablePattern targetObject = (ObjectVariablePattern) t.getTarget();
@@ -495,11 +716,10 @@ public class DesignServices extends CommonServices {
 
 	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y) {
 		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
-		EqualityHelper eq = new EqualityHelper();
 
 		// find the link variable pattern between object patterns x and y
 		for (LinkVariablePattern link : linkList) {
-			if (eq.equals(link.getTarget(), y)) {
+			if (link.getTarget().getName().equals(y.getName())) {
 
 				return link;
 			}
@@ -540,6 +760,104 @@ public class DesignServices extends CommonServices {
 		dialog.open();
 		BaseNodePage lastPage = (BaseNodePage) dialog.getCurrentPage();
 		return lastPage.getState();
+	}
+
+	// K: corrTypeName
+	// V: #uses of correspondence type K
+	private Map<String, Integer> getCorrTypeUses(DDiagram diagram) {
+		final Map<String, Integer> result = new HashMap<String, Integer>();
+		final Set<String> visitedRuleNames = Sets.newHashSet();
+		if (diagram instanceof DSemanticDecorator) {
+			final Session sess = SessionManager.INSTANCE.getSession(((DSemanticDecorator) diagram).getTarget());
+
+			final Iterator<EObject> it = Iterators.transform(
+					Iterators.filter(diagram.eAllContents(), AbstractDNode.class),
+					new Function<AbstractDNode, EObject>() {
+
+						public EObject apply(AbstractDNode input) {
+							return input.getTarget();
+						}
+					});
+			while (it.hasNext()) {
+				final EObject displayedAsANode = it.next();
+				if (displayedAsANode != null) {
+					for (final Setting xRef : sess.getSemanticCrossReferencer()
+							.getInverseReferences(displayedAsANode)) {
+
+						EObject eObject = xRef.getEObject();
+
+						if (eObject instanceof NamedElements
+								&& !visitedRuleNames.contains(((NamedElements) eObject).getName())) {
+							if (eObject instanceof Rule) {
+								visitedRuleNames.add(((Rule) eObject).getName());
+								((Rule) eObject).getCorrespondencePatterns().forEach(corr -> {
+									String corrTypeName = corr.getType().getName();
+									Integer corrTypeUses = result.putIfAbsent(corrTypeName, 1);
+									if (corrTypeUses != null) {
+										result.replace(corrTypeName, ++corrTypeUses);
+									}
+								});
+							}
+
+							else if (eObject instanceof ComplementRule) {
+								visitedRuleNames.add(((ComplementRule) eObject).getName());
+								((ComplementRule) eObject).getCorrespondencePatterns().forEach(corr -> {
+									String corrTypeName = corr.getType().getName();
+									Integer corrTypeUses = result.putIfAbsent(corrTypeName, 1);
+									if (corrTypeUses != null) {
+										result.replace(corrTypeName, ++corrTypeUses);
+									}
+								});
+							}
+						}
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	private String getAttrCondLabel(AttrCond attrCond) {
+		AttrCondDef def = attrCond.getName();
+		String attr = def.getName();
+		attr += "(";
+		List<ParamValue> params = attrCond.getValues();
+		for (ParamValue p : params) {
+			if (p instanceof AttributeExpression) {
+				AttributeExpression tmp = (AttributeExpression) p;
+				EObject objVar = tmp.getObjectVar();
+				attr = attr + getObjectVariableName(objVar) + "." + tmp.getAttribute().getName() + ", ";
+			} else if (p instanceof LiteralExpression) {
+				LiteralExpression tmp = (LiteralExpression) p;
+				attr = attr + tmp.getValue() + ", ";
+			} else if (p instanceof LocalVariable) {
+				LocalVariable tmp = (LocalVariable) p;
+				attr = attr + tmp.getName() + ", ";
+			}
+
+			/*
+			 * TODO else if(p instanceof EnumExpression) { EnumExpression tmp =
+			 * (EnumExpression)p; attr = attr + tmp.getEenum().get + ", "; }
+			 */
+
+		}
+		if (attr.length() > 2) {
+			attr = attr.substring(0, attr.length() - 2);
+		}
+		attr += ")";
+
+		return attr;
+	}
+
+	private String getObjectVariableName(EObject objVar) {
+		String objVarName = "";
+		if (objVar instanceof ObjectVariablePattern) {
+			objVarName = ((ObjectVariablePattern) objVar).getName();
+		} else if (objVar instanceof ContextObjectVariablePattern) {
+			objVarName = ((ContextObjectVariablePattern) objVar).getName();
+		}
+
+		return objVarName;
 	}
 
 }

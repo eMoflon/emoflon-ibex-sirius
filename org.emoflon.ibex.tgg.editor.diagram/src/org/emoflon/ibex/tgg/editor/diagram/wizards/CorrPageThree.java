@@ -27,6 +27,7 @@ public class CorrPageThree extends BaseCorrPage {
 
 		textField = new Text(container, SWT.BORDER | SWT.SINGLE);
 		textField.setText("");
+		textField.setFocus();
 		textField.addModifyListener(new ModifyListener() {
 			
 			@Override
@@ -66,6 +67,7 @@ public class CorrPageThree extends BaseCorrPage {
 			if (state.getCorrName() == null) {
 				setPageComplete(false);
 				textField.setText("");
+				textField.setFocus();
 			}
 		}
 	}

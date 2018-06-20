@@ -12,7 +12,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.moflon.tgg.mosl.tgg.CorrType;
 
@@ -29,11 +28,11 @@ public class CorrPageOne extends BaseCorrPage {
 		GridLayout layout1 = new GridLayout();
 		container.setLayout(layout1);
 		// Create a group to contain 2 radio
-		Group selectionGroup = new Group(container, SWT.NONE);
-		selectionGroup.setLayout(new RowLayout(SWT.VERTICAL));
-		Button buttonExistingType = new Button(selectionGroup, SWT.RADIO);
+		Composite selectionContainer = new Composite(container, SWT.NONE);
+		selectionContainer.setLayout(new RowLayout(SWT.VERTICAL));
+		Button buttonExistingType = new Button(selectionContainer, SWT.RADIO);
 		buttonExistingType.setText("Use an existing correspondence type");
-		Button buttonNewType = new Button(selectionGroup, SWT.RADIO);
+		Button buttonNewType = new Button(selectionContainer, SWT.RADIO);
 		buttonNewType.setText("Define a new correspondence type");
 		final GridData gd = new GridData();
 		gd.horizontalAlignment = GridData.FILL;
@@ -46,14 +45,18 @@ public class CorrPageOne extends BaseCorrPage {
 		Label label1 = new Label(listContainer, SWT.NONE);
 		label1.setText("Select desired type:");
 		lv = new CustomListViewer(listContainer);
-		
+
 		lv.addSelectionChangedListener(new ISelectionChangedListener() {
 
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				CorrType selType = (CorrType) selection.getFirstElement();
+				if (selType == null) {
+					return;
+				}
 				state.setSelectedType(selType);
+				((BaseCorrPage) getNextPage()).setPageComplete(false);
 				setPageComplete(true);
 			}
 		});
@@ -66,6 +69,8 @@ public class CorrPageOne extends BaseCorrPage {
 				if (source.getSelection()) {
 					listContainer.setVisible(false);
 					state.setCreateNewType(true);
+					((BaseCorrPage) getNextPage()).setPageComplete(false);
+					((BaseCorrPage) getWizard().getPage("Name")).setPageComplete(false);
 					setPageComplete(true);
 				}
 			}
@@ -79,15 +84,16 @@ public class CorrPageOne extends BaseCorrPage {
 				Button source = (Button) e.getSource();
 
 				if (source.getSelection()) {
-					setPageComplete(false);
 					state.setCreateNewType(false);
 					listContainer.setVisible(true);
 					lv.setInput(state.getCorrTypeList());
+					((BaseCorrPage) getNextPage()).setPageComplete(false);
+					setPageComplete(false);
 				}
 			}
 
 		});
-		
+
 		// required to avoid an error in the system
 		setControl(container);
 		setPageComplete(false);
