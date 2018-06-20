@@ -2,7 +2,6 @@ package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,18 +12,13 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature.Setting;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.sirius.business.api.session.Session;
-import org.eclipse.sirius.business.api.session.SessionManager;
-import org.eclipse.sirius.diagram.AbstractDNode;
-import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.sirius.business.api.query.EObjectQuery;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
-import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
@@ -55,10 +49,6 @@ import org.moflon.tgg.mosl.tgg.ParamValue;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
-
-import com.google.common.base.Function;
-import com.google.common.collect.Iterators;
-import com.google.common.collect.Sets;
 
 public class DesignServices extends CommonServices {
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
@@ -218,19 +208,19 @@ public class DesignServices extends CommonServices {
 		if (schema == null)
 			return false;
 
-		// Delete correspondence type from schema if there are no more uses of it
-		/*
-		 * CorrType corrType = corr.getType(); Map<String, Integer> corrTypeUses =
-		 * getCorrTypeUses(diagram); System.out.println("Num Uses: " +
-		 * corrTypeUses.get(corrType.getName())); if
-		 * (corrTypeUses.get(corrType.getName()) == 1) { String message =
-		 * "The correspon"; boolean deleteType =
-		 * MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
-		 * "Delete correspondence type?", message); if (deleteType)
-		 * schema.getCorrespondenceTypes().remove(corrType); }
-		 */
-		// Delete correspondence from rule
+		CorrType corrType = corr.getType();
+		int numUses = new EObjectQuery(corrType).getInverseReferences("type").size();
+		if (numUses < 2) {
+			String message = "The correspondence type \"" + corrType.getName()
+					+ "\" is now unused in this TGG project.\n\nDo you want to delete it?";
+			boolean deleteType = MessageDialog.openConfirm(Display.getCurrent().getActiveShell(),
+					"Unused correspondence type detected", message);
+			if (deleteType)
+				schema.getCorrespondenceTypes().remove(corrType);
+		}
+
 		correspondenceList.remove(corr);
+
 		return true;
 	}
 
@@ -566,35 +556,6 @@ public class DesignServices extends CommonServices {
 
 		nodes.addAll(nodeMap.values());
 
-		/*
-		 * if (visitedRules.size() > 0) {
-		 * 
-		 * Session session = SessionManager.INSTANCE.getSession(diagram);
-		 * List<AdditionalLayer> additionalLayers =
-		 * diagram.getDescription().getAdditionalLayers(); AdditionalLayer
-		 * globalViewLayer = null; for (AdditionalLayer layer : additionalLayers) { if
-		 * (layer.getName().equals("globalView")) { globalViewLayer = layer; break; } }
-		 * 
-		 * NodeMapping corrGlobalMapping = null; List<NodeMapping> nodeMappings =
-		 * globalViewLayer.getNodeMappings(); for (NodeMapping nm : nodeMappings) { if
-		 * (nm.getName().equals("corrNodeGlobal")) { corrGlobalMapping = nm; break; } }
-		 * 
-		 * List<DNode> nodeElements = diagram.getNodes(); List<String> corrNames = new
-		 * ArrayList<String>(); nodeElements.removeIf(n ->
-		 * !n.getActualMapping().getName().equals("corrNodeGlobal"));
-		 * nodeElements.forEach(n -> corrNames.add(((NamedElements)
-		 * n.getTarget()).getName()));
-		 * 
-		 * for (Rule visitedRule : visitedRules) { List<CorrVariablePattern>
-		 * correspondences = visitedRule.getCorrespondencePatterns(); for
-		 * (CorrVariablePattern corr : correspondences) { if
-		 * (!corrNames.contains(corr.getName())) { RecordingCommand cmd = new
-		 * CreateDDiagramElementCommand(session.getTransactionalEditingDomain(), corr,
-		 * corrGlobalMapping, diagram);
-		 * session.getTransactionalEditingDomain().getCommandStack().execute(cmd); } } }
-		 * }
-		 */
-
 		return nodes;
 	}
 
@@ -651,16 +612,6 @@ public class DesignServices extends CommonServices {
 
 		return null;
 	}
-
-	/*
-	 * private void clearIrrelevantGlobalNodes(DSemanticDiagram diagram) {
-	 * List<DDiagramElementContainer> nodes = diagram.getContainers(); for
-	 * (DDiagramElementContainer node : nodes) { if
-	 * (node.getActualMapping().getName().contains("global") &&
-	 * node.getOutgoingEdges().size() < 1) {
-	 * SiriusPlugin.getDefault().getModelAccessorRegistry().getModelAccessor(node).
-	 * eRemove(node); } } }
-	 */
 
 	private Map<String, NamedElements> populateHelper(Rule contextRule, Map<String, NamedElements> populationMap,
 			List<Rule> visitedRules, String populateTask) {
@@ -760,61 +711,6 @@ public class DesignServices extends CommonServices {
 		dialog.open();
 		BaseNodePage lastPage = (BaseNodePage) dialog.getCurrentPage();
 		return lastPage.getState();
-	}
-
-	// K: corrTypeName
-	// V: #uses of correspondence type K
-	private Map<String, Integer> getCorrTypeUses(DDiagram diagram) {
-		final Map<String, Integer> result = new HashMap<String, Integer>();
-		final Set<String> visitedRuleNames = Sets.newHashSet();
-		if (diagram instanceof DSemanticDecorator) {
-			final Session sess = SessionManager.INSTANCE.getSession(((DSemanticDecorator) diagram).getTarget());
-
-			final Iterator<EObject> it = Iterators.transform(
-					Iterators.filter(diagram.eAllContents(), AbstractDNode.class),
-					new Function<AbstractDNode, EObject>() {
-
-						public EObject apply(AbstractDNode input) {
-							return input.getTarget();
-						}
-					});
-			while (it.hasNext()) {
-				final EObject displayedAsANode = it.next();
-				if (displayedAsANode != null) {
-					for (final Setting xRef : sess.getSemanticCrossReferencer()
-							.getInverseReferences(displayedAsANode)) {
-
-						EObject eObject = xRef.getEObject();
-
-						if (eObject instanceof NamedElements
-								&& !visitedRuleNames.contains(((NamedElements) eObject).getName())) {
-							if (eObject instanceof Rule) {
-								visitedRuleNames.add(((Rule) eObject).getName());
-								((Rule) eObject).getCorrespondencePatterns().forEach(corr -> {
-									String corrTypeName = corr.getType().getName();
-									Integer corrTypeUses = result.putIfAbsent(corrTypeName, 1);
-									if (corrTypeUses != null) {
-										result.replace(corrTypeName, ++corrTypeUses);
-									}
-								});
-							}
-
-							else if (eObject instanceof ComplementRule) {
-								visitedRuleNames.add(((ComplementRule) eObject).getName());
-								((ComplementRule) eObject).getCorrespondencePatterns().forEach(corr -> {
-									String corrTypeName = corr.getType().getName();
-									Integer corrTypeUses = result.putIfAbsent(corrTypeName, 1);
-									if (corrTypeUses != null) {
-										result.replace(corrTypeName, ++corrTypeUses);
-									}
-								});
-							}
-						}
-					}
-				}
-			}
-		}
-		return result;
 	}
 
 	private String getAttrCondLabel(AttrCond attrCond) {
