@@ -32,7 +32,6 @@ public class CorrPageOne extends BaseCorrPage {
 		selectionContainer.setLayout(new RowLayout(SWT.VERTICAL));
 		Button buttonExistingType = new Button(selectionContainer, SWT.RADIO);
 		buttonExistingType.setText("Use an existing correspondence type");
-		buttonExistingType.setSelection(true);
 		Button buttonNewType = new Button(selectionContainer, SWT.RADIO);
 		buttonNewType.setText("Define a new correspondence type");
 		final GridData gd = new GridData();

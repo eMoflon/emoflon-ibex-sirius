@@ -152,7 +152,8 @@ public class CorrPageTwo extends BaseCorrPage {
 
 	private boolean isTypeAlreadyInSchema(ObjectVariablePattern source, ObjectVariablePattern target) {
 		boolean alreadyInSchema = state.getCorrTypeList().stream()
-				.anyMatch(tp -> tp.getTarget().equals(target.getType()) && tp.getSource().equals(source.getType()));
+				.anyMatch(tp -> tp.getTarget().getName().equals(target.getType().getName())
+						&& tp.getSource().getName().equals(source.getType().getName()));
 
 		return alreadyInSchema;
 	}
