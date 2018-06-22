@@ -7,10 +7,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -23,12 +26,19 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
+import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
 import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class DiagramInitializer {
-	public String initDiagram(EObject context, IProject project) {
+	private static final String ATTR_COND_DEF_LIBRARY_PATH = "src/org/emoflon/ibex/tgg/csp/lib/AttrCondDefLibrary.tgg";
+	
+	public String initDiagram(EObject contextElement) {
+		return initDiagram(contextElement, null, null);
+	}
+	
+	public String initDiagram(EObject context, IProject project, XtextResourceSet resourceSet) {
 
 		// check if the initialization has already been done and returns a name for the diagram
 		String diagramName = getDiagramName(context);
@@ -39,16 +49,21 @@ public class DiagramInitializer {
 		IFile schemaFile = findSchemaFileInProject(project);
 		if (schemaFile == null || (schemaFile != null && !schemaFile.exists())) {
 			project = getActiveProject();
+			schemaFile = findSchemaFileInProject(project);
 		}
-		XtextResourceSet resourceSet = new XtextResourceSet();
+		if(resourceSet == null && context != null) {
+			resourceSet = (XtextResourceSet) SessionManager.INSTANCE.getSession(context).getTransactionalEditingDomain().getResourceSet();
+		}
+		if(resourceSet == null)
+			return null;
 		if (schemaFile != null && schemaFile.exists()) {
-			XtextResource schemaResource = new XtextResource();
+			XtextResource schemaResource = null;
 			try {
 				schemaResource = loadSchema(resourceSet, schemaFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			if (schemaIsOfExpectedType(schemaResource)) {
+			if (schemaResource != null && schemaIsOfExpectedType(schemaResource)) {
 				// Load
 				try {
 					visitAllFiles(resourceSet, project.getFolder(IbexTGGBuilder.SRC_FOLDER), this::loadRules);
@@ -91,7 +106,7 @@ public class DiagramInitializer {
 		return null;
 	}
 
-	private IProject getActiveProject() {
+	public static IProject getActiveProject() {
 		IWorkbench iWorkbench = PlatformUI.getWorkbench();
 		if (iWorkbench == null)
 			return null;
@@ -105,9 +120,11 @@ public class DiagramInitializer {
 		if (iEditorPart == null)
 			return null;
 		IEditorInput input = iEditorPart.getEditorInput();
-		if (!(input instanceof IFileEditorInput))
-			return null;
-		IFile file = ((IFileEditorInput) input).getFile();
+		IFile file = null;
+		if (input instanceof IFileEditorInput)
+			file = ((IFileEditorInput) input).getFile();
+		else if(input instanceof URIEditorInput)
+			file = (IFile) ResourcesPlugin.getWorkspace().getRoot().findMember(((URIEditorInput) input).getURI().toPlatformString(true));
 		if (file == null)
 			return null;
 
@@ -118,6 +135,12 @@ public class DiagramInitializer {
 		if (project == null)
 			return null;
 		return project.getFile(IbexTGGNature.SCHEMA_FILE);
+	}
+	
+	private static IFile findAttrCondDefLibraryFileInProject(IProject project) {
+		if (project == null)
+			return null;
+		return project.getFile(ATTR_COND_DEF_LIBRARY_PATH);
 	}
 
 	private <ACC> void visitAllFiles(ACC accumulator, IFolder root, BiConsumer<IFile, ACC> action)
@@ -132,11 +155,26 @@ public class DiagramInitializer {
 	}
 
 	private XtextResource loadSchema(XtextResourceSet resourceSet, IFile schemaFile) throws IOException {
-		XtextResource schemaResource = (XtextResource) resourceSet
-				.createResource(URI.createPlatformResourceURI(schemaFile.getFullPath().toString(), true));
+		XtextResource schemaResource = (XtextResource) resourceSet.getResource(URI.createPlatformResourceURI(schemaFile.getFullPath().toString(), true), true);
 		schemaResource.load(null);
 		EcoreUtil.resolveAll(resourceSet);
 		return schemaResource;
+	}
+	
+	public static AttrCondDefLibrary loadAttrCondDefLibrary(XtextResourceSet resourceSet) throws IOException {
+		IFile libraryFile = findAttrCondDefLibraryFileInProject(getActiveProject());
+		
+		XtextResource libraryResource = (XtextResource) resourceSet.getResource(URI.createPlatformResourceURI(libraryFile.getFullPath().toString(), true), true);
+		if(libraryResource == null) {
+			return null;
+		}
+		libraryResource.load(null);
+		//EcoreUtil.resolveAll(resourceSet);
+		if(libraryResource.getContents().size() < 1 || !(libraryResource.getContents().get(0) instanceof TripleGraphGrammarFile)) {
+			return null;
+		}
+		TripleGraphGrammarFile libraryContainer = (TripleGraphGrammarFile) libraryResource.getContents().get(0);
+		return libraryContainer.getLibrary();
 	}
 
 	private void loadRules(IFile file, XtextResourceSet resourceSet) {
