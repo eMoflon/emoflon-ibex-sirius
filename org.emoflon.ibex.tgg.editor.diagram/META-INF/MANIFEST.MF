@@ -5,15 +5,15 @@ Bundle-SymbolicName: org.emoflon.ibex.tgg.editor.diagram;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.emoflon.ibex.tgg.editor.diagram.Activator
 Bundle-Localization: plugin
-Require-Bundle: org.eclipse.ui,
- org.eclipse.emf.transaction;bundle-version="1.9.0",
- org.eclipse.sirius.diagram;bundle-version="5.0.0",
- org.emoflon.ibex.tgg.editor.ui;bundle-version="1.0.1",
- org.eclipse.xtext;bundle-version="2.12.0",
+Require-Bundle: org.eclipse.sirius.diagram;bundle-version="5.0.0",
  org.eclipse.emf.ecore.editor;bundle-version="2.13.0",
- org.emoflon.ibex.tgg.editor.diagram.ui;bundle-version="1.0.0",
- org.eclipse.emf.emfstore.common
+ org.eclipse.emf.emfstore.common,
+ org.eclipse.xtext.ui;bundle-version="2.12.0",
+ org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.8.0",
+ org.emoflon.ibex.tgg.editor.ui;bundle-version="1.0.1",
+ org.emoflon.ibex.tgg.editor.diagram.ui
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.emoflon.ibex.tgg.editor.diagram
+Export-Package: org.emoflon.ibex.tgg.editor.diagram

@@ -279,7 +279,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 							@Override
 							protected void doExecute() {
 								if (selectedElement != null) {
-									String name = diagramInitializer.initDiagram(selectedElement, project) + " - "
+									String name = diagramInitializer.initDiagram(selectedElement, project, null) + " - "
 											+ repDescription.getLabel();
 									representation = DialectManager.INSTANCE.createRepresentation(name, selectedElement,
 											repDescription, session, progressMonitor.split(10));

@@ -1,5 +1,6 @@
 package org.emoflon.ibex.tgg.editor.diagram;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,20 +17,26 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.sirius.business.api.query.EObjectQuery;
+import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
+import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseNodePage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizardState;
+import org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
+import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
 import org.moflon.tgg.mosl.tgg.AttributeAssignment;
 import org.moflon.tgg.mosl.tgg.AttributeConstraint;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
@@ -49,6 +56,7 @@ import org.moflon.tgg.mosl.tgg.ParamValue;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
+import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class DesignServices extends CommonServices {
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
@@ -75,6 +83,51 @@ public class DesignServices extends CommonServices {
 		}
 
 		return false;
+	}
+
+	public AttrCondDef selectAttrCondDef(EObject context) {
+		List<AttrCondDef> attrCondDefList = null;
+		TripleGraphGrammarFile tggFile = null;
+		List<EObject> tggFileContents = context.eResource().getContents();
+		if(tggFileContents.size() > 0 && tggFileContents.get(0) instanceof TripleGraphGrammarFile) {
+			tggFile = (TripleGraphGrammarFile) tggFileContents.get(0);
+		}
+		else {
+			return null;
+		}
+		
+		attrCondDefList = tggFile.getLibrary() != null? tggFile.getLibrary().getAttributeCondDefs() : loadAttrCondDefLibrary(context).getAttributeCondDefs();
+
+		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
+				new NamedElementLabelProvider());
+		dlg.setTitle("New Attribute Condition");
+		dlg.setMessage("Select a function definition for the new attribute condition");
+		dlg.setElements(attrCondDefList.toArray());
+		dlg.setMultipleSelection(false);
+		AttrCondDef selectedDef = null;
+
+		if (dlg.open() == Window.OK) {
+			selectedDef = (AttrCondDef) dlg.getResult()[0];
+		}
+
+		return selectedDef;
+	}
+	
+	public boolean addAttrCondition(EObject context, DSemanticDecorator decorator) {
+		AttrCondDef selectedDef = selectAttrCondDef(context);
+		if(selectedDef == null) {
+			return false;
+		}
+		List<AttrCond> attrCondList = getAttrCondList(context);
+		if(attrCondList == null) {
+			return false;
+		}
+		AttrCond newCond = TggFactory.eINSTANCE.createAttrCond();
+		newCond.setName(selectedDef);
+		attrCondList.add(newCond);
+		OpenXtextEmbeddedEditor embeddedEditor = new OpenXtextEmbeddedEditor();
+		embeddedEditor.open(decorator, newCond);
+		return true;
 	}
 
 	public boolean addCorrespondence(NamedElements tgg, DSemanticDiagram diagram) {
@@ -447,10 +500,6 @@ public class DesignServices extends CommonServices {
 		return sourceObject.getLinkVariablePatterns();
 	}
 
-	public String getCondAttribute(AttrCond attrCond) {
-		return getAttrCondLabel(attrCond);
-	}
-
 	public String getAttrAssignmentLabel(EObject assgn) {
 		StringBuilder sb = new StringBuilder();
 		String attrName = null;
@@ -713,22 +762,27 @@ public class DesignServices extends CommonServices {
 		return lastPage.getState();
 	}
 
-	private String getAttrCondLabel(AttrCond attrCond) {
+	public String getAttrCondLabel(AttrCond attrCond) {
 		AttrCondDef def = attrCond.getName();
 		String attr = def.getName();
 		attr += "(";
+		int idx = 0;
 		List<ParamValue> params = attrCond.getValues();
 		for (ParamValue p : params) {
 			if (p instanceof AttributeExpression) {
 				AttributeExpression tmp = (AttributeExpression) p;
 				EObject objVar = tmp.getObjectVar();
-				attr = attr + getObjectVariableName(objVar) + "." + tmp.getAttribute().getName() + ", ";
+				attr = attr + getObjectVariableName(objVar) + "." + tmp.getAttribute().getName();
 			} else if (p instanceof LiteralExpression) {
 				LiteralExpression tmp = (LiteralExpression) p;
-				attr = attr + tmp.getValue() + ", ";
+				attr = attr + tmp.getValue();
 			} else if (p instanceof LocalVariable) {
 				LocalVariable tmp = (LocalVariable) p;
-				attr = attr + tmp.getName() + ", ";
+				attr = attr + tmp.getName();
+			}
+			if(idx < params.size() - 1) {
+				attr = attr + ", ";
+				idx++;
 			}
 
 			/*
@@ -737,9 +791,7 @@ public class DesignServices extends CommonServices {
 			 */
 
 		}
-		if (attr.length() > 2) {
-			attr = attr.substring(0, attr.length() - 2);
-		}
+
 		attr += ")";
 
 		return attr;
@@ -754,6 +806,32 @@ public class DesignServices extends CommonServices {
 		}
 
 		return objVarName;
+	}
+	
+	private AttrCondDefLibrary loadAttrCondDefLibrary(EObject context) {
+		AttrCondDefLibrary library = null;
+		try {
+			Session s = SessionManager.INSTANCE.getSession(context);
+			library = DiagramInitializer.loadAttrCondDefLibrary((XtextResourceSet) s.getTransactionalEditingDomain().getResourceSet());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return library;
+	}
+	
+	private List<AttrCond> getAttrCondList(EObject obj) {
+		List<AttrCond> attrCondList = null;
+		if(obj instanceof Rule) {
+			attrCondList = ((Rule) obj).getAttrConditions();
+		}
+		else if(obj instanceof ComplementRule) {
+			attrCondList = ((ComplementRule) obj).getAttrConditions();
+		}
+		else if(obj instanceof AttrCond) {
+			attrCondList = getAttrCondList(obj.eContainer());
+		}
+		
+		return attrCondList;
 	}
 
 }

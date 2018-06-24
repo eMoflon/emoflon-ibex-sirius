@@ -6,15 +6,14 @@ Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.emoflon.ibex.tgg.editor.diagram.ui
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: eMoflon::IBeX Developers
-Require-Bundle: org.eclipse.ui,
- org.moflon.core.ui,
+Require-Bundle: org.moflon.core.ui,
  org.eclipse.ui.ide;bundle-version="3.13.1",
- org.eclipse.sirius.ui,
  org.emoflon.ibex.tgg.ide,
- org.eclipse.emf.transaction;bundle-version="1.9.0",
  org.eclipse.sirius.diagram.sequence;bundle-version="5.0.0",
  org.emoflon.ibex.tgg.editor,
- org.eclipse.core.filebuffers,
- org.eclipse.xtext,
- org.eclipse.jface
+ org.eclipse.emf.compare;bundle-version="3.5.1",
+ org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.8.0",
+ org.eclipse.xtext.ui;bundle-version="2.12.0",
+ org.eclipse.emf.compare.rcp;bundle-version="2.5.1",
+ org.eclipse.sirius.diagram.ui
 Export-Package: org.emoflon.ibex.tgg.editor.diagram.ui

@@ -46,5 +46,12 @@
             name="TGG Graphical Editor">
       </editor>
    </extension>
+     <extension
+           id="org.emoflon.ibex.tgg.editor.diagram.ui.CorrespondenceStyleConfigurationProvider"
+           point="org.eclipse.sirius.diagram.ui.styleConfigurationProvider">
+        <styleConfigurationProvider
+              providerClass="org.emoflon.ibex.tgg.editor.diagram.ui.CorrespondenceStyleConfigurationProvider">
+        </styleConfigurationProvider>
+     </extension>
 
 </plugin>
