@@ -43,17 +43,12 @@ import org.eclipse.sirius.viewpoint.ViewpointPackage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.custom.VerifyKeyListener;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -61,21 +56,16 @@ import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.IResourceFactory;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.ui.editor.XtextSourceViewer;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditor;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorFactory;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorModelAccess;
 import org.eclipse.xtext.ui.editor.embedded.IEditedResourceProvider;
-import org.eclipse.xtext.ui.editor.info.ResourceWorkingCopyFileEditorInput;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-
 import com.google.inject.Injector;
 
 public class XtextEmbeddedEditor {
-	private static int MIN_EDITOR_WIDTH = 100;
+	private static int EDITOR_WIDTH = 400;
 
-	private static int MIN_EDITOR_HEIGHT = 20;
+	private static int EDITOR_HEIGHT = 180;
 
 	private IGraphicalEditPart hostEditPart;
 
@@ -94,17 +84,18 @@ public class XtextEmbeddedEditor {
 	private Decorations xtextEditorComposite;
 
 	private EmbeddedEditor xTextEmbeddedEditor;
-	
+
 	private EObject originalSemanticElement;
-	
+
 	private String endingBlockDelimiter;
 
 	public XtextEmbeddedEditor(IGraphicalEditPart editPart, Injector xtextInjector) {
 		this.hostEditPart = editPart;
 		this.xtextInjector = xtextInjector;
 	}
-	
-	public XtextEmbeddedEditor(IGraphicalEditPart editPart, EObject originalSemanticElement, String endingBlockDelimiter, Injector xtextInjector) {
+
+	public XtextEmbeddedEditor(IGraphicalEditPart editPart, EObject originalSemanticElement,
+			String endingBlockDelimiter, Injector xtextInjector) {
 		this.hostEditPart = editPart;
 		this.xtextInjector = xtextInjector;
 		this.originalSemanticElement = originalSemanticElement;
@@ -126,7 +117,7 @@ public class XtextEmbeddedEditor {
 
 	public void showEditor() {
 		try {
-			if(originalSemanticElement == null) {
+			if (originalSemanticElement == null) {
 				originalSemanticElement = resolveSemanticElement(hostEditPart);
 			}
 			if (originalSemanticElement == null) {
@@ -139,7 +130,6 @@ public class XtextEmbeddedEditor {
 				this.xtextResource = createVirtualXtextResource(originalResource.getURI(), semanticElement);
 			}
 
-			// TODO manage multi resource with Xtext Linking or Scoping service
 			semanticElementFragment = originalResource.getURIFragment(originalSemanticElement);
 			if (semanticElementFragment == null || "".equals(semanticElementFragment)) {
 				return;
@@ -149,7 +139,7 @@ public class XtextEmbeddedEditor {
 			createXtextEditor();
 		} catch (Exception e) {
 			System.out.println(e);
-			//Activator.logError(e);
+			// Activator.logError(e);
 		} finally {
 			if (hostEditPart != null) {
 				hostEditPart.refresh();
@@ -168,10 +158,10 @@ public class XtextEmbeddedEditor {
 				try {
 					updateXtextResource();
 				} catch (Exception exc) {
-					//Activator.logError(exc);
+					// Activator.logError(exc);
 				}
 			}
-		
+
 			if (xtextEditorComposite != null) {
 				this.xtextEditorComposite.setVisible(false);
 				this.xtextEditorComposite.dispose();
@@ -183,7 +173,6 @@ public class XtextEmbeddedEditor {
 
 	private XtextResource createVirtualXtextResource(URI uri, EObject semanticElement) throws IOException {
 		IResourceFactory resourceFactory = xtextInjector.getInstance(IResourceFactory.class);
-		// TODO use the synthetic scheme.
 		XtextResourceSet rs = xtextInjector.getInstance(XtextResourceSet.class);
 		rs.setClasspathURIContext(getClass());
 		// Create virtual resource
@@ -235,7 +224,7 @@ public class XtextEmbeddedEditor {
 						}
 					});
 		} catch (Exception e) {
-			//Activator.logError(e);
+			// Activator.logError(e);
 		}
 
 	}
@@ -258,20 +247,20 @@ public class XtextEmbeddedEditor {
 		String prefix = allText.substring(0, elementNode.getOffset() - 1);
 		String editablePart = "";
 		String suffix = "";
-		if(endingBlockDelimiter == null) {
+		if (endingBlockDelimiter == null) {
 			editablePart = allText.substring(elementNode.getOffset(), elementNode.getEndOffset());
 			suffix = allText.substring(elementNode.getEndOffset());
-		}
-		else {
+		} else {
 			int endOffset = allText.indexOf(endingBlockDelimiter, elementNode.getOffset());
-			if(endOffset > -1 && elementNode.getOffset() > 0) {
+			if (endOffset > -1 && elementNode.getOffset() > 0) {
 				// elementNode.getOffset()-1 because we want to keep the indent of this block
-				editablePart = allText.substring(elementNode.getOffset()-1, endOffset);
+				editablePart = allText.substring(elementNode.getOffset() - 1, endOffset);
 				suffix = allText.substring(endOffset);
 			}
 		}
-		xtextEditorComposite = new Decorations(parentComposite, SWT.RESIZE | SWT.ON_TOP | SWT.BORDER);
+		xtextEditorComposite = new Decorations(parentComposite, SWT.RESIZE | SWT.BORDER | SWT.TITLE);
 		xtextEditorComposite.setLayout(new FillLayout());
+		xtextEditorComposite.setText("TGG Xtext Editor (Ctrl+Enter to save & close / Esc to discard & close)");
 
 		EmbeddedEditorFactory factory = new EmbeddedEditorFactory();
 		xtextInjector.injectMembers(factory);
@@ -309,12 +298,6 @@ public class XtextEmbeddedEditor {
 	}
 
 	private void setEditorBounds() {
-		// mind the added newlines
-		String editString = xtextPartialEditor.getEditablePart();
-
-		int numLines = StringUtils.getNumLines(editString);
-		int numColumns = StringUtils.getMaxColumns(editString);
-
 		IFigure figure = hostEditPart.getFigure();
 		Rectangle bounds = figure.getBounds().getCopy();
 		DiagramRootEditPart diagramEditPart = (DiagramRootEditPart) hostEditPart.getRoot();
@@ -327,14 +310,7 @@ public class XtextEmbeddedEditor {
 			control = control.getParent();
 		}
 
-		Font font = figure.getFont();
-		FontData fontData = font.getFontData()[0];
-		int fontHeightInPixel = fontData.getHeight();
-
-		int width = Math.max(fontHeightInPixel * (numColumns + 3), MIN_EDITOR_WIDTH);
-		int height = Math.max(fontHeightInPixel * (numLines + 4), MIN_EDITOR_HEIGHT);
-		xtextEditorComposite.setBounds(bounds.x - 200, bounds.y - 120, width, height);
-		xtextEditorComposite.setBounds(bounds.x - 200, bounds.y - 120, width + 250, height + 50);
+		xtextEditorComposite.setBounds(bounds.x - 350, bounds.y - 90, EDITOR_WIDTH, EDITOR_HEIGHT);
 	}
 
 }

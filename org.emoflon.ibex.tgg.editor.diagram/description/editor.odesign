@@ -118,39 +118,19 @@
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
         <nodeMappings name="corrNode" label="CorrNode" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperator']" domainClass="tgg::CorrVariablePattern">
-          <borderedNodeMappings name="corrLleftPort" label="CorrLleftPort" semanticCandidatesExpression="var:self" domainClass="tgg::CorrVariablePattern">
-            <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="" sizeComputationExpression="0" labelPosition="node">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <forbiddenSides>SOUTH</forbiddenSides>
-              <forbiddenSides>EAST</forbiddenSides>
-              <forbiddenSides>NORTH</forbiddenSides>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            </style>
-          </borderedNodeMappings>
-          <borderedNodeMappings name="corrRightPort" label="CorrRightPort" semanticCandidatesExpression="var:self" domainClass="tgg::CorrVariablePattern">
-            <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="" sizeComputationExpression="0" labelPosition="node">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <forbiddenSides>WEST</forbiddenSides>
-              <forbiddenSides>SOUTH</forbiddenSides>
-              <forbiddenSides>NORTH</forbiddenSides>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            </style>
-          </borderedNodeMappings>
           <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrBlack.svg">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="6" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrBlack.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrGreen.svg">
+            <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="6" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrGreen.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
@@ -164,7 +144,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -172,7 +152,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -180,15 +160,15 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeSource" label="CorrEdgeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrLleftPort']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="feature:source">
-          <style sizeComputationExpression="2">
+        <edgeMappings name="corrEdgeSource" label="CorrEdgeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="feature:source">
+          <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -196,7 +176,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -204,15 +184,15 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeTarget" label="CorrEdgeTarget" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrRightPort']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="feature:target">
-          <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+        <edgeMappings name="corrEdgeTarget" label="CorrEdgeTarget" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="feature:target">
+          <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -220,7 +200,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -449,7 +429,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="dsad" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="dsad" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
@@ -519,8 +499,8 @@
           </vsmElementCustomizations>
         </customization>
       </additionalLayers>
-      <additionalLayers name="showGlobalView" label="Show Global View" reusedMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalInternalLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalTargetLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalSourceLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrLleftPort'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrRightPort']">
-        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrLleftPort']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)">
+      <additionalLayers name="showGlobalView" label="Show Global View" reusedMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalInternalLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalTargetLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalSourceLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']">
+        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -528,7 +508,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -536,7 +516,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -544,7 +524,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrRightPort']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)">
+        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)">
           <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -552,7 +532,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -560,7 +540,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -574,7 +554,7 @@
       <metamodel href="http://www.moflon.org/ide/tgg/mosl/TGG#/"/>
       <layout xsi:type="description_1:CompositeLayout" padding="40"/>
       <defaultLayer name="Default">
-        <nodeMappings xsi:type="description_1:NodeMappingImport" name="corrNodeCmpl" label="CorrNodeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorCmpl']" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']"/>
+        <nodeMappings xsi:type="description_1:NodeMappingImport" name="corrNode" label="CorrNodeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorCmpl']" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']"/>
         <edgeMappings name="linkEdgeCmpl" label="LinkEdgeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteLinkCmpl']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleLinkOperatorCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.linkVariablePatterns.target" reconnections="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectLinkCmpl'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectLinkSource']">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -583,7 +563,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -591,7 +571,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -599,15 +579,15 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeSourceCmpl" label="CorrEdgeSourceCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="feature:source">
-          <style sizeComputationExpression="2">
+        <edgeMappings name="corrEdgeSourceCmpl" label="CorrEdgeSourceCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="feature:source">
+          <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -615,7 +595,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style sizeComputationExpression="2">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -623,15 +603,15 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeTargetCmpl" label="CorrEdgeTargetCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="feature:target">
-          <style sizeComputationExpression="2">
+        <edgeMappings name="corrEdgeTargetCmpl" label="CorrEdgeTargetCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="feature:target">
+          <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style sizeComputationExpression="2" endsCentering="Source">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -639,7 +619,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style sizeComputationExpression="2" endsCentering="Source">
+            <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -647,7 +627,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <containerMappings xsi:type="description_1:ContainerMappingImport" name="attrCondContainerCmpl" label="AttrCondContainerCmpl" preconditionExpression="aql:self.attrConditions->size()>0" semanticCandidatesExpression="var:self" domainClass="tgg::ComplementRule" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
+        <containerMappings xsi:type="description_1:ContainerMappingImport" name="attrCondContainer" label="AttrCondContainerCmpl" preconditionExpression="aql:self.attrConditions->size()>0" semanticCandidatesExpression="var:self" domainClass="tgg::ComplementRule" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
         <containerMappings xsi:type="description_1:ContainerMappingImport" name="sourceNodeContainerCmpl" label="SourceNodeContainerCmpl" semanticCandidatesExpression="feature:sourcePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperatorCmpl']" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']"/>
         <containerMappings xsi:type="description_1:ContainerMappingImport" name="targetNodeContainerCmpl" label="TargetNodeContainerCmpl" semanticCandidatesExpression="feature:targetPatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperatorCmpl']" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']"/>
         <toolSections name="creationToolsCompl" label="Creation Tools" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='attrCondCreation']">
@@ -669,7 +649,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="createCorrespondenceCmpl" label="Correspondence" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/tgg-rule.gif">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createCorrespondenceCmpl" label="Correspondence" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/tgg-rule.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -711,7 +691,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleCorrOperatorCmpl" label="toggleCorrOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleCorrOperatorCmpl" label="toggleCorrOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
@@ -782,40 +762,20 @@
         </customization>
       </additionalLayers>
       <additionalLayers name="globalView" label="Show Global View">
-        <nodeMappings name="corrNodeGlobal" label="CorrNodeGlobal" semanticCandidatesExpression="aql:self.getGlobalCorrespondences(diagram)" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='dsad']" domainClass="tgg::CorrVariablePattern">
-          <borderedNodeMappings name="globalCorrLleftPort" label="GlobalCorrLleftPort" semanticCandidatesExpression="var:self" domainClass="tgg::CorrVariablePattern">
-            <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="" sizeComputationExpression="0" labelPosition="node">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <forbiddenSides>SOUTH</forbiddenSides>
-              <forbiddenSides>EAST</forbiddenSides>
-              <forbiddenSides>NORTH</forbiddenSides>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            </style>
-          </borderedNodeMappings>
-          <borderedNodeMappings name="globalCorrRightPort" label="GlobalCorrRightPort" semanticCandidatesExpression="var:self" domainClass="tgg::CorrVariablePattern">
-            <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="" sizeComputationExpression="0" labelPosition="node">
-              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-              <forbiddenSides>WEST</forbiddenSides>
-              <forbiddenSides>SOUTH</forbiddenSides>
-              <forbiddenSides>NORTH</forbiddenSides>
-              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
-            </style>
-          </borderedNodeMappings>
+        <nodeMappings name="corrNode" label="CorrNodeGlobal" semanticCandidatesExpression="aql:self.getGlobalCorrespondences(diagram)" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='dsad']" domainClass="tgg::CorrVariablePattern">
           <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dash" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrBlack.svg">
+            <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dash" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="6" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrBlack.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dash" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="4" resizeKind="NSEW" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrGreen.svg">
+            <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dash" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="6" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrGreen.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
@@ -829,7 +789,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
-            <style lineStyle="dash" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -837,7 +797,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
-            <style lineStyle="dash" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -853,7 +813,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
-            <style lineStyle="dash" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -861,7 +821,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
-            <style lineStyle="dash" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -877,7 +837,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
-            <style lineStyle="dash" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -885,7 +845,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
-            <style lineStyle="dash" sizeComputationExpression="2">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -893,7 +853,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrLleftPort']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)">
+        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -901,7 +861,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -909,7 +869,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ src">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -917,7 +877,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrRightPort']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)">
+        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)">
           <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -925,7 +885,7 @@
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -933,7 +893,7 @@
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
-            <style lineStyle="dash" sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="++ trg">
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>

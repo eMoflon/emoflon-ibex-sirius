@@ -6,7 +6,6 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.sirius.diagram.DDiagramElement;
 import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DNodeListElementSpec;
 import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DNodeListSpec;
 import org.eclipse.ui.IEditorPart;
@@ -32,7 +31,8 @@ public class OpenXtextEmbeddedEditor {
 			endingBlockDelimiter = ENDING_BLOCK_DELIMITER;
 		} else if (decorator instanceof DNodeListSpec) {
 			String mappingName = ((DNodeListSpec) decorator).getActualMapping().getName();
-			if (mappingName.equals("attrCondContainer") || mappingName.equals("attrCondContainerCmpl")) {
+			// TODO Change strings with constants
+			if (mappingName.equals("attrCondContainer")) {
 				EObject rootElement = (((DNodeListSpec) decorator).getTarget());
 				endingBlockDelimiter = ENDING_BLOCK_DELIMITER;
 				if (rootElement instanceof Rule) {
