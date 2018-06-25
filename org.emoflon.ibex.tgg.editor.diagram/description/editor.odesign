@@ -143,7 +143,7 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= '++'">
             <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -151,7 +151,7 @@
               </centerLabelStyleDescription>
             </style>
           </conditionnalStyles>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= ''">
             <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -429,15 +429,6 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="dsad" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']">
-            <element name="element"/>
-            <elementView name="elementView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.eContainer()">
-                <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
           <ownedTools xsi:type="tool:ReconnectEdgeDescription" name="reconnectLinkSource" label="ReconnectLinkSource" forceRefresh="true" reconnectionKind="RECONNECT_SOURCE">
             <source name="source"/>
             <target name="target"/>
@@ -499,7 +490,7 @@
           </vsmElementCustomizations>
         </customization>
       </additionalLayers>
-      <additionalLayers name="showGlobalView" label="Show Global View" reusedMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalInternalLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalTargetLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalSourceLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']">
+      <additionalLayers name="showGlobalView" label="Show Global View" reusedMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalInternalLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalTargetLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalSourceLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='makeContextNode']">
         <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -562,7 +553,7 @@
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= '++'">
             <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -570,7 +561,7 @@
               </centerLabelStyleDescription>
             </style>
           </conditionnalStyles>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= ''">
             <style sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -762,7 +753,7 @@
         </customization>
       </additionalLayers>
       <additionalLayers name="globalView" label="Show Global View">
-        <nodeMappings name="corrNode" label="CorrNodeGlobal" semanticCandidatesExpression="aql:self.getGlobalCorrespondences(diagram)" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='dsad']" domainClass="tgg::CorrVariablePattern">
+        <nodeMappings name="corrNode" label="CorrNodeGlobal" preconditionExpression="aql:container.correspondencePatterns->select(corr | corr.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getGlobalCorrespondences(diagram)" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" domainClass="tgg::CorrVariablePattern">
           <style xsi:type="style:SquareDescription" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -771,24 +762,26 @@
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()=''">
             <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dash" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="6" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrBlack.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelFormat>italic</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
           <conditionnalStyles predicateExpression="aql:self.op.value->toString()='++'">
             <style xsi:type="style:WorkspaceImageDescription" borderLineStyle="dash" showIcon="false" labelExpression="aql:self.op.value+' '+self.name+' : '+self.type.name" sizeComputationExpression="6" workspacePath="/org.emoflon.ibex.tgg.editor.diagram/icons/corrGreen.svg">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              <labelFormat>italic</labelFormat>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </style>
           </conditionnalStyles>
         </nodeMappings>
-        <edgeMappings name="globalInternalLinkEdge" label="GlobalInternalLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetFinderExpression="aql:self.findGlobalChildNode(diagram)">
+        <edgeMappings name="globalInternalLinkEdge" label="GlobalInternalLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetFinderExpression="aql:self.findGlobalChildNodes(diagram)">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription showIcon="false">
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= '++'">
             <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -796,7 +789,7 @@
               </centerLabelStyleDescription>
             </style>
           </conditionnalStyles>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= ''">
             <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -805,14 +798,14 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalSourceLinkEdge" label="GlobalSourceLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findChildNode(diagram, true)">
+        <edgeMappings name="globalSourceLinkEdge" label="GlobalSourceLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findChildNodes(diagram, true)">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= '++'">
             <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -820,7 +813,7 @@
               </centerLabelStyleDescription>
             </style>
           </conditionnalStyles>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= ''">
             <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -829,14 +822,14 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalTargetLinkEdge" label="GlobalTargetLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findChildNode(diagram, false)">
+        <edgeMappings name="globalTargetLinkEdge" label="GlobalTargetLinkEdge" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findChildNodes(diagram, false)">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= '++'">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= '++'">
             <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -844,7 +837,7 @@
               </centerLabelStyleDescription>
             </style>
           </conditionnalStyles>
-          <conditionnalStyles predicateExpression="aql:self.linkVariablePatterns.op.value->toString()= ''">
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= ''">
             <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
@@ -901,7 +894,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <containerMappings name="globalSourceNode" label="GlobalSourceNode" preconditionExpression="aql:container.sourcePatterns->select(s | s.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getNodes(diagram, 'sourceNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='dsad']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
+        <containerMappings name="globalSourceNode" label="GlobalSourceNode" preconditionExpression="aql:container.sourcePatterns->select(s | s.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getNodes(diagram, 'sourceNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
           <style xsi:type="style:FlatContainerStyleDescription" showIcon="false" labelExpression="aql:self.name+' : '+self.type.name">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -928,7 +921,7 @@
             </style>
           </conditionnalStyles>
         </containerMappings>
-        <containerMappings name="globalTargetNode" label="GlobalTargetNode" preconditionExpression="aql:container.targetPatterns->select(t | t.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getNodes(diagram, 'targetNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='dsad']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
+        <containerMappings name="globalTargetNode" label="GlobalTargetNode" preconditionExpression="aql:container.targetPatterns->select(t | t.name = self.name)->isEmpty()" semanticCandidatesExpression="aql:self.getNodes(diagram, 'targetNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
           <style xsi:type="style:FlatContainerStyleDescription" showIcon="false" labelExpression="aql:self.name+' : '+self.type.name">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -955,9 +948,28 @@
             </style>
           </conditionnalStyles>
         </containerMappings>
+        <toolSections name="editionTools" label="Edition Tools for Global View">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="globalNavigation" label="GlobalNavigation" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.eContainer()">
+                <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:ToolDescription" name="makeContextNode" label="Convert Global Element to Context Element" precondition="aql:(elementView.oclIsTypeOf(diagram::DNodeList) and elementView.oclAsType(diagram::DNodeList).getMapping().name.contains('global')) or (elementView.oclIsTypeOf(diagram::DNode) and elementView.oclAsType(diagram::DNode).getMapping().label.toLower().contains('global'))" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/nodeToContext.png">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:elementView">
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.makeGlobalNodeContextNode(diagram.target)"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
       </additionalLayers>
     </ownedRepresentations>
-    <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.Services"/>
     <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.DesignServices"/>
     <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.OpenXtextEmbeddedEditor"/>
     <ownedJavaExtensions qualifiedClassName="org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer"/>
