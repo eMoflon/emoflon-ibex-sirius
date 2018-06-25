@@ -17,3 +17,5 @@ Require-Bundle: org.moflon.core.ui,
  org.eclipse.emf.compare.rcp;bundle-version="2.5.1",
  org.eclipse.sirius.diagram.ui
 Export-Package: org.emoflon.ibex.tgg.editor.diagram.ui
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.emoflon.ibex.tgg.editor.diagram.ui.Activator
