@@ -6,8 +6,8 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
-import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DNodeListElementSpec;
-import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DNodeListSpec;
+import org.eclipse.sirius.diagram.DNodeList;
+import org.eclipse.sirius.diagram.DNodeListElement;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -29,11 +29,11 @@ public class OpenXtextEmbeddedEditor {
 		String endingBlockDelimiter = null;
 		if (originalSemanticElement != null && originalSemanticElement instanceof AttrCond) {
 			endingBlockDelimiter = ENDING_BLOCK_DELIMITER;
-		} else if (decorator instanceof DNodeListSpec) {
-			String mappingName = ((DNodeListSpec) decorator).getActualMapping().getName();
+		} else if (decorator instanceof DNodeList) {
+			String mappingName = ((DNodeList) decorator).getActualMapping().getName();
 			// TODO Change strings with constants
 			if (mappingName.equals("attrCondContainer")) {
-				EObject rootElement = (((DNodeListSpec) decorator).getTarget());
+				EObject rootElement = (((DNodeList) decorator).getTarget());
 				endingBlockDelimiter = ENDING_BLOCK_DELIMITER;
 				if (rootElement instanceof Rule) {
 					if (((Rule) rootElement).getAttrConditions().size() > 0) {
@@ -45,8 +45,8 @@ public class OpenXtextEmbeddedEditor {
 					}
 				}
 			}
-		} else if (decorator instanceof DNodeListElementSpec) {
-			String mappingName = ((DNodeListElementSpec) decorator).getActualMapping().getName();
+		} else if (decorator instanceof DNodeListElement) {
+			String mappingName = ((DNodeListElement) decorator).getActualMapping().getName();
 			if (mappingName.equals("atrrConditionNode")) {
 				endingBlockDelimiter = ENDING_BLOCK_DELIMITER;
 			}
