@@ -13,7 +13,6 @@ package org.emoflon.ibex.tgg.editor.diagram.ui;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Collections;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.BasicMonitor;
@@ -60,6 +59,7 @@ import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditor;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorFactory;
 import org.eclipse.xtext.ui.editor.embedded.EmbeddedEditorModelAccess;
 import org.eclipse.xtext.ui.editor.embedded.IEditedResourceProvider;
+import org.eclipse.xtext.validation.IResourceValidator;
 import com.google.inject.Injector;
 
 public class XtextEmbeddedEditor {
@@ -244,18 +244,20 @@ public class XtextEmbeddedEditor {
 		ICompositeNode rootNode = xtextResource.getParseResult().getRootNode();
 		String allText = rootNode.getText();
 		ICompositeNode elementNode = NodeModelUtils.findActualNodeFor(semanticElementInDocument);
-		String prefix = allText.substring(0, elementNode.getOffset() - 1);
+		String prefix = "";
 		String editablePart = "";
 		String suffix = "";
 		if (endingBlockDelimiter == null) {
 			editablePart = allText.substring(elementNode.getOffset(), elementNode.getEndOffset());
+			prefix = allText.substring(0, elementNode.getOffset());
 			suffix = allText.substring(elementNode.getEndOffset());
 		} else {
 			int endOffset = allText.indexOf(endingBlockDelimiter, elementNode.getOffset());
-			if (endOffset > -1 && elementNode.getOffset() > 0) {
-				// elementNode.getOffset()-1 because we want to keep the indent of this block
+			if (endOffset > -1 && elementNode.getOffset() > 0 && endOffset + 1 < allText.length()) {
+				// elementNode.getOffset()-1 and because we want to keep the indent of this block
+				prefix = allText.substring(0, elementNode.getOffset() - 1);
 				editablePart = allText.substring(elementNode.getOffset() - 1, endOffset);
-				suffix = allText.substring(endOffset);
+				suffix = allText.substring(elementNode.getEndOffset());
 			}
 		}
 		xtextEditorComposite = new Decorations(parentComposite, SWT.RESIZE | SWT.BORDER | SWT.TITLE);
@@ -270,8 +272,8 @@ public class XtextEmbeddedEditor {
 			public XtextResource createResource() {
 				return xtextResource;
 			}
-		}).showErrorAndWarningAnnotations().withParent(xtextEditorComposite);
-		xtextPartialEditor = xTextEmbeddedEditor.createPartialEditor(prefix, editablePart, suffix, true);
+		}).showErrorAndWarningAnnotations().withResourceValidator(xtextInjector.getInstance(IResourceValidator.class)).withParent(xtextEditorComposite);
+		xtextPartialEditor = xTextEmbeddedEditor.createPartialEditor(prefix, editablePart, suffix, false);
 
 		addKeyVerifyListener();
 		setEditorBounds();
