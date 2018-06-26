@@ -29,8 +29,7 @@ import org.eclipse.sirius.business.api.session.DefaultLocalSessionCreationOperat
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionCreationOperation;
 import org.eclipse.sirius.business.api.session.SessionManager;
-import org.eclipse.sirius.diagram.business.internal.metamodel.spec.DSemanticDiagramSpec;
-import org.eclipse.sirius.diagram.sequence.business.internal.metamodel.SequenceDDiagramSpec;
+import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.sirius.tools.api.command.semantic.AddSemanticResourceCommand;
 import org.eclipse.sirius.ui.business.api.dialect.DialectUIManager;
 import org.eclipse.sirius.ui.business.api.viewpoint.ViewpointSelectionCallback;
@@ -121,10 +120,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 			progressMonitor.setWorkRemaining(90);
 			session = createNewSession(sessionModelURI, progressMonitor.split(40));
 			if (session == null) {
-				// TODO Error message!
 				progressMonitor.setCanceled(true);
-				// throw new ExecutionException("It was not possible to create a new sirius
-				// session");
 				return;
 			}
 			progressMonitor.subTask("Adding rules of this project to the editor's session");
@@ -183,7 +179,6 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 				List<Rule> rules = ((TripleGraphGrammarFile) container).getRules();
 				List<ComplementRule> complementRules = ((TripleGraphGrammarFile) container).getComplementRules();
 
-				// TODO Change size of 3
 				if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3) {
 					progressMonitor.setCanceled(true);
 					return;
@@ -253,18 +248,31 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 
 			EObject rootObject = null;
 			for (DRepresentation currentRep : representations) {
-				if (currentRep instanceof SequenceDDiagramSpec) {
-					rootObject = ((SequenceDDiagramSpec) currentRep).getTarget();
-				} else if (currentRep instanceof DSemanticDiagramSpec) {
-					rootObject = ((DSemanticDiagramSpec) currentRep).getTarget();
+				if (currentRep instanceof DSemanticDiagram) {
+					rootObject = ((DSemanticDiagram) currentRep).getTarget();
 				}
 
 				Resource eResource = rootObject.eResource();
 				if (eResource == null)
 					continue;
 				URI eUri = eResource.getURI();
-				if (ruleURI != null && eUri.equals(ruleURI) && ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
+				if (ruleURI != null && eUri.equals(ruleURI)
+						&& ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
 					representation = currentRep;
+					if (rootObject instanceof NamedElements) {
+						final NamedElements rule = (NamedElements) rootObject;
+						session.getTransactionalEditingDomain().getCommandStack()
+								.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
+
+									@Override
+									protected void doExecute() {
+										// Update diagram Name
+										currentRep.setName(
+												((NamedElements) rule).getName() + " - " + repDescription.getLabel());
+
+									}
+								});
+					}
 					break;
 				}
 			}
@@ -289,7 +297,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 						});
 				session.save(progressMonitor.split(1));
 			}
-			
+
 			progressMonitor.setWorkRemaining(10);
 			if (representation != null) {
 				progressMonitor.subTask("Opening graphical editor");
