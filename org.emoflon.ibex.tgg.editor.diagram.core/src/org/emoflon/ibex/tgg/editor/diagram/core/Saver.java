@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.IWorkspaceRunnable;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
@@ -120,7 +120,7 @@ final class Saver extends TransactionalEditingDomainListenerImpl {
 						public void run(final IProgressMonitor progressMonitor) throws CoreException {
 							wrappedSave(options, progressMonitor, runExclusive);
 						}
-					}, new SubProgressMonitor(monitor, IProgressMonitor.UNKNOWN));
+					}, SubMonitor.convert(monitor, IProgressMonitor.UNKNOWN));
 				} catch (final CoreException e) {
 					SiriusPlugin.getDefault().error(Messages.Saver_savingErrorMsg, e);
 				}

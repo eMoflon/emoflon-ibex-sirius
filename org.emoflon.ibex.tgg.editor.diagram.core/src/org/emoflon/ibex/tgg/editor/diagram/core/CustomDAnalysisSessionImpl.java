@@ -126,7 +126,7 @@ import com.google.common.collect.Sets;
  * 
  * @author cbrun
  */
-@SuppressWarnings("deprecation")
+@SuppressWarnings({ "deprecation", "restriction" })
 public class CustomDAnalysisSessionImpl extends DAnalysisSessionEObjectImpl
 		implements Session, DAnalysisSession, ResourceSyncClient {
 	/**
@@ -173,6 +173,7 @@ public class CustomDAnalysisSessionImpl extends DAnalysisSessionEObjectImpl
 
 	private IInterpreter interpreter;
 
+	@SuppressWarnings("rawtypes")
 	private final ListenerList listeners = new ListenerList();
 
 	private int lastNotification = -1;
@@ -1078,6 +1079,7 @@ public class CustomDAnalysisSessionImpl extends DAnalysisSessionEObjectImpl
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addListener(final SessionListener listener) {
 		listeners.add(listener);

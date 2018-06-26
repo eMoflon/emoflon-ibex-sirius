@@ -36,6 +36,7 @@ import com.google.common.collect.Lists;
  * 
  * @author pcdavid
  */
+@SuppressWarnings("restriction")
 public class SessionVSMUpdater implements ViewpointRegistryListener2 {
     private final CustomDAnalysisSessionImpl session;
 

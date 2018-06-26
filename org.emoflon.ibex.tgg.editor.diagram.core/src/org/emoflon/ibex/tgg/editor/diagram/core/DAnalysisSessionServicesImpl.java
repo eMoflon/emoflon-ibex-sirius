@@ -56,6 +56,7 @@ import com.google.common.base.Preconditions;
  * 
  * @author cbrun
  */
+@SuppressWarnings("restriction")
 public class DAnalysisSessionServicesImpl implements SessionService, DAnalysisSessionService {
 
 	private final CustomDAnalysisSessionImpl session;

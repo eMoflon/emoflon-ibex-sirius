@@ -5,6 +5,7 @@ import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.internal.session.SessionFactoryImpl;
 import org.eclipse.sirius.viewpoint.DAnalysis;
 
+@SuppressWarnings("restriction")
 public class CustomSessionFactory extends SessionFactoryImpl
 		implements org.eclipse.sirius.business.api.session.factory.SessionFactory {
 
