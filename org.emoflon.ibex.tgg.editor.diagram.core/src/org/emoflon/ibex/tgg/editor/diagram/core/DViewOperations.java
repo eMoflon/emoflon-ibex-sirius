@@ -23,7 +23,7 @@ import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.SubProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.sirius.business.api.componentization.ViewpointRegistry;
@@ -52,6 +52,7 @@ import com.google.common.collect.Sets.SetView;
  * 
  * @author pcdavid
  */
+@SuppressWarnings("restriction")
 final class DViewOperations {
 	private final CustomDAnalysisSessionImpl session;
 
@@ -129,10 +130,10 @@ final class DViewOperations {
 				monitor.subTask(Messages.DViewOperations_initRepresentationMsg);
 				for (final EObject semantic : semantics) {
 					DialectManager.INSTANCE.initRepresentations(viewpoint, semantic,
-							new SubProgressMonitor(monitor, 10));
+							SubMonitor.convert(monitor, 10));
 				}
 			}
-			updateSelectedViewpointsData(new SubProgressMonitor(monitor, 1));
+			updateSelectedViewpointsData(SubMonitor.convert(monitor, 1));
 			monitor.worked(1);
 			/* DVIew created are automatically selected */
 			if (!intializedDViews.isEmpty()) {
@@ -173,7 +174,7 @@ final class DViewOperations {
 		try {
 			monitor.beginTask(Messages.DViewOperations_removeSelectedViewMsg, 1);
 			session.getMainAnalysis().getSelectedViews().remove(view);
-			updateSelectedViewpointsData(new SubProgressMonitor(monitor, 1));
+			updateSelectedViewpointsData(SubMonitor.convert(monitor, 1));
 			session.notifyListeners(SessionListener.SELECTED_VIEWS_CHANGE_KIND);
 			session.configureInterpreter();
 		} finally {
@@ -203,7 +204,6 @@ final class DViewOperations {
 					Sets.newHashSet(selectedViewpoints));
 			monitor.beginTask(Messages.DViewOperations_updateSelectedVPDataMsg,
 					selectedViewpoints.size() + difference.size() + 1);
-			// FIXME : it is useful?
 			for (Viewpoint viewpoint : selectedViewpoints) {
 				Resource viewpointResource = viewpoint.eResource();
 				if (viewpointResource != null) {

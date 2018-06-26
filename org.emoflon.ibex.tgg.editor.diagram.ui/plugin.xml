@@ -14,6 +14,9 @@
                tooltip="Open current .tgg file as a diagram in a graphical editor">
             <visibleWhen
                   checkEnabled="false">
+               <reference
+                     definitionId="org.moflon.tgg.mosl.TGG.Editor.opened">
+               </reference>
             </visibleWhen>
          </command>
       </menuContribution>
