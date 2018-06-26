@@ -34,8 +34,6 @@ import org.eclipse.emf.transaction.util.TransactionUtil;
 import org.eclipse.gef.EditPartViewer;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramRootEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.IGraphicalEditPart;
-import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditDomain;
-import org.eclipse.gmf.runtime.diagram.ui.parts.IDiagramEditDomain;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.sirius.viewpoint.ViewpointPackage;
@@ -48,7 +46,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
@@ -62,14 +59,13 @@ import org.eclipse.xtext.ui.editor.embedded.IEditedResourceProvider;
 import org.eclipse.xtext.validation.IResourceValidator;
 import com.google.inject.Injector;
 
+@SuppressWarnings("restriction")
 public class XtextEmbeddedEditor {
 	private static int EDITOR_WIDTH = 400;
 
 	private static int EDITOR_HEIGHT = 180;
 
 	private IGraphicalEditPart hostEditPart;
-
-	private IEditorPart diagramEditor;
 
 	private EmbeddedEditorModelAccess xtextPartialEditor;
 
@@ -134,8 +130,6 @@ public class XtextEmbeddedEditor {
 			if (semanticElementFragment == null || "".equals(semanticElementFragment)) {
 				return;
 			}
-			IDiagramEditDomain diagramEditDomain = hostEditPart.getDiagramEditDomain();
-			diagramEditor = ((DiagramEditDomain) diagramEditDomain).getEditorPart();
 			createXtextEditor();
 		} catch (Exception e) {
 			System.out.println(e);
