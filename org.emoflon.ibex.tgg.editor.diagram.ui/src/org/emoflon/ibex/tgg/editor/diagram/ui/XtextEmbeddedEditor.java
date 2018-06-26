@@ -257,7 +257,7 @@ public class XtextEmbeddedEditor {
 				// elementNode.getOffset()-1 and because we want to keep the indent of this block
 				prefix = allText.substring(0, elementNode.getOffset() - 1);
 				editablePart = allText.substring(elementNode.getOffset() - 1, endOffset);
-				suffix = allText.substring(elementNode.getEndOffset());
+				suffix = allText.substring(endOffset);
 			}
 		}
 		xtextEditorComposite = new Decorations(parentComposite, SWT.RESIZE | SWT.BORDER | SWT.TITLE);
