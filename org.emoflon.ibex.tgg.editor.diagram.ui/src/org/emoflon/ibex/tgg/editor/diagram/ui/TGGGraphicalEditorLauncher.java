@@ -74,7 +74,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			// Operation canceled
 		}
 	}
 
