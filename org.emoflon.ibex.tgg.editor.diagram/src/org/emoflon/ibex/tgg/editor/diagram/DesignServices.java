@@ -1005,6 +1005,7 @@ public class DesignServices extends CommonServices {
 		return page.getActiveEditor();
 	}
 	
+	@SuppressWarnings("unused")
 	private void triggerArrangeAll() {
 		ArrangeRequest arrangeRequest = new ArrangeRequest(ActionIds.ACTION_ARRANGE_ALL);
 		List<Object> partsToArrange = new ArrayList<Object>(1);
