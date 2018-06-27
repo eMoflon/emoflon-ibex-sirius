@@ -39,7 +39,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseNodePage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
@@ -979,7 +978,7 @@ public class DesignServices extends CommonServices {
 		try {
 			Session s = SessionManager.INSTANCE.getSession(context);
 			library = DiagramInitializer
-					.loadAttrCondDefLibrary((XtextResourceSet) s.getTransactionalEditingDomain().getResourceSet());
+					.loadAttrCondDefLibrary(s.getTransactionalEditingDomain().getResourceSet());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
