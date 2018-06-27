@@ -12,6 +12,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.ui.URIEditorInput;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.sirius.business.api.session.SessionManager;
 import org.eclipse.ui.IEditorInput;
@@ -161,10 +163,10 @@ public class DiagramInitializer {
 		return schemaResource;
 	}
 	
-	public static AttrCondDefLibrary loadAttrCondDefLibrary(XtextResourceSet resourceSet) throws IOException {
+	public static AttrCondDefLibrary loadAttrCondDefLibrary(ResourceSet resourceSet) throws IOException {
 		IFile libraryFile = findAttrCondDefLibraryFileInProject(getActiveProject());
 		
-		XtextResource libraryResource = (XtextResource) resourceSet.getResource(URI.createPlatformResourceURI(libraryFile.getFullPath().toString(), true), true);
+		Resource libraryResource = resourceSet.getResource(URI.createPlatformResourceURI(libraryFile.getFullPath().toString(), true), true);
 		if(libraryResource == null) {
 			return null;
 		}

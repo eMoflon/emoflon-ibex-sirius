@@ -194,7 +194,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 					selectedElement = complementRules.get(0);
 					// Complement Rule representation
 					repDescription = tggEditor.getOwnedRepresentations().get(2);
-				} else if (rules.size() > 1 || complementRules.size() > 1) {
+				} else if (rules.size() + complementRules.size() > 1) {
 					display.syncExec(new Runnable() {
 
 						@Override
