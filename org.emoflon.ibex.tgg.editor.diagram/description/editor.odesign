@@ -607,6 +607,30 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
+        <edgeMappings name="localSourceLinkEdge" label="LocalSourceLinkEdge" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElements']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode']" targetFinderExpression="aql:self.findL()">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= '++'">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='green']"/>
+              <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+          <conditionnalStyles predicateExpression="aql:self.getLinkOperator(view).value->toString()= ''">
+            <style lineStyle="dash" sizeComputationExpression="2" endsCentering="Both">
+              <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <centerLabelStyleDescription showIcon="false" labelExpression="aql:self.getLinkEdgeName(view)">
+                <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              </centerLabelStyleDescription>
+            </style>
+          </conditionnalStyles>
+        </edgeMappings>
         <toolSections name="editionTools" label="Edition Tools for Global View">
           <ownedTools xsi:type="tool_1:ToolDescription" name="makeContextNode" label="Create Local Reference for Global Element" precondition="aql:(elementView.oclIsTypeOf(diagram::DNodeList) and elementView.oclAsType(diagram::DNodeList).getMapping().name.contains('global')) or (elementView.oclIsTypeOf(diagram::DNode) and elementView.oclAsType(diagram::DNode).getMapping().label.toLower().contains('global'))" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/nodeToContext.png">
             <element name="element"/>

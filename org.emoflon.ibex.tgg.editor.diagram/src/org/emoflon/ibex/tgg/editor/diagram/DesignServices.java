@@ -72,6 +72,12 @@ import org.moflon.tgg.mosl.tgg.TggFactory;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class DesignServices extends CommonServices {
+	private Map<String, NamedElements> nodeMap;
+
+	public DesignServices() {
+		nodeMap = new HashMap<String, NamedElements>();
+	}
+
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
 
 		LinkVariablePattern link = TggFactory.eINSTANCE.createLinkVariablePattern();
@@ -611,14 +617,27 @@ public class DesignServices extends CommonServices {
 		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
 
 		for (ObjectVariablePattern node : nodeList) {
-			for (LinkVariablePattern link : linkList) {
-				if (node.getName().equals(link.getTarget().getName())) {
-					childNodes.add(node);
-				}
+			if (findLinkToTarget(linkList, node) != null) {
+				childNodes.add(node);
 			}
 		}
 
 		return childNodes;
+	}
+
+	public List<ObjectVariablePattern> findL(ObjectVariablePattern parent) {
+		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
+
+		if (!nodeMap.containsKey(parent.getName())) {
+			return nodeList;
+		}
+
+		NamedElements globalNode = nodeMap.get(parent.getName());
+		if (globalNode instanceof ObjectVariablePattern) {
+			ObjectVariablePattern castedGlobalNode = (ObjectVariablePattern) globalNode;
+			castedGlobalNode.getLinkVariablePatterns().stream().forEach(l -> nodeList.add(l.getTarget()));
+		}
+		return nodeList;
 	}
 
 	public List<NamedElements> getNodes(EObject context, DSemanticDiagram diagram, String populateTask) {
@@ -632,6 +651,8 @@ public class DesignServices extends CommonServices {
 		}
 
 		nodes.addAll(nodeMap.values());
+
+		updateNodemap(nodeMap);
 
 		return nodes;
 	}
@@ -743,11 +764,31 @@ public class DesignServices extends CommonServices {
 	}
 
 	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y) {
-		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
+		List<LinkVariablePattern> linkList = null;
 
+		// Try to find link locally
+		linkList = x.getLinkVariablePatterns();
 		// find the link variable pattern between object patterns x and y
+		LinkVariablePattern link = findLinkToTarget(linkList, y);
+		if (link != null) {
+			return link;
+		}
+		// try to find link in global node map if previous search was unsuccessful
+		if (nodeMap.containsKey(x.getName())) {
+			ObjectVariablePattern globalNode = (ObjectVariablePattern) nodeMap.get(x.getName());
+			linkList = globalNode.getLinkVariablePatterns();
+			link = findLinkToTarget(linkList, y);
+			if (link != null) {
+				return link;
+			}
+		}
+		
+		return null;
+	}
+
+	private LinkVariablePattern findLinkToTarget(List<LinkVariablePattern> linkList, ObjectVariablePattern target) {
 		for (LinkVariablePattern link : linkList) {
-			if (link.getTarget().getName().equals(y.getName())) {
+			if (link.getTarget().getName().equals(target.getName())) {
 
 				return link;
 			}
@@ -861,7 +902,7 @@ public class DesignServices extends CommonServices {
 					toggleObjectOperator(contextNode);
 					contextNode.setOp(null);
 				}
-				
+
 				// Add new context node to rule
 				if (isSourceNode) {
 					if (rule instanceof Rule) {
@@ -876,9 +917,9 @@ public class DesignServices extends CommonServices {
 						((ComplementRule) rule).getTargetPatterns().add(contextNode);
 					}
 				}
-				
+
 				// Trigger arrange-all
-				//triggerArrangeAll();
+				// triggerArrangeAll();
 				return contextNode;
 			}
 		} else if (decorator instanceof DNode) {
@@ -900,19 +941,19 @@ public class DesignServices extends CommonServices {
 				ObjectVariablePattern globalTargetObj = contextCorrespondence.getTarget();
 				ObjectVariablePattern localSourceObj = null;
 				ObjectVariablePattern localTargetObj = null;
-				for(ObjectVariablePattern obj : localSourceObjects) {
-					if(nodesWithSameName(globalSourceObj, obj)) {
+				for (ObjectVariablePattern obj : localSourceObjects) {
+					if (nodesWithSameName(globalSourceObj, obj)) {
 						localSourceObj = obj;
 						break;
 					}
 				}
-				for(ObjectVariablePattern obj : localTargetObjects) {
-					if(nodesWithSameName(globalTargetObj, obj)) {
+				for (ObjectVariablePattern obj : localTargetObjects) {
+					if (nodesWithSameName(globalTargetObj, obj)) {
 						localTargetObj = obj;
 						break;
 					}
 				}
-				
+
 				if (localSourceObj == null) {
 					// Convert the correspondence's source node to a context node
 					DNodeList globalNodeDecorator = findNodeListDecorator(((DNode) decorator).getParentDiagram(),
@@ -925,23 +966,24 @@ public class DesignServices extends CommonServices {
 							globalTargetObj.getName());
 					localTargetObj = makeGlobalNodeContextNode(globalNodeDecorator, rule);
 				}
-				
+
 				// Update source and target references
 				contextCorrespondence.setSource(localSourceObj);
 				contextCorrespondence.setTarget(localTargetObj);
-				
-				// Global green correspondences become black when they are context correspondences
+
+				// Global green correspondences become black when they are context
+				// correspondences
 				if (contextCorrespondence.getOp() != null
 						&& contextCorrespondence.getOp().getValue().equals(DEFAULT_OPERATOR)) {
 					contextCorrespondence.setOp(null);
 				}
-				
+
 				// Add new context correspondence to rule
 				correspondences.add(contextCorrespondence);
 			}
-			
+
 			// Trigger arrange-all
-			//triggerArrangeAll();
+			// triggerArrangeAll();
 		}
 		return null;
 	}
@@ -977,8 +1019,7 @@ public class DesignServices extends CommonServices {
 		AttrCondDefLibrary library = null;
 		try {
 			Session s = SessionManager.INSTANCE.getSession(context);
-			library = DiagramInitializer
-					.loadAttrCondDefLibrary(s.getTransactionalEditingDomain().getResourceSet());
+			library = DiagramInitializer.loadAttrCondDefLibrary(s.getTransactionalEditingDomain().getResourceSet());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -997,13 +1038,17 @@ public class DesignServices extends CommonServices {
 
 		return attrCondList;
 	}
-	
+
 	private IEditorPart getActiveEditor() {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
 		return page.getActiveEditor();
 	}
-	
+
+	private synchronized void updateNodemap(Map<String, NamedElements> map) {
+		nodeMap.putAll(map);
+	}
+
 	@SuppressWarnings("unused")
 	private void triggerArrangeAll() {
 		ArrangeRequest arrangeRequest = new ArrangeRequest(ActionIds.ACTION_ARRANGE_ALL);
