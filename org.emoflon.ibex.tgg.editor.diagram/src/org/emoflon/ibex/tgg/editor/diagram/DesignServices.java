@@ -19,6 +19,7 @@ import org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
 import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
@@ -71,11 +72,26 @@ import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
-public class DesignServices extends CommonServices {
-	private Map<String, NamedElements> nodeMap;
+public class DesignServices {
+	// Cache map to store the global objects in the context of each rule
+	// K: Rule name, V: Map of object name (String), and the object itself
+	// (NamedElements)
+	private static Map<String, Map<String, NamedElements>> globalCache = new HashMap<String, Map<String, NamedElements>>();
+	protected final String DEFAULT_OPERATOR = "++";
 
-	public DesignServices() {
-		nodeMap = new HashMap<String, NamedElements>();
+	public Operator getDefaultOperator(EObject self) {
+		Operator operator = TggFactory.eINSTANCE.createOperator();
+		operator.setValue(DEFAULT_OPERATOR);
+		return operator;
+	}
+
+	public String askStringFromUser(EObject self, String title, String message, String initialValue) {
+		InputDialog dlg = new InputDialog(Display.getCurrent().getActiveShell(), title, message, initialValue, null);
+		if (dlg.open() == Window.OK) {
+			return dlg.getValue();
+		} else {
+			return initialValue;
+		}
 	}
 
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
@@ -389,7 +405,7 @@ public class DesignServices extends CommonServices {
 
 	public boolean reconnectLinkTarget(ObjectVariablePattern source, ObjectVariablePattern target,
 			ObjectVariablePattern newTarget) {
-		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
+		LinkVariablePattern link = findLinkBetweenObjectPatternsLocally(source, target);
 		if (link != null) {
 			if (addLinkEdge(source, newTarget, link.getOp())) {
 				// Remove old link relation
@@ -402,7 +418,7 @@ public class DesignServices extends CommonServices {
 
 	public boolean reconnectLinkSource(ObjectVariablePattern source, ObjectVariablePattern target,
 			ObjectVariablePattern newSource) {
-		LinkVariablePattern link = findLinkBetweenObjectPatterns(source, target);
+		LinkVariablePattern link = findLinkBetweenObjectPatternsLocally(source, target);
 		if (link != null) {
 			if (addLinkEdge(newSource, target, link.getOp())) {
 				// Remove old link relation
@@ -424,10 +440,13 @@ public class DesignServices extends CommonServices {
 	public String getLinkEdgeName(ObjectVariablePattern sourceObject, DEdge edgeView) {
 		// Get the target object from the edge view
 		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
-
-		// find the link variable pattern between object patterns sourceObject and
-		// targetObject
-		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
+		// find the link variable pattern between object patterns sourceObject and targetObject
+		DSemanticDiagram diagram = (DSemanticDiagram) edgeView.getParentDiagram(); 
+		if(!(diagram.getTarget() instanceof NamedElements)) {
+			return null;
+		}
+		NamedElements rule = (NamedElements) diagram.getTarget();
+		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject, rule);
 		if (link != null) {
 			String op = "";
 			if (link.getOp() != null) {
@@ -446,7 +465,7 @@ public class DesignServices extends CommonServices {
 
 		// find the link variable pattern between object patterns sourceObject and
 		// targetObject
-		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
+		LinkVariablePattern link = findLinkBetweenObjectPatternsLocally(sourceObject, targetObject);
 		if (link != null) {
 			// Toggle link operator
 			if (link.getOp() == null) {
@@ -464,10 +483,13 @@ public class DesignServices extends CommonServices {
 	public Operator getLinkOperator(ObjectVariablePattern sourceObject, DEdge edgeView) {
 		// Get the target object from the edge view
 		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
-
-		// find the link variable pattern between object patterns sourceObject and
-		// targetObject
-		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
+		DSemanticDiagram diagram = (DSemanticDiagram) edgeView.getParentDiagram(); 
+		if(!(diagram.getTarget() instanceof NamedElements)) {
+			return null;
+		}
+		NamedElements rule = (NamedElements) diagram.getTarget();
+		// find the link variable pattern between object patterns sourceObject and targetObject
+		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject, rule);
 		if (link != null) {
 			return link.getOp();
 		}
@@ -526,7 +548,7 @@ public class DesignServices extends CommonServices {
 
 	public List<LinkVariablePattern> deleteLinkEdge(ObjectVariablePattern sourceObject, DEdge edgeView) {
 		ObjectVariablePattern targetObject = getTargetObjectFromEdge(edgeView);
-		LinkVariablePattern link = findLinkBetweenObjectPatterns(sourceObject, targetObject);
+		LinkVariablePattern link = findLinkBetweenObjectPatternsLocally(sourceObject, targetObject);
 		sourceObject.getLinkVariablePatterns().remove(link);
 
 		return sourceObject.getLinkVariablePatterns();
@@ -568,8 +590,8 @@ public class DesignServices extends CommonServices {
 		return sb.toString();
 	}
 
-	public List<ObjectVariablePattern> findChildNodes(ObjectVariablePattern parent, DSemanticDiagram diagram,
-			boolean isSourceNode) {
+	public List<ObjectVariablePattern> findLocalChildrenOfGlobalNode(ObjectVariablePattern parent,
+			DSemanticDiagram diagram, boolean isSourceNode) {
 		NamedElements rule = (NamedElements) diagram.getTarget();
 		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
 		List<ObjectVariablePattern> nodeList = null;
@@ -602,7 +624,8 @@ public class DesignServices extends CommonServices {
 		return childNodes;
 	}
 
-	public List<ObjectVariablePattern> findGlobalChildNodes(ObjectVariablePattern parent, DSemanticDiagram diagram) {
+	public List<ObjectVariablePattern> findGlobalChildrenOfGlobalNode(ObjectVariablePattern parent,
+			DSemanticDiagram diagram) {
 		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
 		List<ObjectVariablePattern> childNodes = new ArrayList<ObjectVariablePattern>();
 		diagram.getContainers().forEach(c -> {
@@ -625,39 +648,61 @@ public class DesignServices extends CommonServices {
 		return childNodes;
 	}
 
-	public List<ObjectVariablePattern> findL(ObjectVariablePattern parent) {
+	public List<ObjectVariablePattern> findGlobalChildrenOfLocalNode(ObjectVariablePattern parent, NamedElements rule) {
 		final List<ObjectVariablePattern> nodeList = new ArrayList<ObjectVariablePattern>();
-
-		if (!nodeMap.containsKey(parent.getName())) {
+		final List<ObjectVariablePattern> globalNodeList = new ArrayList<ObjectVariablePattern>();
+		
+		Map<String, NamedElements> nodeMap = getNodeMapFromCache(rule);
+		
+		if(nodeMap == null || !nodeMap.containsKey(parent.getName())) {
 			return nodeList;
 		}
-
-		NamedElements globalNode = nodeMap.get(parent.getName());
-		if (globalNode instanceof ObjectVariablePattern) {
-			ObjectVariablePattern castedGlobalNode = (ObjectVariablePattern) globalNode;
+		NamedElements globalParentNode = nodeMap.get(parent.getName());
+		if (globalParentNode instanceof ObjectVariablePattern) {
+			ObjectVariablePattern castedGlobalNode = (ObjectVariablePattern) globalParentNode;
 			castedGlobalNode.getLinkVariablePatterns().stream().forEach(l -> nodeList.add(l.getTarget()));
 		}
-		return nodeList;
+
+		nodeList.stream().forEach(n -> {
+			ObjectVariablePattern globalChildNode = (ObjectVariablePattern) nodeMap.get(n.getName());
+			if (globalChildNode != null) {
+				globalNodeList.add(globalChildNode);
+			}
+		});
+
+		return globalNodeList;
 	}
 
-	public List<NamedElements> getNodes(EObject context, DSemanticDiagram diagram, String populateTask) {
+	public List<NamedElements> getGlobalNodes(EObject context, String populateTask) {
 		List<NamedElements> nodes = new ArrayList<NamedElements>();
 		List<Rule> visitedRules = new ArrayList<Rule>();
-		Map<String, NamedElements> nodeMap = new HashMap<String, NamedElements>();
-		if (context instanceof ComplementRule) {
-			nodeMap = populateHelper(((ComplementRule) context).getKernel(), nodeMap, visitedRules, populateTask);
-		} else if (context instanceof Rule) {
-			nodeMap = populateHelper(((Rule) context).getSupertypes(), nodeMap, visitedRules, populateTask);
+		Map<String, NamedElements> nodeMap;
+		if (context instanceof NamedElements) {
+			String ruleName = ((NamedElements) context).getName();
+			if (globalCache.containsKey(ruleName)) {
+				nodeMap = globalCache.get(ruleName);
+			} else {
+				nodeMap = new HashMap<String, NamedElements>();
+				updateCache(ruleName, nodeMap);
+			}
+		} else {
+			return Collections.emptyList();
 		}
-
-		nodes.addAll(nodeMap.values());
-
-		updateNodemap(nodeMap);
+		
+		Map<String, NamedElements> newNodeMap = new HashMap<String, NamedElements>();
+		if (context instanceof ComplementRule) {
+			populateHelper(((ComplementRule) context).getKernel(), newNodeMap, visitedRules, populateTask);
+		} else if (context instanceof Rule) {
+			populateHelper(((Rule) context).getSupertypes(), newNodeMap, visitedRules, populateTask);
+		}
+		
+		updateNodeMap(nodeMap, newNodeMap);
+		nodes.addAll(newNodeMap.values());
 
 		return nodes;
 	}
 
-	public List<NamedElements> getGlobalCorrespondences(EObject context, DSemanticDiagram diagram) {
+	public List<NamedElements> getGlobalCorrespondences(EObject context) {
 		List<NamedElements> globalCorr = new ArrayList<NamedElements>();
 		Map<String, NamedElements> corrMap = new HashMap<String, NamedElements>();
 		if (context instanceof ComplementRule) {
@@ -711,6 +756,12 @@ public class DesignServices extends CommonServices {
 		return null;
 	}
 
+	public List<ObjectVariablePattern> findLocalChildrenOfLocalNode(ObjectVariablePattern parentNode) {
+		List<ObjectVariablePattern> localChildren = new ArrayList<ObjectVariablePattern>();
+		parentNode.getLinkVariablePatterns().stream().forEach(p -> localChildren.add(p.getTarget()));
+		return localChildren;
+	}
+
 	private Map<String, NamedElements> populateHelper(Rule contextRule, Map<String, NamedElements> populationMap,
 			List<Rule> visitedRules, String populateTask) {
 		if (contextRule == null || visitedRules.contains(contextRule)) {
@@ -752,7 +803,7 @@ public class DesignServices extends CommonServices {
 
 	private void addNamedElementsToMap(List<? extends NamedElements> namedElements, Map<String, NamedElements> map) {
 		for (NamedElements n : namedElements) {
-			map.put(n.getName(), n);
+			map.putIfAbsent(n.getName(), n);
 		}
 	}
 
@@ -762,19 +813,18 @@ public class DesignServices extends CommonServices {
 
 		return targetObject;
 	}
-
-	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y) {
-		List<LinkVariablePattern> linkList = null;
-
-		// Try to find link locally
-		linkList = x.getLinkVariablePatterns();
-		// find the link variable pattern between object patterns x and y
-		LinkVariablePattern link = findLinkToTarget(linkList, y);
+	
+	private LinkVariablePattern findLinkBetweenObjectPatterns(ObjectVariablePattern x, ObjectVariablePattern y, NamedElements rule) {
+		// Try to find the link variable pattern between object patterns x and y locally
+		LinkVariablePattern link = findLinkBetweenObjectPatternsLocally(x, y);
 		if (link != null) {
 			return link;
 		}
+		
 		// try to find link in global node map if previous search was unsuccessful
-		if (nodeMap.containsKey(x.getName())) {
+		Map<String, NamedElements> nodeMap = getNodeMapFromCache(rule);
+		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
+		if (nodeMap != null && nodeMap.containsKey(x.getName())) {
 			ObjectVariablePattern globalNode = (ObjectVariablePattern) nodeMap.get(x.getName());
 			linkList = globalNode.getLinkVariablePatterns();
 			link = findLinkToTarget(linkList, y);
@@ -782,8 +832,14 @@ public class DesignServices extends CommonServices {
 				return link;
 			}
 		}
-		
+
 		return null;
+	}
+
+	private LinkVariablePattern findLinkBetweenObjectPatternsLocally(ObjectVariablePattern x, ObjectVariablePattern y) {
+		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
+		// Try to find the link variable pattern between object patterns x and y locally
+		return findLinkToTarget(linkList, y);
 	}
 
 	private LinkVariablePattern findLinkToTarget(List<LinkVariablePattern> linkList, ObjectVariablePattern target) {
@@ -874,8 +930,12 @@ public class DesignServices extends CommonServices {
 				boolean isSourceNode = rootRule.getSourcePatterns().contains(obj);
 				ObjectVariablePattern contextNode = EcoreUtil.copy(obj);
 				List<LinkVariablePattern> links = contextNode.getLinkVariablePatterns();
+				if(!(rule instanceof NamedElements)) {
+					return null;
+				}
+				globalLinksToLocalLinks((DNodeList) decorator, contextNode, (NamedElements)rule);
 				List<LinkVariablePattern> newLinks = new ArrayList<LinkVariablePattern>();
-				List<ObjectVariablePattern> childNodes = findChildNodes(contextNode,
+				List<ObjectVariablePattern> childNodes = findLocalChildrenOfGlobalNode(contextNode,
 						(DSemanticDiagram) ((DNodeList) decorator).getParentDiagram(), isSourceNode);
 				// Filter links that do not point to a local node and replace references to a
 				// local node with the actual local node
@@ -886,7 +946,7 @@ public class DesignServices extends CommonServices {
 							newLink.setTarget(localNode);
 							// Global green links to a local node become black links when its owner becomes
 							// a context node
-							if (newLink.getOp().getValue().equals(DEFAULT_OPERATOR)) {
+							if (newLink.getOp() != null && newLink.getOp().getValue().equals(DEFAULT_OPERATOR)) {
 								newLink.setOp(null);
 							}
 							newLinks.add(newLink);
@@ -1045,8 +1105,53 @@ public class DesignServices extends CommonServices {
 		return page.getActiveEditor();
 	}
 
-	private synchronized void updateNodemap(Map<String, NamedElements> map) {
-		nodeMap.putAll(map);
+	private synchronized void updateCache(String ruleName, Map<String, NamedElements> map) {
+		globalCache.put(ruleName, map);
+	}
+	
+	private synchronized void updateNodeMap(Map<String, NamedElements> oldMap, Map<String, NamedElements> newMap) {
+		oldMap.putAll(newMap);
+	}
+
+	private void globalLinksToLocalLinks(DNodeList decorator, ObjectVariablePattern target, NamedElements rule) {
+		List<DEdge> incomingEdges = decorator.getIncomingEdges();
+		Map<String, NamedElements> nodeMap = getNodeMapFromCache(rule);
+		if(nodeMap == null) {
+			return;
+		}
+		for (DEdge inEdge : incomingEdges) {
+			if (!inEdge.getMapping().getName().equals("localNode2GlobalNodeEdge")) {
+				continue;
+			}
+			if (inEdge.getSourceNode() instanceof DNodeList) {
+				DNodeList parentNodeDecorator = (DNodeList) inEdge.getSourceNode();
+				ObjectVariablePattern parentNode = (ObjectVariablePattern) parentNodeDecorator.getTarget();
+				List<LinkVariablePattern> localLinkList = parentNode.getLinkVariablePatterns();
+				ObjectVariablePattern globalParentNode = (ObjectVariablePattern) nodeMap.get(parentNode.getName());
+				// TODO: Fix this!
+				if (globalParentNode == null) {
+					continue;
+				}
+				LinkVariablePattern globalLink = findLinkToTarget(globalParentNode.getLinkVariablePatterns(), target);
+				if (globalLink != null) {
+					LinkVariablePattern localLink = EcoreUtil.copy(globalLink);
+					if (localLink.getOp() != null && localLink.getOp().getValue().equals(DEFAULT_OPERATOR)) {
+						localLink.setOp(null);
+					}
+					localLink.setTarget(target);
+					localLinkList.add(localLink);
+				}
+			}
+		}
+	}
+	
+	private Map<String, NamedElements> getNodeMapFromCache(NamedElements rule) {
+		String ruleName = rule.getName();
+		
+		if (!globalCache.containsKey(ruleName)) {
+			return null;
+		}
+		return globalCache.get(ruleName);
 	}
 
 	@SuppressWarnings("unused")
