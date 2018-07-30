@@ -946,6 +946,9 @@ public class DesignServices {
 				Rule rootRule = (Rule) obj.eContainer();
 				boolean isSourceNode = rootRule.getSourcePatterns().contains(obj);
 				ObjectVariablePattern contextNode = EcoreUtil.copy(obj);
+				// clear constraints and assignments because we don't want to override them
+				contextNode.getAttributeAssignments().clear();
+				contextNode.getAttributeConstraints().clear();
 				List<LinkVariablePattern> links = contextNode.getLinkVariablePatterns();
 				if (!(rule instanceof NamedElements)) {
 					return null;
