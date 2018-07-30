@@ -318,7 +318,7 @@
             </style>
           </conditionnalStyles>
         </containerMappings>
-        <toolSections name="newItems" label="Creation Tools">
+        <toolSections name="creation" label="Creation">
           <ownedTools xsi:type="tool:ContainerCreationDescription" name="createSourceNodeContainer" label="Source Node" forceRefresh="true" containerMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/sourceNode.png">
             <variable name="container"/>
             <viewVariable name="containerView"/>
@@ -367,7 +367,7 @@
             </initialOperation>
           </ownedTools>
         </toolSections>
-        <toolSections name="editionTools" label="Edition Tools">
+        <toolSections name="editionTools" label="Edition">
           <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteLink" label="DeleteLink" forceRefresh="true">
             <element name="element"/>
             <elementView name="elementView"/>
@@ -480,7 +480,7 @@
             </initialOperation>
             <edgeView name="edgeView"/>
           </ownedTools>
-          <ownedTools xsi:type="tool_1:ToolDescription" name="editElement" label="Open with Xtext Editor" precondition="aql:not(elementView.oclIsTypeOf(diagram::DSemanticDiagram) or elementView.oclIsTypeOf(diagram::DEdge))" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/textEditor.png">
+          <ownedTools xsi:type="tool_1:ToolDescription" name="editElement" label="Open with Xtext Editor" precondition="aql:elementView.provideXtextEmbeddedEditor()" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/textEditor.png">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
@@ -535,8 +535,8 @@
           </vsmElementCustomizations>
         </customization>
       </additionalLayers>
-      <additionalLayers endUserDocumentation="This layer shows the elements (nodes and correspondences) of this rule's parents." name="showGlobalView" label="Global View" reusedMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalInternalLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalTargetLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalSourceLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='globalCorrLeftPort'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='globalCorrRightPort']" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" activeByDefault="true">
-        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@additionalLayers[name='showGlobalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElements']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='globalCorrLeftPort']">
+      <additionalLayers endUserDocumentation="This layer shows the elements (nodes and correspondences) of this rule's parents." name="showGlobalView" label="Global View" reusedMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalInternalLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalTargetLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@edgeMappings[name='globalSourceLinkEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrLeftPort'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrRightPort']" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigationClick']" activeByDefault="true">
+        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@additionalLayers[name='showGlobalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElements']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrLeftPort']">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -560,7 +560,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@additionalLayers[name='showGlobalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElements']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='globalCorrRightPort']">
+        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@additionalLayers[name='showGlobalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElements']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrRightPort']">
           <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -656,16 +656,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <toolSections name="editionTools" label="Edition Tools for Global View">
-          <ownedTools xsi:type="tool_1:ToolDescription" name="makeContextNode" label="Create Local Reference for Global Element" precondition="aql:(elementView.oclIsTypeOf(diagram::DNodeList) and elementView.oclAsType(diagram::DNodeList).getMapping().name.contains('global')) or (elementView.oclIsTypeOf(diagram::DNode) and elementView.oclAsType(diagram::DNode).getMapping().label.toLower().contains('global'))" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/nodeToContext.png">
-            <element name="element"/>
-            <elementView name="elementView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:elementView">
-                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.makeGlobalNodeContextNode(diagram.target)"/>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
+        <toolSections name="editionTools" label="Edition" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigationClick']">
           <ownedTools xsi:type="tool:DeleteElementDescription" name="dummyDeleteGlobalElements" label="DummyDeleteGlobalElements">
             <element name="element"/>
             <elementView name="elementView"/>
@@ -675,6 +666,8 @@
             </initialOperation>
           </ownedTools>
         </toolSections>
+        <toolSections name="navigationTools" label="Navigation" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.1/@ownedTools[name='globalNavigationTool']"/>
+        <toolSections name="creation" label="Creation" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.2/@ownedTools[name='makeContextNode']"/>
       </additionalLayers>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="complementRule" label="Complement Rule" titleExpression="aql:self.initDiagram() + ' - Complement Rule'" initialisation="true" domainClass="tgg::ComplementRule" enablePopupBars="true">
@@ -686,7 +679,7 @@
         <layoutOptions xsi:type="description_1:DoubleLayoutOption" id="org.eclipse.elk.graphviz.layerSpacingFactor" value="5.0"/>
       </layout>
       <defaultLayer name="Default">
-        <nodeMappings xsi:type="description_1:NodeMappingImport" name="corrNode" label="CorrNodeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorCmpl']" reusedBorderedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrLeftPort'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrRightPort']" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']"/>
+        <nodeMappings xsi:type="description_1:NodeMappingImport" name="corrNodeCmpl" label="CorrNodeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorCmpl']" reusedBorderedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrLeftPort'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrRightPort']" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']"/>
         <edgeMappings name="linkEdgeCmpl" label="LinkEdgeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteLinkCmpl']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleLinkOperatorCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findLocalChildrenOfLocalNode()" reconnections="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectLinkCmpl'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='reconnectLinkSource']">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -711,7 +704,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeSourceCmpl" label="CorrEdgeSourceCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="feature:source" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrLeftPort']">
+        <edgeMappings name="corrEdgeSourceCmpl" label="CorrEdgeSourceCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="feature:source" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrLeftPort']">
           <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -735,7 +728,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="corrEdgeTargetCmpl" label="CorrEdgeTargetCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="feature:target" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrRightPort']">
+        <edgeMappings name="corrEdgeTargetCmpl" label="CorrEdgeTargetCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdgeCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="feature:target" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrRightPort']">
           <style sizeComputationExpression="2" endsCentering="Both">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -762,7 +755,7 @@
         <containerMappings xsi:type="description_1:ContainerMappingImport" name="attrCondContainer" label="AttrCondContainerCmpl" preconditionExpression="aql:self.attrConditions->size()>0" semanticCandidatesExpression="var:self" domainClass="tgg::ComplementRule" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']/@subNodeMappings[name='atrrConditionNode']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='attrCondContainer']"/>
         <containerMappings xsi:type="description_1:ContainerMappingImport" name="sourceNodeContainerCmpl" label="SourceNodeContainerCmpl" semanticCandidatesExpression="feature:sourcePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperatorCmpl']" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']"/>
         <containerMappings xsi:type="description_1:ContainerMappingImport" name="targetNodeContainerCmpl" label="TargetNodeContainerCmpl" semanticCandidatesExpression="feature:targetPatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperatorCmpl']" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='targetNodeContainer']"/>
-        <toolSections name="creationToolsCompl" label="Creation Tools" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='attrCondCreation']">
+        <toolSections name="creationToolsCompl" label="Creation" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.0/@ownedTools[name='attrCondCreation']">
           <ownedTools xsi:type="tool:ContainerCreationDescription" name="createSourceNodeContainerCmpl" label="Source Node" containerMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/sourceNode.png">
             <variable name="container"/>
             <viewVariable name="containerView"/>
@@ -781,7 +774,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:NodeCreationDescription" name="createCorrespondenceCmpl" label="Correspondence" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/tgg-rule.gif">
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createCorrespondenceCmpl" label="Correspondence" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/tgg-rule.gif">
             <variable name="container"/>
             <viewVariable name="containerView"/>
             <initialOperation>
@@ -802,7 +795,7 @@
             </initialOperation>
           </ownedTools>
         </toolSections>
-        <toolSections name="editionToolsCompl" label="Edition Tools" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteAttrCondContainer'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='editElement']">
+        <toolSections name="editionToolsCompl" label="Edition" reusedTools="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteAttrCondContainer'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorEdge'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='editElement']">
           <ownedTools xsi:type="tool:DeleteElementDescription" name="deleteLinkCmpl" label="DeleteLink">
             <element name="element"/>
             <elementView name="elementView"/>
@@ -823,7 +816,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleCorrOperatorCmpl" label="toggleCorrOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNode']">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="toggleCorrOperatorCmpl" label="toggleCorrOperator" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@nodeMappings[name='corrNodeCmpl']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
@@ -896,7 +889,7 @@
         </customization>
       </additionalLayers>
       <additionalLayers endUserDocumentation="This layer shows the elements (nodes and correspondences) of this rule's parents." name="globalView" label="Global View" activeByDefault="true">
-        <nodeMappings name="corrNode" label="CorrNodeGlobal" preconditionExpression="aql:container.correspondencePatterns->select(corr | corr.name = self.name)->isEmpty()" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="aql:self.getGlobalCorrespondences()" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" domainClass="tgg::CorrVariablePattern">
+        <nodeMappings name="corrNodeGlobal" label="CorrNodeGlobal" preconditionExpression="aql:container.correspondencePatterns->select(corr | corr.name = self.name)->isEmpty()" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="aql:self.getGlobalCorrespondences()" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigationClick']" domainClass="tgg::CorrVariablePattern">
           <borderedNodeMappings name="globalCorrRightPort" label="GlobalCorrRightPort" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="var:self" domainClass="tgg::CorrVariablePattern">
             <style xsi:type="style:DotDescription" showIcon="false" labelExpression="" sizeComputationExpression="0" labelPosition="node" strokeSizeComputationExpression="0">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -1009,7 +1002,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='globalCorrLeftPort']">
+        <edgeMappings name="globalCorrEdgeSource" label="GlobalCorrEdgeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='sourceNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, true)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrLeftPort']">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -1033,7 +1026,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='globalCorrRightPort']">
+        <edgeMappings name="globalCorrEdgeTarget" label="GlobalCorrEdgeTarget" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" sourceMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']" targetMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@containerMappings[name='targetNodeContainerCmpl']" targetFinderExpression="aql:self.findGlobalCorrPort(diagram, false)" pathExpression="aql:self.getCorrespondenceEdgePathElement(element, source)" pathNodeMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']/@borderedNodeMappings[name='globalCorrRightPort']">
           <style sizeComputationExpression="2" foldingStyle="SOURCE" endsCentering="Source">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
@@ -1081,7 +1074,7 @@
             </style>
           </conditionnalStyles>
         </edgeMappings>
-        <containerMappings name="globalSourceNode" label="GlobalSourceNode" preconditionExpression="aql:container.sourcePatterns->select(s | s.name = self.name)->isEmpty()" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="aql:self.getGlobalNodes('sourceNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
+        <containerMappings name="globalSourceNode" label="GlobalSourceNode" preconditionExpression="aql:container.sourcePatterns->select(s | s.name = self.name)->isEmpty()" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="aql:self.getGlobalNodes('sourceNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigationClick']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
           <style xsi:type="style:FlatContainerStyleDescription" showIcon="false" labelExpression="aql:self.name+' : '+self.type.name">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -1108,7 +1101,7 @@
             </style>
           </conditionnalStyles>
         </containerMappings>
-        <containerMappings name="globalTargetNode" label="GlobalTargetNode" preconditionExpression="aql:container.targetPatterns->select(t | t.name = self.name)->isEmpty()" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="aql:self.getGlobalNodes('targetNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigation']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
+        <containerMappings name="globalTargetNode" label="GlobalTargetNode" preconditionExpression="aql:container.targetPatterns->select(t | t.name = self.name)->isEmpty()" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="aql:self.getGlobalNodes('targetNodes')" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='globalNavigationClick']" domainClass="tgg::ObjectVariablePattern" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrAssignmentNodeSource'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@containerMappings[name='sourceNodeContainer']/@subNodeMappings[name='attrConstraintNodeSource']" childrenPresentation="List">
           <style xsi:type="style:FlatContainerStyleDescription" showIcon="false" labelExpression="aql:self.name+' : '+self.type.name">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -1135,22 +1128,13 @@
             </style>
           </conditionnalStyles>
         </containerMappings>
-        <toolSections name="editionToolsCompl" label="Edition Tools for Global View">
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="globalNavigation" label="GlobalNavigation" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNode']">
+        <toolSections name="editionToolsCompl" label="Edition">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="globalNavigationClick" label="GlobalNavigation" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalSourceNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@containerMappings[name='globalTargetNode'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@nodeMappings[name='corrNodeGlobal']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element.eContainer()">
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.findParentRuleOfNode()">
                 <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
-              </firstModelOperations>
-            </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool_1:ToolDescription" name="makeContextNode" label="Create Local Reference for Global Element" precondition="aql:(elementView.oclIsTypeOf(diagram::DNodeList) and elementView.oclAsType(diagram::DNodeList).getMapping().name.contains('global')) or (elementView.oclIsTypeOf(diagram::DNode) and elementView.oclAsType(diagram::DNode).getMapping().label.toLower().contains('global'))" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/nodeToContext.png">
-            <element name="element"/>
-            <elementView name="elementView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:elementView">
-                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.makeGlobalNodeContextNode(diagram.target)"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -1160,6 +1144,28 @@
             <containerView name="containerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:Let" variableName="dummyVar" valueExpression="0"/>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="navigationToolsCmpl" label="Navigation">
+          <ownedTools xsi:type="tool_1:ToolDescription" name="globalNavigationTool" label="Go To Definiton of Global Element " precondition="aql:elementView.provideNavigationTool()" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/navigation.png">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:elementView.findParentRuleOfNode()">
+                <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="creationToolsCompl" label="Creation">
+          <ownedTools xsi:type="tool_1:ToolDescription" name="makeContextNode" label="Create Local Reference for Global Element" precondition="aql:(elementView.oclIsTypeOf(diagram::DNodeList) and elementView.oclAsType(diagram::DNodeList).getMapping().name.contains('global')) or (elementView.oclIsTypeOf(diagram::DNode) and elementView.oclAsType(diagram::DNode).getMapping().label.toLower().contains('global'))" forceRefresh="true" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/nodeToContext.png">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:elementView">
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.makeGlobalNodeContextNode(diagram.target)"/>
+              </firstModelOperations>
             </initialOperation>
           </ownedTools>
         </toolSections>

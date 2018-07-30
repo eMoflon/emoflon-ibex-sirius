@@ -97,9 +97,9 @@ public class DesignServices {
 			return initialValue;
 		}
 	}
-	
+
 	public EObject getCorrespondenceEdgePathElement(EObject context, EObject element, EObject source) {
-		if(element == source) {
+		if (element == source) {
 			return element;
 		}
 		return null;
@@ -595,9 +595,9 @@ public class DesignServices {
 			sb.append(".");
 			sb.append(((AttributeExpression) expr).getAttribute().getName());
 		} else if (expr instanceof EnumExpression) {
-			// TODO enum attr
-			System.out.println(((EnumExpression) expr).getEenum().toString());
-			System.out.println(((EnumExpression) expr).getLiteral().toString());
+			// TODO add support for enum attr
+			// System.out.println(((EnumExpression) expr).getEenum().toString());
+			// System.out.println(((EnumExpression) expr).getLiteral().toString());
 		}
 
 		return sb.toString();
@@ -605,10 +605,16 @@ public class DesignServices {
 
 	public List<ObjectVariablePattern> findLocalChildrenOfGlobalNode(ObjectVariablePattern parent,
 			DSemanticDiagram diagram, boolean isSourceNode) {
-		NamedElements rule = (NamedElements) diagram.getTarget();
-		List<LinkVariablePattern> linkList = parent.getLinkVariablePatterns();
-		List<ObjectVariablePattern> nodeList = null;
 		List<ObjectVariablePattern> childNodes = new ArrayList<ObjectVariablePattern>();
+		NamedElements rule = (NamedElements) diagram.getTarget();
+		GlobalContext globalContext = getGlobalContextOfRule(rule);
+		if (globalContext == null) {
+			return childNodes;
+		}
+
+		List<LinkVariablePattern> linkList = globalContext.getAllLinksFromObject(parent);
+
+		List<ObjectVariablePattern> nodeList = null;
 		if (isSourceNode) {
 			if (rule instanceof Rule) {
 				nodeList = ((Rule) rule).getSourcePatterns();
@@ -630,6 +636,7 @@ public class DesignServices {
 			for (LinkVariablePattern link : linkList) {
 				if (node.getName().equals(link.getTarget().getName())) {
 					childNodes.add(node);
+					break;
 				}
 			}
 		}
@@ -649,22 +656,22 @@ public class DesignServices {
 				nodeList.add((ObjectVariablePattern) c.getTarget());
 			}
 		});
-		
-		if(!(diagram.getTarget() instanceof NamedElements)) {
+
+		if (!(diagram.getTarget() instanceof NamedElements)) {
 			return childNodes;
 		}
-		String ruleName = ((NamedElements)diagram.getTarget()).getName();
-		GlobalContext globalContext = globalCache.get(ruleName);
-		if(globalContext == null) {
+		GlobalContext globalContext = getGlobalContextOfRule((NamedElements) diagram.getTarget());
+		if (globalContext == null) {
 			return childNodes;
 		}
 		List<LinkVariablePattern> linkList = globalContext.getAllLinksFromObject(parent);
 
-		for (ObjectVariablePattern node : nodeList) {
-			if (findLinkToTarget(linkList, node) != null) {
-				childNodes.add(node);
+		linkList.stream().forEach(l -> {
+			ObjectVariablePattern childNode = findLinkTarget(l, nodeList);
+			if (childNode != null) {
+				childNodes.add(childNode);
 			}
-		}
+		});
 
 		return childNodes;
 	}
@@ -676,21 +683,21 @@ public class DesignServices {
 		GlobalContext globalContext = getGlobalContextOfRule(rule);
 
 		if (globalContext == null || !globalContext.containsObjectName(parent.getName())) {
-			return Collections.emptyList();
+			return globalNodeList;
 		}
-		Set<NamedElements> globalParentNodeSet = globalContext.get(parent.getName());
-		for(NamedElements globalParentNode : globalParentNodeSet) {
-			if (globalParentNode instanceof ObjectVariablePattern) {
-				ObjectVariablePattern castedGlobalNode = (ObjectVariablePattern) globalParentNode;
-				castedGlobalNode.getLinkVariablePatterns().stream().forEach(l -> childrenSet.add(l.getTarget()));
-			}
-		}
+
+		List<LinkVariablePattern> linkList = globalContext.getAllLinksFromObject(parent);
+		linkList.stream().forEach(l -> childrenSet.add(l.getTarget()));
 
 		childrenSet.stream().forEach(n -> {
 			Set<NamedElements> globalChildNodeSet = globalContext.get(n.getName());
 			if (globalChildNodeSet != null) {
-				//TODO: Check equality
-				globalChildNodeSet.stream().forEach(g -> globalNodeList.add((ObjectVariablePattern) g));
+				globalChildNodeSet.stream().forEach(g -> {
+					if (!(g instanceof ObjectVariablePattern)) {
+						return;
+					}
+					globalNodeList.add((ObjectVariablePattern) g);
+				});
 			}
 		});
 
@@ -702,13 +709,7 @@ public class DesignServices {
 		List<Rule> visitedRules = new ArrayList<Rule>();
 		GlobalContext globalContext;
 		if (context instanceof NamedElements) {
-			String ruleName = ((NamedElements) context).getName();
-			if (globalCache.containsKey(ruleName)) {
-				globalContext = globalCache.get(ruleName);
-			} else {
-				globalContext = new GlobalContext();
-				updateCache(ruleName, globalContext);
-			}
+			globalContext = initGlobalContext((NamedElements) context);
 		} else {
 			return Collections.emptyList();
 		}
@@ -727,17 +728,26 @@ public class DesignServices {
 	}
 
 	public List<NamedElements> getGlobalCorrespondences(EObject context) {
+		GlobalContext globalContext;
+		if (context instanceof NamedElements) {
+			globalContext = initGlobalContext((NamedElements) context);
+		} else {
+			return Collections.emptyList();
+		}
+
 		List<NamedElements> globalCorr = new ArrayList<NamedElements>();
 		GlobalContext corrGlobalContext = new GlobalContext();
 		if (context instanceof ComplementRule) {
-			corrGlobalContext = populateHelper(((ComplementRule) context).getKernel(), corrGlobalContext, new ArrayList<Rule>(),
-					"correspondences");
+			corrGlobalContext = populateHelper(((ComplementRule) context).getKernel(), corrGlobalContext,
+					new ArrayList<Rule>(), "correspondences");
 		} else if (context instanceof Rule) {
-			corrGlobalContext = populateHelper(((Rule) context).getSupertypes(), corrGlobalContext, new ArrayList<Rule>(),
-					"correspondences");
+			corrGlobalContext = populateHelper(((Rule) context).getSupertypes(), corrGlobalContext,
+					new ArrayList<Rule>(), "correspondences");
 		}
 
+		globalContext.addContext(corrGlobalContext);
 		globalCorr.addAll(corrGlobalContext.getAllFirstMatches());
+
 		return globalCorr;
 	}
 
@@ -786,8 +796,21 @@ public class DesignServices {
 		return localChildren;
 	}
 
-	private GlobalContext populateHelper(Rule contextRule,
-			GlobalContext globalContext, List<Rule> visitedRules, String populateTask) {
+	private GlobalContext initGlobalContext(NamedElements rule) {
+		GlobalContext globalContext;
+		String ruleName = ((NamedElements) rule).getName();
+		if (globalCache.containsKey(ruleName)) {
+			globalContext = globalCache.get(ruleName);
+		} else {
+			globalContext = new GlobalContext();
+			updateCache(ruleName, globalContext);
+		}
+
+		return globalContext;
+	}
+
+	private GlobalContext populateHelper(Rule contextRule, GlobalContext globalContext, List<Rule> visitedRules,
+			String populateTask) {
 		if (contextRule == null || visitedRules.contains(contextRule)) {
 			return globalContext;
 		}
@@ -813,8 +836,8 @@ public class DesignServices {
 		return globalContext;
 	}
 
-	private GlobalContext populateHelper(List<Rule> contextRules,
-			GlobalContext globalContext, List<Rule> visitedRules, String populateTask) {
+	private GlobalContext populateHelper(List<Rule> contextRules, GlobalContext globalContext, List<Rule> visitedRules,
+			String populateTask) {
 
 		if (contextRules != null) {
 			for (Rule contextRule : contextRules) {
@@ -844,7 +867,7 @@ public class DesignServices {
 		GlobalContext globalContext = getGlobalContextOfRule(rule);
 		if (globalContext != null && globalContext.containsObjectName(x.getName())) {
 			List<LinkVariablePattern> linkList = globalContext.getAllLinksFromObject(x);
-			link = findLinkToTarget(linkList, y);
+			link = findLinkFromTarget(linkList, y);
 			if (link != null) {
 				return link;
 			}
@@ -856,14 +879,25 @@ public class DesignServices {
 	private LinkVariablePattern findLinkBetweenObjectPatternsLocally(ObjectVariablePattern x, ObjectVariablePattern y) {
 		List<LinkVariablePattern> linkList = x.getLinkVariablePatterns();
 		// Try to find the link variable pattern between object patterns x and y locally
-		return findLinkToTarget(linkList, y);
+		return findLinkFromTarget(linkList, y);
 	}
 
-	private LinkVariablePattern findLinkToTarget(List<LinkVariablePattern> linkList, ObjectVariablePattern target) {
+	private LinkVariablePattern findLinkFromTarget(List<LinkVariablePattern> linkList, ObjectVariablePattern target) {
 		for (LinkVariablePattern link : linkList) {
 			if (link.getTarget().getName().equals(target.getName())) {
 
 				return link;
+			}
+		}
+
+		return null;
+	}
+
+	private ObjectVariablePattern findLinkTarget(LinkVariablePattern link, List<ObjectVariablePattern> targets) {
+		for (ObjectVariablePattern target : targets) {
+			if (link.getTarget().getName().equals(target.getName())) {
+
+				return target;
 			}
 		}
 
@@ -928,8 +962,9 @@ public class DesignServices {
 			}
 
 			/*
-			 * TODO else if(p instanceof EnumExpression) { EnumExpression tmp =
-			 * (EnumExpression)p; attr = attr + tmp.getEenum().get + ", "; }
+			 * TODO: Add support for EnumExpression else if(p instanceof EnumExpression) {
+			 * EnumExpression tmp = (EnumExpression)p; attr = attr + tmp.getEenum().get +
+			 * ", "; }
 			 */
 
 		}
@@ -1068,6 +1103,75 @@ public class DesignServices {
 		return null;
 	}
 
+	// Make the embedded editor only available for local elements of type Node or
+	// NodeList
+	public boolean provideXtextEmbeddedEditor(DSemanticDecorator decorator) {
+		if (decorator instanceof DNodeList || decorator instanceof DNode) {
+			return !isDiagramElementGlobal((DDiagramElement) decorator);
+		}
+		return false;
+	}
+
+	// Make the navigation tool only available for global elements of type Node or
+	// NodeList
+	public boolean provideNavigationTool(DSemanticDecorator decorator) {
+		if (decorator instanceof DNodeList || decorator instanceof DNode) {
+			return isDiagramElementGlobal((DDiagramElement) decorator);
+		}
+		return false;
+	}
+
+	public EObject findParentRuleOfNode(DDiagramElement diagramElement) {
+		if (!(diagramElement.getTarget() instanceof NamedElements)) {
+			return null;
+		}
+		NamedElements node = (NamedElements) diagramElement.getTarget();
+		DSemanticDiagram diagram = (DSemanticDiagram) diagramElement.getParentDiagram();
+		if (!(diagram.getTarget() instanceof NamedElements)) {
+			return null;
+		}
+		NamedElements rule = (NamedElements) diagram.getTarget();
+		GlobalContext globalContext = getGlobalContextOfRule(rule);
+		if (globalContext == null) {
+			return rule;
+		}
+		Set<NamedElements> globalNodeSet = globalContext.get(node.getName());
+		if (globalNodeSet == null || globalNodeSet.size() < 1) {
+			return rule;
+		}
+
+		EObject parentRule = rule;
+		NamedElements[] globalNodes = new NamedElements[globalNodeSet.size()];
+		globalNodeSet.toArray(globalNodes);
+		if (globalNodeSet.size() == 1) {
+			parentRule = globalNodes[0].eContainer();
+		} else {
+			// More than one parent rule containing the node
+			// Let the user select the rule of interest
+			List<NamedElements> ruleList = new ArrayList<NamedElements>();
+			for (NamedElements n : globalNodes) {
+				EObject nRule = n.eContainer();
+				if (nRule instanceof NamedElements) {
+					ruleList.add((NamedElements) nRule);
+				}
+			}
+
+			ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
+					new NamedElementLabelProvider());
+			dlg.setTitle("Select the rule you want to navigate to");
+			dlg.setMessage(
+					"The selected global element is defined in more than one parent rules. Please select the rule you want to navigate to.");
+			dlg.setElements(ruleList.toArray());
+			dlg.setMultipleSelection(false);
+
+			if (dlg.open() == Window.OK) {
+				parentRule = (EObject) dlg.getResult()[0];
+			}
+
+		}
+		return parentRule;
+	}
+
 	private DNodeList findNodeListDecorator(DDiagram diagram, String containerSemanticElementName) {
 		List<DDiagramElementContainer> containers = diagram.getContainers();
 		for (DDiagramElementContainer container : containers) {
@@ -1082,6 +1186,14 @@ public class DesignServices {
 
 	private boolean nodesWithSameName(ObjectVariablePattern obj1, ObjectVariablePattern obj2) {
 		return obj1.getName().equals(obj2.getName());
+	}
+
+	private boolean isDiagramElementGlobal(DDiagramElement diagramElement) {
+		String mappingName = ((DDiagramElement) diagramElement).getDiagramElementMapping().getName().toLowerCase();
+		if (mappingName.contains("global")) {
+			return true;
+		}
+		return false;
 	}
 
 	private String getObjectVariableName(EObject objVar) {
@@ -1147,12 +1259,13 @@ public class DesignServices {
 				if (globalParentNodeSet == null) {
 					continue;
 				}
-				for(NamedElements globalParentNode : globalParentNodeSet) {
-					if(!(globalParentNode instanceof ObjectVariablePattern)) {
+				for (NamedElements globalParentNode : globalParentNodeSet) {
+					if (!(globalParentNode instanceof ObjectVariablePattern)) {
 						continue;
 					}
 					ObjectVariablePattern castedGlobalParentNode = (ObjectVariablePattern) globalParentNode;
-					LinkVariablePattern globalLink = findLinkToTarget(castedGlobalParentNode.getLinkVariablePatterns(), target);
+					LinkVariablePattern globalLink = findLinkFromTarget(
+							castedGlobalParentNode.getLinkVariablePatterns(), target);
 					if (globalLink != null) {
 						LinkVariablePattern localLink = EcoreUtil.copy(globalLink);
 						if (localLink.getOp() != null && localLink.getOp().getValue().equals(DEFAULT_OPERATOR)) {
@@ -1166,7 +1279,7 @@ public class DesignServices {
 			}
 		}
 	}
-	
+
 	private GlobalContext getGlobalContextOfRule(NamedElements rule) {
 		return globalCache.get(rule.getName());
 	}
