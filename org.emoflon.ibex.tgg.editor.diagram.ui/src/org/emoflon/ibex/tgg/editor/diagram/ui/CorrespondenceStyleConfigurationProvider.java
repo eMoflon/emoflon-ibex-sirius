@@ -14,7 +14,7 @@ public class CorrespondenceStyleConfigurationProvider implements IStyleConfigura
 			NodeMapping nodeMapping = (NodeMapping) mapping;
 			if (nodeMapping.getName() != null
 					&& nodeMapping.getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME)) {
-				return new CorrespondenceStyleConfiguration();
+				return CorrespondenceStyleConfiguration.getInstance();
 			}
 		}
 		return null;
