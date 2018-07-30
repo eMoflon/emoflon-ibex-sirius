@@ -97,6 +97,13 @@ public class DesignServices {
 			return initialValue;
 		}
 	}
+	
+	public EObject getCorrespondenceEdgePathElement(EObject context, EObject element, EObject source) {
+		if(element == source) {
+			return element;
+		}
+		return null;
+	}
 
 	public boolean addLinkEdge(ObjectVariablePattern sourceObject, ObjectVariablePattern targetObject, Operator op) {
 
