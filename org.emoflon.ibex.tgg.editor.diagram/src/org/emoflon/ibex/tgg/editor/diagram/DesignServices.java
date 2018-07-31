@@ -1160,7 +1160,7 @@ public class DesignServices {
 					new NamedElementLabelProvider());
 			dlg.setTitle("Select the rule you want to navigate to");
 			dlg.setMessage(
-					"The selected global element is defined in more than one parent rules. Please select the rule you want to navigate to.");
+					"The selected global element is defined in more than one parent rule. Please select the rule you want to navigate to.");
 			dlg.setElements(ruleList.toArray());
 			dlg.setMultipleSelection(false);
 
