@@ -14,7 +14,8 @@ public class CorrespondenceStyleConfigurationProvider implements IStyleConfigura
 			NodeMapping nodeMapping = (NodeMapping) mapping;
 			if (nodeMapping.getName() != null && (nodeMapping.getName()
 					.equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME)
-					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.GLOBAL_CORRESPONDENCE_MAPPING_NAME))) {
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.GLOBAL_CORRESPONDENCE_MAPPING_NAME)
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_CMPL_MAPPING_NAME))) {
 				return CorrespondenceStyleConfiguration.getInstance();
 			}
 		}
@@ -27,7 +28,8 @@ public class CorrespondenceStyleConfigurationProvider implements IStyleConfigura
 			NodeMapping nodeMapping = (NodeMapping) mapping;
 			if (nodeMapping.getName() != null && (nodeMapping.getName()
 					.equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME)
-					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.GLOBAL_CORRESPONDENCE_MAPPING_NAME))) {
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.GLOBAL_CORRESPONDENCE_MAPPING_NAME)
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_CMPL_MAPPING_NAME))) {
 				return true;
 			}
 		}
