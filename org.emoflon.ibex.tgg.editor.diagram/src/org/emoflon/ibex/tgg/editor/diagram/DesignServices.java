@@ -1034,7 +1034,7 @@ public class DesignServices {
 				}
 
 				// Trigger arrange-all
-				// triggerArrangeAll();
+				triggerArrangeAll();
 				return contextNode;
 			}
 		} else if (decorator instanceof DNode) {
@@ -1098,7 +1098,7 @@ public class DesignServices {
 			}
 
 			// Trigger arrange-all
-			// triggerArrangeAll();
+			triggerArrangeAll();
 		}
 		return null;
 	}
@@ -1283,8 +1283,7 @@ public class DesignServices {
 	private GlobalContext getGlobalContextOfRule(NamedElements rule) {
 		return globalCache.get(rule.getName());
 	}
-
-	@SuppressWarnings("unused")
+	
 	private void triggerArrangeAll() {
 		ArrangeRequest arrangeRequest = new ArrangeRequest(ActionIds.ACTION_ARRANGE_ALL);
 		List<Object> partsToArrange = new ArrayList<Object>(1);
