@@ -47,6 +47,7 @@ import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
 import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.Rule;
+import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class TGGGraphicalEditorLauncher implements IEditorLauncher {
@@ -58,6 +59,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 	private URI ruleURI = null;
 	private DRepresentation representation = null;
 	private NamedElements selectedElement = null;
+	private TripleGraphGrammarFile schemaFile = null;
 	private RepresentationDescription repDescription = null;
 	private IProject project = null;
 	private SubMonitor progressMonitor = null;
@@ -175,11 +177,12 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 					progressMonitor.setCanceled(true);
 					return;
 				}
+				TripleGraphGrammarFile castedTGGFile = (TripleGraphGrammarFile) container;
+				List<Rule> rules = castedTGGFile.getRules();
+				List<ComplementRule> complementRules = castedTGGFile.getComplementRules();
 
-				List<Rule> rules = ((TripleGraphGrammarFile) container).getRules();
-				List<ComplementRule> complementRules = ((TripleGraphGrammarFile) container).getComplementRules();
-
-				if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3) {
+				if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3 || rules == null
+						|| complementRules == null) {
 					progressMonitor.setCanceled(true);
 					return;
 				}
@@ -227,6 +230,11 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 							}
 						}
 					});
+				} else if (castedTGGFile.getSchema() != null) {
+					// Schema file handling
+					schemaFile = castedTGGFile;
+					// TGG File representation
+					repDescription = tggEditor.getOwnedRepresentations().get(0);
 				} else {
 					progressMonitor.setCanceled(true);
 					return;
@@ -256,40 +264,38 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 				if (eResource == null)
 					continue;
 				URI eUri = eResource.getURI();
-				if (ruleURI != null && eUri.equals(ruleURI)
-						&& ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
-					representation = currentRep;
-					if (rootObject instanceof NamedElements) {
+				if (ruleURI != null && eUri.equals(ruleURI)) {
+					if (selectedElement != null && rootObject instanceof NamedElements
+							&& ((NamedElements) rootObject).getName().equals(selectedElement.getName())) {
+						representation = currentRep;
 						final NamedElements rule = (NamedElements) rootObject;
-						session.getTransactionalEditingDomain().getCommandStack()
-								.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
-
-									@Override
-									protected void doExecute() {
-										// Update diagram Name
-										currentRep.setName(
-												((NamedElements) rule).getName() + " - " + repDescription.getLabel());
-
-									}
-								});
+						String ruleName = ((NamedElements) rule).getName();
+						updateDiagramName(ruleName);
+						break;
+					} else if (schemaFile != null && rootObject instanceof TripleGraphGrammarFile) {
+						Schema schema = ((TripleGraphGrammarFile) rootObject).getSchema();
+						if (schema.getName() != null && schema.getName().equals(schemaFile.getSchema().getName())) {
+							representation = currentRep;
+							updateDiagramName(schema.getName());
+						}
 					}
-					break;
 				}
 			}
 			progressMonitor.worked(5);
 
 			if (representation == null) {
 				progressMonitor.subTask("Creating new representation for the rule");
+				EObject semancticElement = selectedElement != null? selectedElement : schemaFile;
 				// create new representation
 				session.getTransactionalEditingDomain().getCommandStack()
 						.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
 
 							@Override
 							protected void doExecute() {
-								if (selectedElement != null) {
-									String name = diagramInitializer.initDiagram(selectedElement, project, null) + " - "
+								if (semancticElement != null) {
+									String name = diagramInitializer.initDiagram(semancticElement, project, null) + " - "
 											+ repDescription.getLabel();
-									representation = DialectManager.INSTANCE.createRepresentation(name, selectedElement,
+									representation = DialectManager.INSTANCE.createRepresentation(name, semancticElement,
 											repDescription, session, progressMonitor.split(10));
 								}
 
@@ -351,6 +357,19 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 
 		return sessionCreationOperation.getCreatedSession();
 
+	}
+	
+	private void updateDiagramName(final String name) {
+		session.getTransactionalEditingDomain().getCommandStack()
+		.execute(new RecordingCommand(session.getTransactionalEditingDomain()) {
+
+			@Override
+			protected void doExecute() {
+				// Update diagram Name
+				representation.setName(name + " - " + repDescription.getLabel());
+
+			}
+		});
 	}
 
 }

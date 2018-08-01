@@ -2,6 +2,7 @@ package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
@@ -35,6 +37,7 @@ import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.DNodeList;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
+import org.eclipse.sirius.viewpoint.ViewpointPackage;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
@@ -49,6 +52,7 @@ import org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
+import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
 import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
@@ -440,12 +444,19 @@ public class DesignServices {
 		return false;
 	}
 
-	public boolean reconnectRefineEdgeSource(ComplementRule source, Rule target, NamedElements newSource) {
-		// Set new refine relation
-		((ComplementRule) newSource).setKernel(target);
-		// Remove old refine relation
-		source.setKernel(null);
-		return true;
+	public List<Rule> reconnectRefineEdgeTarget(Rule source, Rule target, Rule newTarget) {
+		List<Rule> superTypes = source.getSupertypes();
+		superTypes.remove(target);
+		if (newTarget != null) {
+			superTypes.add(newTarget);
+		}
+		return superTypes;
+	}
+	
+	public List<Rule> deleteRefineEdgeOfRule(Rule source, DEdge edgeView) {
+		DDiagramElement t = (DDiagramElement) edgeView.getTargetNode();
+		Rule targetObject = (Rule) t.getTarget();
+		return reconnectRefineEdgeTarget(source, targetObject, null);
 	}
 
 	public String getLinkEdgeName(ObjectVariablePattern sourceObject, DEdge edgeView) {
@@ -848,7 +859,7 @@ public class DesignServices {
 		return globalContext;
 	}
 
-	private ObjectVariablePattern getTargetObjectFromEdge(DEdge edgeView) {
+	public ObjectVariablePattern getTargetObjectFromEdge(DEdge edgeView) {
 		DDiagramElement t = (DDiagramElement) edgeView.getTargetNode();
 		ObjectVariablePattern targetObject = (ObjectVariablePattern) t.getTarget();
 
@@ -1172,6 +1183,85 @@ public class DesignServices {
 		return parentRule;
 	}
 
+	public List<TripleGraphGrammarFile> getTGGfilesInProject(TripleGraphGrammarFile schemaFile) {
+		List<TripleGraphGrammarFile> tggFiles = new ArrayList<TripleGraphGrammarFile>();
+		Session session = SessionManager.INSTANCE.getSession(schemaFile);
+		if (session == null) {
+			return tggFiles;
+		}
+		Collection<Resource> semanticResources = session.getSemanticResources();
+		for (Resource r : semanticResources) {
+			EObject container = r.getContents().get(0);
+			if (container instanceof TripleGraphGrammarFile) {
+				TripleGraphGrammarFile tggFile = (TripleGraphGrammarFile) container;
+				if ((tggFile.getRules() != null && tggFile.getRules().size() > 0)
+						|| (tggFile.getComplementRules() != null && tggFile.getComplementRules().size() > 0)) {
+					// We only want to display tgg files containing rules or complement rules
+					tggFiles.add(tggFile);
+				} else {
+					String uri = r.getURI().toPlatformString(true);
+					if (!uri.contains(IbexTGGNature.SCHEMA_FILE)
+							&& !uri.contains(DiagramInitializer.ATTR_COND_DEF_LIBRARY_PATH)) {
+						tggFiles.add(tggFile);
+					}
+
+				}
+			}
+		}
+		return tggFiles;
+	}
+
+	/*
+	 * public boolean updateFileName(TripleGraphGrammarFile tggFile, String newName)
+	 * throws CoreException { Resource resource = tggFile.eResource(); String uriStr
+	 * = resource.getURI().toPlatformString(true); if(uriStr == null) { return
+	 * false; } String[] pathSegments = uriStr.split("/"); uriStr = ""; boolean
+	 * srcSegmentFound = false; for(int i = 0; i < pathSegments.length; i++) {
+	 * if(pathSegments[i].equals(IbexTGGBuilder.SRC_FOLDER)) { srcSegmentFound =
+	 * true; } if(srcSegmentFound) { uriStr += pathSegments[i]; if(i <
+	 * pathSegments.length - 1) { uriStr += "/"; } } } IProject project =
+	 * DiagramInitializer.getActiveProject(); if(project == null) { return false; }
+	 * 
+	 * IFile file = project.getFile(uriStr); if(file == null || !file.exists()) {
+	 * return false; } IPath oldPath = file.getFullPath(); IPath newPath =
+	 * oldPath.removeLastSegments(1); newPath = newPath.append(newName); newPath =
+	 * newPath.addFileExtension("tgg"); file.move(newPath, true, true, null); return
+	 * true; }
+	 */
+
+	public boolean updateDiagramName(NamedElements rule) {
+		EObjectQuery eObjectQuery = new EObjectQuery(rule);
+		Collection<EObject> referencers = eObjectQuery
+				.getInverseReferences(ViewpointPackage.Literals.DSEMANTIC_DECORATOR__TARGET);
+		for (EObject referencer : referencers) {
+			if (referencer instanceof DSemanticDiagram) {
+				// found the rule diagram
+				String repName = "";
+				if (rule instanceof Rule) {
+					repName = "TGG Rule";
+				} else if (rule instanceof ComplementRule) {
+					repName = "Complement Rule";
+				}
+				DSemanticDiagram diagram = (DSemanticDiagram) referencer;
+				diagram.setName(rule.getName() + " - " + repName);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean moveRule(EObject rule, EObject oldFile, EObject newFile) {
+		if (rule instanceof Rule) {
+			// oldFile.getRules().remove(rule);
+			// newFile.getRules().add((Rule) rule);
+		} else if (rule instanceof ComplementRule) {
+			// oldFile.getComplementRules().remove(rule);
+			// newFile.getComplementRules().add((ComplementRule) rule);
+		}
+
+		return true;
+	}
+
 	private DNodeList findNodeListDecorator(DDiagram diagram, String containerSemanticElementName) {
 		List<DDiagramElementContainer> containers = diagram.getContainers();
 		for (DDiagramElementContainer container : containers) {
@@ -1283,7 +1373,7 @@ public class DesignServices {
 	private GlobalContext getGlobalContextOfRule(NamedElements rule) {
 		return globalCache.get(rule.getName());
 	}
-	
+
 	private void triggerArrangeAll() {
 		ArrangeRequest arrangeRequest = new ArrangeRequest(ActionIds.ACTION_ARRANGE_ALL);
 		List<Object> partsToArrange = new ArrayList<Object>(1);
