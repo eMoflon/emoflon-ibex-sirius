@@ -7,6 +7,12 @@ import org.eclipse.sirius.diagram.ui.tools.api.figure.anchor.AnchorProvider;
 
 public class CorrespondenceAnchorProvider implements AnchorProvider {
 
+	private static CorrespondenceAnchorProvider instance = new CorrespondenceAnchorProvider();
+
+	private CorrespondenceAnchorProvider() {
+		// empty.
+	}
+
 	@Override
 	public ConnectionAnchor createAnchor(AirDefaultSizeNodeFigure figure, PrecisionPoint referencePoint) {
 		return new CorrespondenceAnchor(figure);
@@ -15,6 +21,10 @@ public class CorrespondenceAnchorProvider implements AnchorProvider {
 	@Override
 	public ConnectionAnchor createDefaultAnchor(AirDefaultSizeNodeFigure figure) {
 		return new CorrespondenceAnchor(figure);
+	}
+
+	public static CorrespondenceAnchorProvider getInstance() {
+		return instance;
 	}
 
 }

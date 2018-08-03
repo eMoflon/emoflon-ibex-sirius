@@ -4,6 +4,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -17,10 +18,18 @@ public class OpenDiagramHandler extends AbstractCommandHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbenchWindow window = HandlerUtil.getActiveWorkbenchWindow(event);
+		IFile file = null;
 		IWorkbenchPage activePage = window.getActivePage();
-		IEditorInput input = activePage.getActiveEditor().getEditorInput();
-		IFile tggFile = ((IFileEditorInput) input).getFile();
-		editorLauncher.open(tggFile.getFullPath());
+		IEditorPart editorPart = activePage.getActiveEditor();
+		if (editorPart != null) {
+			IEditorInput input = editorPart.getEditorInput();
+			if (input instanceof IFileEditorInput) {
+				file = ((IFileEditorInput) input).getFile();
+			}
+		}
+		if (file != null) {
+			editorLauncher.open(file.getFullPath());
+		}
 		return null;
 	}
 }

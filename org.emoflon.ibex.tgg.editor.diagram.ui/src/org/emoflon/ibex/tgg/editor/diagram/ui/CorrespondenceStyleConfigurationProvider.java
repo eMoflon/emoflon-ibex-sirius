@@ -12,9 +12,11 @@ public class CorrespondenceStyleConfigurationProvider implements IStyleConfigura
 	public StyleConfiguration createStyleConfiguration(DiagramElementMapping mapping, Style style) {
 		if (mapping instanceof NodeMapping) {
 			NodeMapping nodeMapping = (NodeMapping) mapping;
-			if (nodeMapping.getName() != null
-					&& nodeMapping.getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME)) {
-				return new CorrespondenceStyleConfiguration();
+			if (nodeMapping.getName() != null && (nodeMapping.getName()
+					.equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME)
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.GLOBAL_CORRESPONDENCE_MAPPING_NAME)
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_CMPL_MAPPING_NAME))) {
+				return CorrespondenceStyleConfiguration.getInstance();
 			}
 		}
 		return null;
@@ -22,8 +24,17 @@ public class CorrespondenceStyleConfigurationProvider implements IStyleConfigura
 
 	@Override
 	public boolean provides(DiagramElementMapping mapping, Style style) {
-		return mapping instanceof NodeMapping && ((NodeMapping) mapping).getName() != null
-				&& ((NodeMapping) mapping).getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME);
+		if (mapping instanceof NodeMapping) {
+			NodeMapping nodeMapping = (NodeMapping) mapping;
+			if (nodeMapping.getName() != null && (nodeMapping.getName()
+					.equals(TGGSiriusEditorConstants.CORRESPONDENCE_MAPPING_NAME)
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.GLOBAL_CORRESPONDENCE_MAPPING_NAME)
+					|| nodeMapping.getName().equals(TGGSiriusEditorConstants.CORRESPONDENCE_CMPL_MAPPING_NAME))) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

@@ -7,6 +7,36 @@
             allPopups="false"
             locationURI="popup:org.moflon.ide.ui.moflon?after=moflonGroupAnalysis">
          <command
+               commandId="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagramFromProjectExplorer"
+               icon="icons/diagramEditor.png"
+               label="Open Project with Graphical Editor"
+               style="push"
+               tooltip="Open current TGG project as a diagram in a graphical editor">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                        variable="activeMenuSelection">
+                        <iterate>
+                    <adapt type="org.eclipse.core.resources.IProject">
+                         <and>
+                         <test
+                         property="org.eclipse.core.resources.projectNature"
+                         value="org.emoflon.ibex.tgg.ide.nature">
+                         </test>
+                         </and>
+                    </adapt>
+             </iterate>
+                <count
+                      value="1">
+                </count>
+                  </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.moflon.ide.ui.moflon?after=moflonGroupAnalysis">
+         <command
                commandId="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagram"
                icon="icons/diagramEditor.png"
                label="Open with Graphical Editor"
@@ -20,6 +50,28 @@
             </visibleWhen>
          </command>
       </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.sirius.diagram.ui.tabbar?after=additions">
+         <command
+               commandId="org.emoflon.ibex.tgg.editor.diagram.ui.OpenProjectDiagram"
+               icon="icons/diagramEditor.png"
+               label="Open Project Diagram"
+               style="push"
+               tooltip="Open current TGG project as a diagram in a graphical editor">
+            <visibleWhen
+                  checkEnabled="false">
+                  <and>
+         <with variable="activeEditorId">
+            <equals value="org.eclipse.sirius.diagram.ui.part.SiriusDiagramEditorID"/>
+         </with>
+         <with variable="activeEditor">
+             <test property="org.emoflon.ibex.tgg.editor.diagram.ui.isConcernedEditor"/>
+         </with>
+      </and>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
    <extension
          point="org.eclipse.ui.commands">
@@ -27,6 +79,16 @@
             defaultHandler="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagramHandler"
             id="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagram"
             name="Open with Graphical Editor">
+      </command>
+      <command
+            defaultHandler="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagramFromProjectHandler"
+            id="org.emoflon.ibex.tgg.editor.diagram.ui.OpenDiagramFromProjectExplorer"
+            name="Open Project with Graphical Editor">
+      </command>
+      <command
+            defaultHandler="org.emoflon.ibex.tgg.editor.diagram.ui.OpenProjectDiagramFromSirius"
+            id="org.emoflon.ibex.tgg.editor.diagram.ui.OpenProjectDiagram"
+            name="Open Project Diagram">
       </command>
    </extension>
    <extension
@@ -55,6 +117,16 @@
         <styleConfigurationProvider
               providerClass="org.emoflon.ibex.tgg.editor.diagram.ui.CorrespondenceStyleConfigurationProvider">
         </styleConfigurationProvider>
+     </extension>
+     <extension
+           point="org.eclipse.core.expressions.propertyTesters">
+        <propertyTester
+              class="org.emoflon.ibex.tgg.editor.diagram.ui.ConcernEditorTester"
+              id="org.emoflon.ibex.tgg.editor.diagram.ui.ConcernEditorTester"
+              namespace="org.emoflon.ibex.tgg.editor.diagram.ui"
+              properties="isConcernedEditor"
+              type="org.eclipse.ui.IEditorPart">
+        </propertyTester>
      </extension>
 
 </plugin>
