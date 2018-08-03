@@ -26,14 +26,14 @@
           </style>
         </edgeMappings>
         <containerMappings name="tggFile" label="TGGFile" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='ignoreTGGFileDeletion']" semanticCandidatesExpression="aql:self.getTGGfilesInProject()" domainClass="tgg::TripleGraphGrammarFile" dropDescriptions="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='dragAndDropProjectElement']" reusedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='complementRule'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='tggRule']">
-          <subNodeMappings name="complementRule" label="ComplementRule" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='renameTool']" semanticCandidatesExpression="feature:complementRules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.0/@ownedTools[name='complementRuleDoubleClick']" domainClass="tgg::ComplementRule">
+          <subNodeMappings name="complementRule" label="ComplementRule" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='renameTool']" semanticCandidatesExpression="feature:complementRules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.2/@ownedTools[name='doubleClickNavigation']" domainClass="tgg::ComplementRule">
             <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="aql:self.name +' : Complement Rule'" labelPosition="node" resizeKind="NSEW" width="18" height="7">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
             </style>
           </subNodeMappings>
-          <subNodeMappings name="tggRule" label="TGGRule" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='renameTool']" semanticCandidatesExpression="feature:rules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.0/@ownedTools[name='ruleDoubleClick']" domainClass="tgg::Rule">
+          <subNodeMappings name="tggRule" label="TGGRule" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.1/@ownedTools[name='renameTool']" semanticCandidatesExpression="feature:rules" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@toolSections.2/@ownedTools[name='doubleClickNavigation']" domainClass="tgg::Rule">
             <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="aql:self.name +' : Rule'" labelPosition="node" resizeKind="NSEW" width="18" height="7">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -57,20 +57,6 @@
           </style>
         </containerMappings>
         <toolSections name="creationToolsProject" label="Creation">
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="ruleDoubleClick" label="RuleDoubleClickoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='tggRule']">
-            <element name="element"/>
-            <elementView name="elementView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
-            </initialOperation>
-          </ownedTools>
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="complementRuleDoubleClick" label="ComplementRuleDoubleClick" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='complementRule']">
-            <element name="element"/>
-            <elementView name="elementView"/>
-            <initialOperation>
-              <firstModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
-            </initialOperation>
-          </ownedTools>
           <ownedTools xsi:type="tool:NodeCreationDescription" name="rule" label="Rule" nodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='tggRule']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
@@ -80,6 +66,7 @@
                   <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Rule','Name:','UnnamedRule')"/>
                   <subModelOperations xsi:type="tool_1:SetValue" featureName="schema" valueExpression="aql:containerView.getParentDiagram().oclAsType(diagram::DSemanticDiagram).target.oclAsType(tgg::TripleGraphGrammarFile).schema"/>
                 </subModelOperations>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.saveSession()"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -91,6 +78,7 @@
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="tgg::ComplementRule" referenceName="complementRules">
                   <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:self.askStringFromUser('New Complement Rule','Name:','UnnamedRule')"/>
                 </subModelOperations>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.saveSession()"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -196,14 +184,7 @@
             <newViewContainer name="newContainerView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:element">
-                <subModelOperations xsi:type="tool_1:Switch">
-                  <cases conditionExpression="aql:element.oclIsTypeOf(tgg::ComplementRule)">
-                    <subModelOperations xsi:type="tool_1:MoveElement" newContainerExpression="var:newSemanticContainer" featureName="complementRules"/>
-                  </cases>
-                  <default>
-                    <subModelOperations xsi:type="tool_1:MoveElement" newContainerExpression="var:newSemanticContainer" featureName="rules"/>
-                  </default>
-                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.moveRuleFromFile(oldSemanticContainer, newSemanticContainer)"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -217,19 +198,21 @@
           </ownedTools>
         </toolSections>
         <toolSections name="navigationToolsProject" label="Navigation">
-          <ownedTools xsi:type="tool_1:ToolDescription" name="globalNavigationTool" label="Go To Rule Diagram " precondition="aql:element.oclIsTypeOf(tgg::Rule) or element.oclIsTypeOf(tgg::ComplementRule)" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/navigation.png">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="doubleClickNavigation" label="DoubleClickNavigation" precondition="aql:element.oclIsTypeOf(tgg::Rule) or (element.oclIsTypeOf(tgg::ComplementRule) and element.oclAsType(tgg::ComplementRule).kernel->notEmpty())" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='tggRule'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='complementRule']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element">
-                <subModelOperations xsi:type="tool_1:Switch">
-                  <cases conditionExpression="aql:element.oclIsTypeOf(tgg::ComplementRule)">
-                    <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']"/>
-                  </cases>
-                  <default>
-                    <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
-                  </default>
-                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.openDiagram()"/>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:ToolDescription" name="globalNavigationTool" label="Go To Rule Diagram " precondition="aql:element.oclIsTypeOf(tgg::Rule) or (element.oclIsTypeOf(tgg::ComplementRule) and element.oclAsType(tgg::ComplementRule).kernel->notEmpty())" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/navigation.png">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:element">
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.openDiagram()"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -243,6 +226,9 @@
           <value name="DOWN"/>
         </layoutOptions>
         <layoutOptions xsi:type="description_1:DoubleLayoutOption" id="org.eclipse.elk.graphviz.layerSpacingFactor" value="5.0"/>
+        <layoutOptions xsi:type="description_1:EnumLayoutOption" id="org.eclipse.elk.hierarchyHandling">
+          <value name="INCLUDE_CHILDREN"/>
+        </layoutOptions>
       </layout>
       <defaultLayer name="Default">
         <nodeMappings name="corrNode" label="CorrNode" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='renameNodeTool']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperator']" domainClass="tgg::CorrVariablePattern">
@@ -376,14 +362,14 @@
           </style>
         </containerMappings>
         <containerMappings name="sourceNodeContainer" label="SourceNodeContainer" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteSourceNode']" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='renameNodeTool']" semanticCandidatesExpression="feature:sourcePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleNodeOperator']" domainClass="tgg::ObjectVariablePattern" childrenPresentation="List">
-          <subNodeMappings name="attrConstraintNodeSource" label="AttrConstraintNodeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="feature:attributeConstraints" domainClass="tgg::AttributeConstraint">
+          <subNodeMappings name="attrConstraintNodeSource" label="AttrConstraintNodeSource" semanticCandidatesExpression="feature:attributeConstraints" domainClass="tgg::AttributeConstraint">
             <style xsi:type="style:SquareDescription" borderSizeComputationExpression="1" showIcon="false" labelExpression="aql:self.getAttrAssignmentLabel()" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
           </subNodeMappings>
-          <subNodeMappings name="attrAssignmentNodeSource" label="AttrAssignmentNodeSource" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@additionalLayers[name='globalView']/@toolSections.0/@ownedTools[name='dummyDeleteGlobalElementsCmpl']" semanticCandidatesExpression="feature:attributeAssignments" domainClass="tgg::AttributeAssignment">
+          <subNodeMappings name="attrAssignmentNodeSource" label="AttrAssignmentNodeSource" semanticCandidatesExpression="feature:attributeAssignments" domainClass="tgg::AttributeAssignment">
             <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="aql:self.getAttrAssignmentLabel()" labelAlignment="LEFT" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -810,6 +796,9 @@
           <value name="DOWN"/>
         </layoutOptions>
         <layoutOptions xsi:type="description_1:DoubleLayoutOption" id="org.eclipse.elk.graphviz.layerSpacingFactor" value="5.0"/>
+        <layoutOptions xsi:type="description_1:EnumLayoutOption" id="org.eclipse.elk.hierarchyHandling">
+          <value name="INCLUDE_CHILDREN"/>
+        </layoutOptions>
       </layout>
       <defaultLayer name="Default">
         <nodeMappings xsi:type="description_1:NodeMappingImport" name="corrNodeCmpl" label="CorrNodeCmpl" deletionDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='deleteCorr']" labelDirectEdit="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='renameNodeToolCmpl']" semanticCandidatesExpression="feature:correspondencePatterns" doubleClickDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@toolSections.1/@ownedTools[name='toggleCorrOperatorCmpl']" reusedBorderedNodeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrLeftPort'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']/@borderedNodeMappings[name='corrRightPort']" importedMapping="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@nodeMappings[name='corrNode']"/>
@@ -1277,7 +1266,7 @@
             <elementView name="elementView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:self.findParentRuleOfNode()">
-                <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.openDiagram()"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -1296,7 +1285,7 @@
             <elementView name="elementView"/>
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="aql:elementView.findParentRuleOfNode()">
-                <subModelOperations xsi:type="tool:Navigation" createIfNotExistent="true" diagramDescription="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']"/>
+                <subModelOperations xsi:type="tool_1:Let" variableName="tmp" valueExpression="aql:self.openDiagram()"/>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>

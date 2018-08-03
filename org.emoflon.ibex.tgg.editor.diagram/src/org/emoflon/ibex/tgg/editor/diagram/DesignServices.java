@@ -1,6 +1,7 @@
 package org.emoflon.ibex.tgg.editor.diagram;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,6 +12,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.SubMonitor;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
@@ -24,8 +30,10 @@ import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.sirius.business.api.dialect.DialectManager;
 import org.eclipse.sirius.business.api.query.EObjectQuery;
 import org.eclipse.sirius.business.api.session.Session;
 import org.eclipse.sirius.business.api.session.SessionManager;
@@ -36,8 +44,11 @@ import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.DNodeList;
 import org.eclipse.sirius.diagram.DSemanticDiagram;
+import org.eclipse.sirius.viewpoint.DRepresentation;
 import org.eclipse.sirius.viewpoint.DSemanticDecorator;
 import org.eclipse.sirius.viewpoint.ViewpointPackage;
+import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
+import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
@@ -50,8 +61,10 @@ import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizardState;
 import org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
+import org.emoflon.ibex.tgg.editor.diagram.ui.TGGGraphicalEditorLauncher;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
+import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
@@ -209,6 +222,7 @@ public class DesignServices {
 			if (!corrTypes.contains(type)) {
 				// Add new correspondence type to the schema
 				corrTypes.add(type);
+				saveSession(tgg);
 			}
 
 			ObjectVariablePattern source = state.getSelectedSource();
@@ -452,7 +466,7 @@ public class DesignServices {
 		}
 		return superTypes;
 	}
-	
+
 	public List<Rule> deleteRefineEdgeOfRule(Rule source, DEdge edgeView) {
 		DDiagramElement t = (DDiagramElement) edgeView.getTargetNode();
 		Rule targetObject = (Rule) t.getTarget();
@@ -1228,6 +1242,81 @@ public class DesignServices {
 	 * newPath.addFileExtension("tgg"); file.move(newPath, true, true, null); return
 	 * true; }
 	 */
+	
+	public boolean moveRuleFromFile(NamedElements rule, TripleGraphGrammarFile srcFile, TripleGraphGrammarFile dstFile) {
+		if(rule instanceof Rule) {
+			srcFile.getRules().remove(rule);
+			dstFile.getRules().add((Rule) rule);
+			saveSession(rule);
+		}
+		else if(rule instanceof ComplementRule) {
+			srcFile.getComplementRules().remove(rule);
+			dstFile.getComplementRules().add((ComplementRule) rule);
+			saveSession(rule);
+		}
+		
+		return true;
+	}
+	
+	public boolean saveSession(EObject context) {
+		Session session = SessionManager.INSTANCE.getSession(context);
+		session.save(new NullProgressMonitor());
+		return true;
+	}
+
+	public boolean openDiagram(NamedElements rule) throws InvocationTargetException, InterruptedException {
+		TGGGraphicalEditorLauncher diagramLauncher = new TGGGraphicalEditorLauncher();
+		URI ruleURI = rule.eResource().getURI();
+		Session session = SessionManager.INSTANCE.getSession(rule);
+		if (session == null || ruleURI == null) {
+			return false;
+		}
+		diagramLauncher.getTGGEditorFromSession(session);
+		SubMonitor progressMonitor = SubMonitor.convert(new NullProgressMonitor(),
+				"Opening diagram of " + rule.getName() + " ...", 100);
+		RepresentationDescription repDescription = diagramLauncher.getRepresentationDescription(rule, session,
+				progressMonitor);
+		if (repDescription == null) {
+			return false;
+		}
+		DiagramInitializer diagramInitializer = new DiagramInitializer();
+		IProject project = DiagramInitializer.getActiveProject();
+		String name = diagramInitializer.initDiagram(rule, project, null) + " - " + repDescription.getLabel();
+		DRepresentation representation = diagramLauncher.findExistingRepresentation(rule, ruleURI, session,
+				progressMonitor);
+		if (representation == null) {
+			// create new representation
+			representation = DialectManager.INSTANCE.createRepresentation(name, rule, repDescription, session,
+					progressMonitor);
+			session.save(progressMonitor);
+		}
+		diagramLauncher.openEditor(representation, session, progressMonitor);
+
+		// Display display = Display.getCurrent();
+		// IProject project = DiagramInitializer.getActiveProject();
+		// ProgressMonitorDialog dialog = new
+		// ProgressMonitorDialog(display.getActiveShell());
+		/*
+		 * dialog.run(true, true, (monitor) -> { SubMonitor progressMonitor =
+		 * SubMonitor.convert(monitor, "Opening diagram of " + rule.getName() + " ...",
+		 * 100); diagramLauncher.launchEditor(rule, rule.eResource().getURI(), session,
+		 * project, display, progressMonitor); });
+		 */
+
+		/*
+		 * String uriStr = res.getURI().toPlatformString(true); if (uriStr == null) {
+		 * return false; } String[] pathSegments = uriStr.split("/"); uriStr = "";
+		 * boolean srcSegmentFound = false; for (int i = 0; i < pathSegments.length;
+		 * i++) { if (pathSegments[i].equals(IbexTGGBuilder.SRC_FOLDER)) {
+		 * srcSegmentFound = true; } if (srcSegmentFound) { uriStr += pathSegments[i];
+		 * if (i < pathSegments.length - 1) { uriStr += "/"; } } } IProject project =
+		 * DiagramInitializer.getActiveProject(); if(project == null) { return false; }
+		 * IFile tggFile = project.getFile(uriStr); if(tggFile == null) { return false;
+		 * } diagramLauncher.open(tggFile.getFullPath());
+		 */
+
+		return true;
+	}
 
 	public boolean updateDiagramName(NamedElements rule) {
 		EObjectQuery eObjectQuery = new EObjectQuery(rule);
@@ -1248,18 +1337,6 @@ public class DesignServices {
 			}
 		}
 		return false;
-	}
-
-	public boolean moveRule(EObject rule, EObject oldFile, EObject newFile) {
-		if (rule instanceof Rule) {
-			// oldFile.getRules().remove(rule);
-			// newFile.getRules().add((Rule) rule);
-		} else if (rule instanceof ComplementRule) {
-			// oldFile.getComplementRules().remove(rule);
-			// newFile.getComplementRules().add((ComplementRule) rule);
-		}
-
-		return true;
 	}
 
 	private DNodeList findNodeListDecorator(DDiagram diagram, String containerSemanticElementName) {
