@@ -44,31 +44,7 @@ public class CorrPageTwo extends BaseCorrPage {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				ObjectVariablePattern selectedSource = (ObjectVariablePattern) selection.getFirstElement();
-				if (selectedSource == null) {
-					return;
-				}
-				state.setSelectedSource(selectedSource);
-				((BaseCorrPage) getNextPage()).setPageComplete(false);
-				if (state.getSelectedTarget() != null) {
-					if (state.isCreateNewType()) {
-						CorrPageFour p4 = (CorrPageFour) getWizard().getPage("NewCorrType");
-						CorrPageThree p3 = (CorrPageThree) getWizard().getPage("Name");
-						p4.setErrorMessage(null);
-						p4.textField.setText("");
-						p4.setPageComplete(false);
-						p3.setPageComplete(false);
-						if (!isTypeAlreadyInSchema(selectedSource, state.getSelectedTarget())) {
-							setErrorMessage(null);
-							setPageComplete(true);
-						} else {
-							setPageComplete(false);
-							setErrorMessage(
-									"A correspondence type for the same source and target pattern types already exists in project's schema");
-						}
-					} else {
-						setPageComplete(true);
-					}
-				}
+				selectSource(selectedSource);
 			}
 		});
 
@@ -86,31 +62,7 @@ public class CorrPageTwo extends BaseCorrPage {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				ObjectVariablePattern selectedTarget = (ObjectVariablePattern) selection.getFirstElement();
-				if (selectedTarget == null) {
-					return;
-				}
-				state.setSelectedTarget(selectedTarget);
-				((BaseCorrPage) getNextPage()).setPageComplete(false);
-				if (state.getSelectedSource() != null) {
-					if (state.isCreateNewType()) {
-						CorrPageFour p4 = (CorrPageFour) getWizard().getPage("NewCorrType");
-						CorrPageThree p3 = (CorrPageThree) getWizard().getPage("Name");
-						p4.setErrorMessage(null);
-						p4.textField.setText("");
-						p4.setPageComplete(false);
-						p3.setPageComplete(false);
-						if (!isTypeAlreadyInSchema(state.getSelectedSource(), selectedTarget)) {
-							setErrorMessage(null);
-							setPageComplete(true);
-						} else {
-							setPageComplete(false);
-							setErrorMessage(
-									"A correspondence type for the same source and target pattern types already exists in project's schema");
-						}
-					} else {
-						setPageComplete(true);
-					}
-				}
+				selecTarget(selectedTarget);
 			}
 		});
 
@@ -147,6 +99,18 @@ public class CorrPageTwo extends BaseCorrPage {
 				sourceSelector.addFilter(sourceTypeFilter);
 				targetSelector.addFilter(targetTypeFilter);
 			}
+			if (state.getSourceObjects().size() == 1) {
+				// Auto-select if there is only one item
+				ObjectVariablePattern selectedSource = state.getSourceObjects().get(0);
+				sourceSelector.getList().setSelection(0);
+				selectSource(selectedSource);
+			}
+			if (state.getTargetObjects().size() == 1) {
+				// Auto-select if there is only one item
+				ObjectVariablePattern selectedTarget = state.getTargetObjects().get(0);
+				targetSelector.getList().setSelection(0);
+				selecTarget(selectedTarget);
+			}
 		}
 	}
 
@@ -156,6 +120,62 @@ public class CorrPageTwo extends BaseCorrPage {
 						&& tp.getSource().getName().equals(source.getType().getName()));
 
 		return alreadyInSchema;
+	}
+
+	private void selectSource(ObjectVariablePattern selectedSource) {
+		if (selectedSource == null) {
+			return;
+		}
+		state.setSelectedSource(selectedSource);
+		((BaseCorrPage) getNextPage()).setPageComplete(false);
+		if (state.getSelectedTarget() != null) {
+			if (state.isCreateNewType()) {
+				CorrPageFour p4 = (CorrPageFour) getWizard().getPage("NewCorrType");
+				CorrPageThree p3 = (CorrPageThree) getWizard().getPage("Name");
+				p4.setErrorMessage(null);
+				p4.textField.setText("");
+				p4.setPageComplete(false);
+				p3.setPageComplete(false);
+				if (!isTypeAlreadyInSchema(selectedSource, state.getSelectedTarget())) {
+					setErrorMessage(null);
+					setPageComplete(true);
+				} else {
+					setPageComplete(false);
+					setErrorMessage(
+							"A correspondence type for the same source and target pattern types already exists in project's schema");
+				}
+			} else {
+				setPageComplete(true);
+			}
+		}
+	}
+
+	private void selecTarget(ObjectVariablePattern selectedTarget) {
+		if (selectedTarget == null) {
+			return;
+		}
+		state.setSelectedTarget(selectedTarget);
+		((BaseCorrPage) getNextPage()).setPageComplete(false);
+		if (state.getSelectedSource() != null) {
+			if (state.isCreateNewType()) {
+				CorrPageFour p4 = (CorrPageFour) getWizard().getPage("NewCorrType");
+				CorrPageThree p3 = (CorrPageThree) getWizard().getPage("Name");
+				p4.setErrorMessage(null);
+				p4.textField.setText("");
+				p4.setPageComplete(false);
+				p3.setPageComplete(false);
+				if (!isTypeAlreadyInSchema(state.getSelectedSource(), selectedTarget)) {
+					setErrorMessage(null);
+					setPageComplete(true);
+				} else {
+					setPageComplete(false);
+					setErrorMessage(
+							"A correspondence type for the same source and target pattern types already exists in project's schema");
+				}
+			} else {
+				setPageComplete(true);
+			}
+		}
 	}
 
 }

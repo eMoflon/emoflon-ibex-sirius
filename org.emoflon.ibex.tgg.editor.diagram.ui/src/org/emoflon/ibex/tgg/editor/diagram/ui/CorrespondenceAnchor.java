@@ -19,8 +19,8 @@ public class CorrespondenceAnchor extends ChopboxAnchor {
 	public Point getLocation(Point reference) {
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(getBox());
-		r.translate(-1, -1);
-		r.resize(1, 1);
+		//r.translate(-1, -1);
+		//r.resize(1, 1);
 
 		getOwner().translateToAbsolute(r);
 		float centerX = r.x + 0.5f * r.width;

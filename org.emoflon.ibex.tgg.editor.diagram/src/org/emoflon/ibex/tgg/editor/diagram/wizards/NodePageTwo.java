@@ -27,6 +27,7 @@ public class NodePageTwo extends BaseNodePage {
 
 		textField = new Text(container, SWT.BORDER | SWT.SINGLE);
 		textField.setText("");
+		textField.setFocus();
 		textField.addModifyListener(new ModifyListener() {
 			
 			@Override
@@ -66,6 +67,7 @@ public class NodePageTwo extends BaseNodePage {
 			if (state.getNodeName() == null) {
 				setPageComplete(false);
 				textField.setText("");
+				textField.setFocus();
 			}
 		}
 	}

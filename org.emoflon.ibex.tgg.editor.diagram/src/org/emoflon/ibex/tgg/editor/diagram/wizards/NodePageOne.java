@@ -33,8 +33,7 @@ public class NodePageOne extends BaseNodePage {
 			public void selectionChanged(SelectionChangedEvent event) {
 				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
 				EClassifier selectedType = (EClassifier) selection.getFirstElement();
-				state.setSelectedType(selectedType);
-				setPageComplete(true);
+				selectNodeType(selectedType);
 			}
 		});
 
@@ -44,6 +43,25 @@ public class NodePageOne extends BaseNodePage {
 		setControl(container);
 		setPageComplete(false);
 
+	}
+	
+	@Override
+	public void setVisible(final boolean visible) {
+		super.setVisible(visible);
+
+		if (visible) {
+			if(state.getTypeList().size() == 1) {
+				// Auto-select if there is only one item
+				typeSelector.getList().setSelection(0);
+				EClassifier selectedType = state.getTypeList().get(0);
+				selectNodeType(selectedType);
+			}
+		}
+	}
+	
+	private void selectNodeType(EClassifier selectedType) {
+		state.setSelectedType(selectedType);
+		setPageComplete(true);
 	}
 
 }
