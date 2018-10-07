@@ -87,6 +87,7 @@ import org.moflon.tgg.mosl.tgg.TggFactory;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
 public class DesignServices {
+	
 	// Cache map to store the global objects in the context of each rule
 	// K: Rule name, V: Map of object name (String), and the object itself stored in
 	// a set.
@@ -1221,39 +1222,21 @@ public class DesignServices {
 		return tggFiles;
 	}
 
-	/*
-	 * public boolean updateFileName(TripleGraphGrammarFile tggFile, String newName)
-	 * throws CoreException { Resource resource = tggFile.eResource(); String uriStr
-	 * = resource.getURI().toPlatformString(true); if(uriStr == null) { return
-	 * false; } String[] pathSegments = uriStr.split("/"); uriStr = ""; boolean
-	 * srcSegmentFound = false; for(int i = 0; i < pathSegments.length; i++) {
-	 * if(pathSegments[i].equals(IbexTGGBuilder.SRC_FOLDER)) { srcSegmentFound =
-	 * true; } if(srcSegmentFound) { uriStr += pathSegments[i]; if(i <
-	 * pathSegments.length - 1) { uriStr += "/"; } } } IProject project =
-	 * DiagramInitializer.getActiveProject(); if(project == null) { return false; }
-	 * 
-	 * IFile file = project.getFile(uriStr); if(file == null || !file.exists()) {
-	 * return false; } IPath oldPath = file.getFullPath(); IPath newPath =
-	 * oldPath.removeLastSegments(1); newPath = newPath.append(newName); newPath =
-	 * newPath.addFileExtension("tgg"); file.move(newPath, true, true, null); return
-	 * true; }
-	 */
-	
-	public boolean moveRuleFromFile(NamedElements rule, TripleGraphGrammarFile srcFile, TripleGraphGrammarFile dstFile) {
-		if(rule instanceof Rule) {
+	public boolean moveRuleFromFile(NamedElements rule, TripleGraphGrammarFile srcFile,
+			TripleGraphGrammarFile dstFile) {
+		if (rule instanceof Rule) {
 			srcFile.getRules().remove(rule);
 			dstFile.getRules().add((Rule) rule);
 			saveSession(rule);
-		}
-		else if(rule instanceof ComplementRule) {
+		} else if (rule instanceof ComplementRule) {
 			srcFile.getComplementRules().remove(rule);
 			dstFile.getComplementRules().add((ComplementRule) rule);
 			saveSession(rule);
 		}
-		
+
 		return true;
 	}
-	
+
 	public boolean saveSession(EObject context) {
 		Session session = SessionManager.INSTANCE.getSession(context);
 		session.save(new NullProgressMonitor());
@@ -1287,29 +1270,6 @@ public class DesignServices {
 			session.save(progressMonitor);
 		}
 		diagramLauncher.openEditor(representation, session, progressMonitor);
-
-		// Display display = Display.getCurrent();
-		// IProject project = DiagramInitializer.getActiveProject();
-		// ProgressMonitorDialog dialog = new
-		// ProgressMonitorDialog(display.getActiveShell());
-		/*
-		 * dialog.run(true, true, (monitor) -> { SubMonitor progressMonitor =
-		 * SubMonitor.convert(monitor, "Opening diagram of " + rule.getName() + " ...",
-		 * 100); diagramLauncher.launchEditor(rule, rule.eResource().getURI(), session,
-		 * project, display, progressMonitor); });
-		 */
-
-		/*
-		 * String uriStr = res.getURI().toPlatformString(true); if (uriStr == null) {
-		 * return false; } String[] pathSegments = uriStr.split("/"); uriStr = "";
-		 * boolean srcSegmentFound = false; for (int i = 0; i < pathSegments.length;
-		 * i++) { if (pathSegments[i].equals(IbexTGGBuilder.SRC_FOLDER)) {
-		 * srcSegmentFound = true; } if (srcSegmentFound) { uriStr += pathSegments[i];
-		 * if (i < pathSegments.length - 1) { uriStr += "/"; } } } IProject project =
-		 * DiagramInitializer.getActiveProject(); if(project == null) { return false; }
-		 * IFile tggFile = project.getFile(uriStr); if(tggFile == null) { return false;
-		 * } diagramLauncher.open(tggFile.getFullPath());
-		 */
 
 		return true;
 	}
