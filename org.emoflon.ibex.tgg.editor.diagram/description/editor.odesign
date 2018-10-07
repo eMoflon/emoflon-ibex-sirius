@@ -198,7 +198,7 @@
           </ownedTools>
         </toolSections>
         <toolSections name="navigationToolsProject" label="Navigation">
-          <ownedTools xsi:type="tool:DoubleClickDescription" name="doubleClickNavigation" label="DoubleClickNavigation" precondition="aql:element.oclIsTypeOf(tgg::Rule) or (element.oclIsTypeOf(tgg::ComplementRule) and element.oclAsType(tgg::ComplementRule).kernel->notEmpty())" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='tggRule'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='complementRule']">
+          <ownedTools xsi:type="tool:DoubleClickDescription" name="doubleClickNavigation" label="DoubleClickNavigation" precondition="aql:container.oclIsTypeOf(tgg::Rule) or (container.oclIsTypeOf(tgg::ComplementRule) and container.oclAsType(tgg::ComplementRule).kernel->notEmpty())" mappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='tggRule'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@containerMappings[name='tggFile']/@subNodeMappings[name='complementRule']">
             <element name="element"/>
             <elementView name="elementView"/>
             <initialOperation>
@@ -867,7 +867,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLinkCmpl" label="Link" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkEdgeCmpl']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/linkEdge.png">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLinkCmpl" label="Link" precondition="aql:(preSource.differs(preTarget) and preSourceView.oclAsType(diagram::DNodeList).getMapping().name = preTargetView.oclAsType(diagram::DNodeList).getMapping().name)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='complementRule']/@defaultLayer/@edgeMappings[name='linkEdgeCmpl']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/linkEdge.png">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
