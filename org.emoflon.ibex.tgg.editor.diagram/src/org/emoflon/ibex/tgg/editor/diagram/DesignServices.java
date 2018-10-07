@@ -86,8 +86,10 @@ import org.moflon.tgg.mosl.tgg.Schema;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
+// Class containing all Sirius services (i.e. callbacks) related with the graphical representation of elements of the TGG meta-model.
+// This class also contains methods for creating and editing elements of the TGG meta-model.
 public class DesignServices {
-	
+
 	// Cache map to store the global objects in the context of each rule
 	// K: Rule name, V: Map of object name (String), and the object itself stored in
 	// a set.

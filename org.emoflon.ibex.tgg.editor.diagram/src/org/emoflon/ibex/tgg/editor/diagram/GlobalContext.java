@@ -12,7 +12,9 @@ import org.moflon.tgg.mosl.tgg.LinkVariablePattern;
 import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
+// Helps to store and manage the global context of a rule
 class GlobalContext {
+	
 	// Map to store global objects, i.e. the context of a rule
 	// K: Object name, V: Set containing all the global objects with that name
 	private Map<String, Set<NamedElements>> contextMap;

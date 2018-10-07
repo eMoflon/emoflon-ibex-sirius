@@ -18,6 +18,7 @@ import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.ui.internal.TGGActivator;
 
+// Wrapper for opening the Xtext embedded editor
 public class OpenXtextEmbeddedEditor {
 	private final String ENDING_BLOCK_DELIMITER = "}";
 
