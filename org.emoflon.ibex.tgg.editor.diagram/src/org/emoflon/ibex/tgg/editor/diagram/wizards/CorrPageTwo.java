@@ -12,13 +12,13 @@ import org.eclipse.swt.widgets.Label;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
-public class CorrPageTwo extends BaseCorrPage {
+class CorrPageTwo extends BaseCorrPage {
 	private ListViewer sourceSelector;
 	private ListViewer targetSelector;
 	private TypeFilter sourceTypeFilter;
 	private TypeFilter targetTypeFilter;
 
-	public CorrPageTwo(CorrWizardState state) {
+	CorrPageTwo(CorrWizardState state) {
 		super(state, "SourceTargetSelection", "Select Source and Target Objects",
 				"Select the source and target objects of the new correspondence");
 	}
@@ -99,13 +99,13 @@ public class CorrPageTwo extends BaseCorrPage {
 				sourceSelector.addFilter(sourceTypeFilter);
 				targetSelector.addFilter(targetTypeFilter);
 			}
-			if (state.getSourceObjects().size() == 1) {
+			if (sourceSelector.getList().getItemCount() == 1) {
 				// Auto-select if there is only one item
 				ObjectVariablePattern selectedSource = state.getSourceObjects().get(0);
 				sourceSelector.getList().setSelection(0);
 				selectSource(selectedSource);
 			}
-			if (state.getTargetObjects().size() == 1) {
+			if (targetSelector.getList().getItemCount() == 1) {
 				// Auto-select if there is only one item
 				ObjectVariablePattern selectedTarget = state.getTargetObjects().get(0);
 				targetSelector.getList().setSelection(0);

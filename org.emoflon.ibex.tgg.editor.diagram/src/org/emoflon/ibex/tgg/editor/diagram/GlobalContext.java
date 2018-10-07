@@ -12,7 +12,7 @@ import org.moflon.tgg.mosl.tgg.LinkVariablePattern;
 import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
-public class GlobalContext {
+class GlobalContext {
 	// Map to store global objects, i.e. the context of a rule
 	// K: Object name, V: Set containing all the global objects with that name
 	private Map<String, Set<NamedElements>> contextMap;
@@ -21,7 +21,7 @@ public class GlobalContext {
 		contextMap = new HashMap<String, Set<NamedElements>>();
 	}
 
-	public void add(NamedElements globalObject) {
+	private void add(NamedElements globalObject) {
 		if (contextMap.containsKey(globalObject.getName())) {
 			Set<NamedElements> s = contextMap.get(globalObject.getName());
 			s.add(globalObject);
@@ -32,26 +32,26 @@ public class GlobalContext {
 		}
 	}
 
-	public void addAll(List<? extends NamedElements> globalObjects) {
+	void addAll(List<? extends NamedElements> globalObjects) {
 		globalObjects.stream().forEach(g -> add(g));
 	}
 
-	public Set<NamedElements> get(String objectName) {
+	Set<NamedElements> get(String objectName) {
 		return contextMap.get(objectName);
 	}
 
-	public void addContext(GlobalContext otherContext) {
+	void addContext(GlobalContext otherContext) {
 		contextMap.putAll(otherContext.contextMap);
 	}
 
-	public boolean containsObjectName(String objectName) {
+	boolean containsObjectName(String objectName) {
 		return contextMap.containsKey(objectName);
 	}
 
 	// Return the first object match that has no operator (i.e. black node),
 	// if no black node found, then return a green node that matches the given
 	// object name.
-	public NamedElements getFirstMatch(String objectName) {
+	private NamedElements getFirstMatch(String objectName) {
 		Set<NamedElements> s = contextMap.get(objectName);
 		NamedElements match = null;
 		if (s == null || s.size() < 1) {
@@ -86,7 +86,7 @@ public class GlobalContext {
 		return matches;
 	}
 
-	public List<LinkVariablePattern> getAllLinksFromObject(ObjectVariablePattern object) {
+	List<LinkVariablePattern> getAllLinksFromObject(ObjectVariablePattern object) {
 		List<LinkVariablePattern> links = new ArrayList<LinkVariablePattern>();
 		Set<NamedElements> s = contextMap.get(object.getName());
 		if (s != null) {

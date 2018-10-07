@@ -5,14 +5,10 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
-public class TypeFilter extends ViewerFilter {
+class TypeFilter extends ViewerFilter {
 	private EClass type = null;
 	
 	public TypeFilter() {
-	}
-	
-	public TypeFilter(EClass type) {
-		this.type = type;
 	}
 
 	@Override

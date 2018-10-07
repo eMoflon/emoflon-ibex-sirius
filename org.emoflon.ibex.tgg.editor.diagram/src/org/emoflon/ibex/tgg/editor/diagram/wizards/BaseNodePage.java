@@ -3,7 +3,7 @@ package org.emoflon.ibex.tgg.editor.diagram.wizards;
 public abstract class BaseNodePage extends BaseWizardPage {
 	protected NodeWizardState state;
 	
-	public BaseNodePage(NodeWizardState state, String pageName, String title, String description) {
+	BaseNodePage(NodeWizardState state, String pageName, String title, String description) {
 		super(pageName, title, description);
 		this.state = state;
 	}

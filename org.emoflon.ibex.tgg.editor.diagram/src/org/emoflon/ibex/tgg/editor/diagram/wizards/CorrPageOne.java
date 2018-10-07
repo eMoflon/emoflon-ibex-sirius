@@ -15,10 +15,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.moflon.tgg.mosl.tgg.CorrType;
 
-public class CorrPageOne extends BaseCorrPage {
+class CorrPageOne extends BaseCorrPage {
 	private ListViewer lv;
 
-	public CorrPageOne(CorrWizardState state) {
+	CorrPageOne(CorrWizardState state) {
 		super(state, "SelectAction", "Select Type", "Select the correspondence's type");
 	}
 

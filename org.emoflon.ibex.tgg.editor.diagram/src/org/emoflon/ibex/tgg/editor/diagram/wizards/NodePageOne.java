@@ -11,10 +11,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 
-public class NodePageOne extends BaseNodePage {
+class NodePageOne extends BaseNodePage {
 	private ListViewer typeSelector;
 
-	public NodePageOne(NodeWizardState state) {
+	NodePageOne(NodeWizardState state) {
 		super(state, "NodeTypeSelection", "Select Node Type", "Select the type of the new node");
 	}
 

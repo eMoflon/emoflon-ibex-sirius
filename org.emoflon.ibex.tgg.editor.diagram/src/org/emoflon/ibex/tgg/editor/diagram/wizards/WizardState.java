@@ -1,8 +1,8 @@
 package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
-public abstract class WizardState {
+abstract class WizardState {
 
-	protected boolean done;
+	private boolean done;
 
 	public WizardState() {
 

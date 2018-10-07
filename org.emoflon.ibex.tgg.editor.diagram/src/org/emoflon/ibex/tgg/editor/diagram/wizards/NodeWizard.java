@@ -5,8 +5,8 @@ import org.eclipse.jface.wizard.Wizard;
 
 public class NodeWizard extends Wizard {
 
-	protected NodePageOne page1;
-	protected NodePageTwo page2;
+	private NodePageOne page1;
+	private NodePageTwo page2;
 	private NodeWizardState state;
 	private String title;
 

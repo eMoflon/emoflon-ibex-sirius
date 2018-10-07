@@ -9,10 +9,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class NodePageTwo extends BaseNodePage {
+class NodePageTwo extends BaseNodePage {
 	private Text textField;
 	
-	public NodePageTwo(NodeWizardState state) {
+	NodePageTwo(NodeWizardState state) {
 		super(state, "Name", "Name of Node", "Enter a name for the new node");
 	}
 
