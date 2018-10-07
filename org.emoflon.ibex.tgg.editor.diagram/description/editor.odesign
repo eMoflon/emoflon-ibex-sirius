@@ -418,7 +418,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLink" label="Link" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/linkEdge.png">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createLink" label="Link" precondition="aql:(preSource.differs(preTarget) and preSourceView.oclAsType(diagram::DNodeList).getMapping().name = preTargetView.oclAsType(diagram::DNodeList).getMapping().name)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggRule']/@defaultLayer/@edgeMappings[name='linkEdge']" iconPath="/org.emoflon.ibex.tgg.editor.diagram/icons/linkEdge.png">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
