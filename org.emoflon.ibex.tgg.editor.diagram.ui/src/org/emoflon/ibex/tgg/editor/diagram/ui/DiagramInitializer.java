@@ -171,7 +171,6 @@ public class DiagramInitializer {
 			return null;
 		}
 		libraryResource.load(null);
-		//EcoreUtil.resolveAll(resourceSet);
 		if(libraryResource.getContents().size() < 1 || !(libraryResource.getContents().get(0) instanceof TripleGraphGrammarFile)) {
 			return null;
 		}
