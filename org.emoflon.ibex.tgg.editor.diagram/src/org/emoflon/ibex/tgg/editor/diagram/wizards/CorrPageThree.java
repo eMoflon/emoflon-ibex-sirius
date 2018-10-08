@@ -9,10 +9,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class CorrPageThree extends BaseCorrPage {
+class CorrPageThree extends BaseCorrPage {
 	private Text textField;
 	
-	public CorrPageThree(CorrWizardState state) {
+	CorrPageThree(CorrWizardState state) {
 		super(state, "Name", "Name of Correspondence", "Enter a name for the new correspondence");
 	}
 

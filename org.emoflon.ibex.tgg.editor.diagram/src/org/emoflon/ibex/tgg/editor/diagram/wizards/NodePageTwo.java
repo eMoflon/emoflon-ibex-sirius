@@ -9,10 +9,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-public class NodePageTwo extends BaseNodePage {
+class NodePageTwo extends BaseNodePage {
 	private Text textField;
 	
-	public NodePageTwo(NodeWizardState state) {
+	NodePageTwo(NodeWizardState state) {
 		super(state, "Name", "Name of Node", "Enter a name for the new node");
 	}
 
@@ -27,6 +27,7 @@ public class NodePageTwo extends BaseNodePage {
 
 		textField = new Text(container, SWT.BORDER | SWT.SINGLE);
 		textField.setText("");
+		textField.setFocus();
 		textField.addModifyListener(new ModifyListener() {
 			
 			@Override
@@ -66,6 +67,7 @@ public class NodePageTwo extends BaseNodePage {
 			if (state.getNodeName() == null) {
 				setPageComplete(false);
 				textField.setText("");
+				textField.setFocus();
 			}
 		}
 	}

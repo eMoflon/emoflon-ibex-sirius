@@ -3,7 +3,7 @@ package org.emoflon.ibex.tgg.editor.diagram.wizards;
 public abstract class BaseCorrPage extends BaseWizardPage {
 	protected CorrWizardState state;
 	
-	public BaseCorrPage(CorrWizardState state, String pageName, String title, String description) {
+	BaseCorrPage(CorrWizardState state, String pageName, String title, String description) {
 		super(pageName, title, description);
 		this.state = state;
 	}

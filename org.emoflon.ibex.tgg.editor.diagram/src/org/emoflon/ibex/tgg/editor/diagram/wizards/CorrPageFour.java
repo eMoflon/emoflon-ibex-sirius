@@ -11,11 +11,11 @@ import org.eclipse.swt.widgets.Text;
 import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.TggFactory;
 
-public class CorrPageFour extends BaseCorrPage {
+class CorrPageFour extends BaseCorrPage {
 	Text textField;
 	private Label label1;
 
-	public CorrPageFour(CorrWizardState state) {
+	CorrPageFour(CorrWizardState state) {
 		super(state, "NewCorrType", "New Correspondence Type", "Type a name for the new correspondence type");
 	}
 

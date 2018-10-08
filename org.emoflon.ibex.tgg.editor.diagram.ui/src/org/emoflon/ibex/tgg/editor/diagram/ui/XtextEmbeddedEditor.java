@@ -254,7 +254,7 @@ public class XtextEmbeddedEditor {
 				suffix = allText.substring(endOffset);
 			}
 		}
-		xtextEditorComposite = new Decorations(parentComposite, SWT.RESIZE | SWT.BORDER | SWT.TITLE);
+		xtextEditorComposite = new Decorations(parentComposite, SWT.RESIZE | SWT.TITLE);
 		xtextEditorComposite.setLayout(new FillLayout());
 		xtextEditorComposite.setText("TGG Xtext Editor (Ctrl+Enter to save & close / Esc to discard & close)");
 

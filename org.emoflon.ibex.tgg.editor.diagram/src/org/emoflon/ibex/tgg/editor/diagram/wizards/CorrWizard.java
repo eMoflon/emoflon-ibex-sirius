@@ -5,10 +5,10 @@ import org.eclipse.jface.wizard.Wizard;
 
 public class CorrWizard extends Wizard {
 
-	protected CorrPageOne page1;
-	protected CorrPageTwo page2;
-	protected CorrPageThree page3;
-	protected CorrPageFour page4;
+	private CorrPageOne page1;
+	private CorrPageTwo page2;
+	private CorrPageThree page3;
+	private CorrPageFour page4;
 	private CorrWizardState state;
 
 	public CorrWizard(CorrWizardState state) {
