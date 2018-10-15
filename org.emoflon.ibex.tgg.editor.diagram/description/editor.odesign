@@ -82,7 +82,7 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
-          <ownedTools xsi:type="tool:EdgeCreationDescription" name="refineEdge" label="Refine Edge" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@edgeMappings[name='refineEdgeRule'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@edgeMappings[name='refineEdgeCmpl']" connectionStartPrecondition="aql:(preSource.oclIsTypeOf(tgg::ComplementRule) and preSource.oclAsType(tgg::ComplementRule).kernel->isEmpty()) or preSource.oclIsTypeOf(tgg::Rule)">
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="refineEdge" label="Refine/Complement Edge" precondition="aql:preSource.differs(preTarget)" edgeMappings="//@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@edgeMappings[name='refineEdgeRule'] //@ownedViewpoints[name='tggEditor']/@ownedRepresentations[name='tggFile']/@defaultLayer/@edgeMappings[name='refineEdgeCmpl']" connectionStartPrecondition="aql:(preSource.oclIsTypeOf(tgg::ComplementRule) and preSource.oclAsType(tgg::ComplementRule).kernel->isEmpty()) or preSource.oclIsTypeOf(tgg::Rule)">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
             <sourceViewVariable name="sourceView"/>
