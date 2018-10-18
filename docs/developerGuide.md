@@ -16,9 +16,9 @@ For more information on this, check out the Sirius [starter tutorial](https://wi
 ## How to modify the behaviour and functionality of elements and tools of the editor?
  If you want to modify things such as what happens after elements are added or deleted, or what a tool does, then you have to modify the corresponding Sirius service (or in some cases the Acceleo query) that handles that event. To do this, find the element or tool as described in the previous section and then modify it accordingly. If the property/behaviour you want to change is defined by an Acceleo query, you can directly edit it. Otherwise, if this is defined by a service call, click on the text of the service call and press `F3` to open the implementation of the service.
 
- For more information on Acceleo queries and Sirius services, check out these links:
-https://wiki.eclipse.org/Sirius/Tutorials/AdvancedTutorial#Java_Services
-https://www.eclipse.org/sirius/doc/specifier/general/Writing_Queries.html
+ For more information on Acceleo queries and Sirius services, check out these links:  
+ https://wiki.eclipse.org/Sirius/Tutorials/AdvancedTutorial#Java_Services  
+ https://www.eclipse.org/sirius/doc/specifier/general/Writing_Queries.html
 
 ## Structure of the editor description (editor.odesign)
 The editor description is composed of the description of the diagram representations *TGG Projects*, *TGG Rule* and *Complement Rule*, where the last two have the following layers in addition to the default layer:
