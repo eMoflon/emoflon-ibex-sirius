@@ -15,7 +15,9 @@ class CustomListViewer extends ListViewer {
 		super(parent, SWT.SINGLE | SWT.V_SCROLL | SWT.H_SCROLL | SWT.BORDER);
 		final GridData gd = new GridData();
 		gd.horizontalAlignment = GridData.FILL;
+		gd.verticalAlignment = GridData.FILL;
 		gd.grabExcessHorizontalSpace = true;
+		gd.grabExcessVerticalSpace = true;
 		getList().setLayoutData(gd);
 
 		setLabelProvider(new NamedElementLabelProvider());
