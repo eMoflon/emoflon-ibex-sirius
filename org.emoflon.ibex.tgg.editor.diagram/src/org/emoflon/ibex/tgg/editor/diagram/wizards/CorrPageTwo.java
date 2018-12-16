@@ -2,7 +2,6 @@ package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -13,8 +12,8 @@ import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
 class CorrPageTwo extends BaseCorrPage {
-	private ListViewer sourceSelector;
-	private ListViewer targetSelector;
+	private CustomListViewer sourceSelector;
+	private CustomListViewer targetSelector;
 	private TypeFilter sourceTypeFilter;
 	private TypeFilter targetTypeFilter;
 

@@ -2,7 +2,6 @@ package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -16,7 +15,7 @@ import org.eclipse.swt.widgets.Label;
 import org.moflon.tgg.mosl.tgg.CorrType;
 
 class CorrPageOne extends BaseCorrPage {
-	private ListViewer lv;
+	private CustomListViewer lv;
 
 	CorrPageOne(CorrWizardState state) {
 		super(state, "SelectAction", "Select Type", "Select the correspondence's type");
