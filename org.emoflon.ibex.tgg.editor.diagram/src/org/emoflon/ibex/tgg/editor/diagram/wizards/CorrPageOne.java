@@ -86,12 +86,15 @@ class CorrPageOne extends BaseCorrPage {
 					state.setCreateNewType(false);
 					listContainer.setVisible(true);
 					lv.setInput(state.getCorrTypeList());
-					if(state.getCorrTypeList().size() == 1) {
-						// Auto-select if there is only one item
+					setPageComplete(false);
+					if(state.getCorrTypeList().size() >= 1) {
+						// Auto-select if there is at least one item
 						lv.getList().setSelection(0);
+						CorrType selectedType = (CorrType) lv.getElementAt(0);
+						state.setSelectedType(selectedType);
+						setPageComplete(true);
 					}
 					((BaseCorrPage) getNextPage()).setPageComplete(false);
-					setPageComplete(false);
 				}
 			}
 
