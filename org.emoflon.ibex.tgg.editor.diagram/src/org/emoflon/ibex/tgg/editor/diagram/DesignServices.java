@@ -619,9 +619,7 @@ public class DesignServices {
 			sb.append(".");
 			sb.append(((AttributeExpression) expr).getAttribute().getName());
 		} else if (expr instanceof EnumExpression) {
-			// TODO add support for enum attr
-			// System.out.println(((EnumExpression) expr).getEenum().toString());
-			// System.out.println(((EnumExpression) expr).getLiteral().toString());
+			sb.append(getEnumExprName(expr));
 		}
 
 		return sb.toString();
@@ -979,17 +977,15 @@ public class DesignServices {
 			} else if (p instanceof LocalVariable) {
 				LocalVariable tmp = (LocalVariable) p;
 				attr = attr + tmp.getName();
+			} else if (p instanceof EnumExpression) {
+				EnumExpression tmp = (EnumExpression) p;
+				attr = attr + getEnumExprName(tmp);
 			}
+
 			if (idx < params.size() - 1) {
 				attr = attr + ", ";
 				idx++;
 			}
-
-			/*
-			 * TODO: Add support for EnumExpression else if(p instanceof EnumExpression) {
-			 * EnumExpression tmp = (EnumExpression)p; attr = attr + tmp.getEenum().get +
-			 * ", "; }
-			 */
 
 		}
 
@@ -1330,6 +1326,18 @@ public class DesignServices {
 		}
 
 		return objVarName;
+	}
+
+	private String getEnumExprName(Expression expr) {
+		EnumExpression enumExpr = (EnumExpression) expr;
+		StringBuilder sb = new StringBuilder();
+		sb.append("enum::");
+		sb.append(enumExpr.getEenum().getEPackage().getName());
+		sb.append(".");
+		sb.append(enumExpr.getEenum().getName());
+		sb.append("::");
+		sb.append(enumExpr.getLiteral().getName());
+		return sb.toString();
 	}
 
 	private AttrCondDefLibrary loadAttrCondDefLibrary(EObject context) {
