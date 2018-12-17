@@ -127,7 +127,7 @@ public class DesignServices {
 		link.setTarget(targetObject);
 		link.setOp(op);
 
-		List<EReference> referenceList = sourceObject.getType().getEReferences();
+		List<EReference> referenceList = sourceObject.getType().getEAllReferences();
 
 		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
 				new NamedElementLabelProvider());
