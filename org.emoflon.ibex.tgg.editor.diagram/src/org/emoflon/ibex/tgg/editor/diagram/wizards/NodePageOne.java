@@ -86,7 +86,7 @@ class NodePageOne extends BaseNodePage {
 			if (state.getTypeList().size() >= 1) {
 				// Auto-select if there is at least one item
 				typeSelector.getList().setSelection(0);
-				EClassifier selectedType = state.getTypeList().get(0);
+				EClassifier selectedType = (EClassifier) typeSelector.getElementAt(0);
 				selectNodeType(selectedType);
 			}
 

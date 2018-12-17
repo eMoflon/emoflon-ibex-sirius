@@ -100,13 +100,13 @@ class CorrPageTwo extends BaseCorrPage {
 			}
 			if (sourceSelector.getList().getItemCount() == 1) {
 				// Auto-select if there is only one item
-				ObjectVariablePattern selectedSource = state.getSourceObjects().get(0);
+				ObjectVariablePattern selectedSource = (ObjectVariablePattern) sourceSelector.getElementAt(0);
 				sourceSelector.getList().setSelection(0);
 				selectSource(selectedSource);
 			}
 			if (targetSelector.getList().getItemCount() == 1) {
 				// Auto-select if there is only one item
-				ObjectVariablePattern selectedTarget = state.getTargetObjects().get(0);
+				ObjectVariablePattern selectedTarget = (ObjectVariablePattern) targetSelector.getElementAt(0);
 				targetSelector.getList().setSelection(0);
 				selecTarget(selectedTarget);
 			}
