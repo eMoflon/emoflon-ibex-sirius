@@ -2,7 +2,6 @@ package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -13,8 +12,8 @@ import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
 
 class CorrPageTwo extends BaseCorrPage {
-	private ListViewer sourceSelector;
-	private ListViewer targetSelector;
+	private CustomListViewer sourceSelector;
+	private CustomListViewer targetSelector;
 	private TypeFilter sourceTypeFilter;
 	private TypeFilter targetTypeFilter;
 
@@ -101,13 +100,13 @@ class CorrPageTwo extends BaseCorrPage {
 			}
 			if (sourceSelector.getList().getItemCount() == 1) {
 				// Auto-select if there is only one item
-				ObjectVariablePattern selectedSource = state.getSourceObjects().get(0);
+				ObjectVariablePattern selectedSource = (ObjectVariablePattern) sourceSelector.getElementAt(0);
 				sourceSelector.getList().setSelection(0);
 				selectSource(selectedSource);
 			}
 			if (targetSelector.getList().getItemCount() == 1) {
 				// Auto-select if there is only one item
-				ObjectVariablePattern selectedTarget = state.getTargetObjects().get(0);
+				ObjectVariablePattern selectedTarget = (ObjectVariablePattern) targetSelector.getElementAt(0);
 				targetSelector.getList().setSelection(0);
 				selecTarget(selectedTarget);
 			}
