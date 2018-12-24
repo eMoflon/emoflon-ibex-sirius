@@ -26,7 +26,7 @@ See here for more details on EPL: http://www.eclipse.org/org/documents/epl-v10.p
 
    <url>
       <update label="eMoflon::IBeX" url="https://emoflon.org/emoflon-ibex-democles-updatesite/stable/updatesite"/>
-      <discovery label="eMoflon::IBeX (Democles)" url="https://emoflon.org/emoflon-ibex-updatesite/snapshot/updatesite/"/>
+      <discovery label="eMoflon::IBeX (Democles)" url="https://emoflon.org/emoflon-ibex-democles/snapshot/updatesite/"/>
    </url>
 
    <plugin
