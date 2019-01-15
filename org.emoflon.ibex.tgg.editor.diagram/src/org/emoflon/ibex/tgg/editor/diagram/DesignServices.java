@@ -159,7 +159,15 @@ public class DesignServices {
 
 		attrCondDefList = tggFile.getLibrary() != null ? tggFile.getLibrary().getAttributeCondDefs()
 				: loadAttrCondDefLibrary(context).getAttributeCondDefs();
-
+		
+		if(context instanceof NamedElements) {
+			Rule rootRule = getRootRule((NamedElements) context);
+			Schema schema = rootRule.getSchema();
+			if (schema != null) {
+				attrCondDefList.addAll(schema.getAttributeCondDefs());
+			}
+		}
+		
 		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
 				new NamedElementLabelProvider());
 		dlg.setTitle("New Attribute Condition");
@@ -306,21 +314,14 @@ public class DesignServices {
 
 		if (tgg == null)
 			return false;
-
-		if (tgg instanceof Rule) {
-			rootRule = (Rule) tgg;
-			correspondenceList = ((Rule) tgg).getCorrespondencePatterns();
-		} else if (tgg instanceof ComplementRule) {
-			rootRule = ((ComplementRule) tgg).getKernel();
-			correspondenceList = ((ComplementRule) tgg).getCorrespondencePatterns();
-		} else {
+		
+		rootRule = getRootRule(tgg);
+		if (rootRule == null) {
 			return false;
 		}
-
-		Schema schema = null;
-		if (rootRule == null)
-			return false;
-		schema = rootRule.getSchema();
+		correspondenceList = rootRule.getCorrespondencePatterns();
+	
+		Schema schema = rootRule.getSchema();
 		if (schema == null)
 			return false;
 
@@ -1424,6 +1425,18 @@ public class DesignServices {
 		partsToArrange.add(diagramEditPart);
 		arrangeRequest.setPartsToArrange(partsToArrange);
 		diagramEditPart.performRequest(arrangeRequest);
+	}
+	
+	private Rule getRootRule(NamedElements element) {
+		if(element instanceof Rule) {
+			return (Rule) element;
+		}
+		
+		if(element instanceof ComplementRule) {
+			return ((ComplementRule) element).getKernel();
+		}
+		
+		return null;
 	}
 
 }
