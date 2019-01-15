@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,6 +30,7 @@ import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
 import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.sirius.business.api.dialect.DialectManager;
@@ -148,7 +150,6 @@ public class DesignServices {
 	}
 
 	public AttrCondDef selectAttrCondDef(EObject context) {
-		List<AttrCondDef> attrCondDefList = null;
 		TripleGraphGrammarFile tggFile = null;
 		List<EObject> tggFileContents = context.eResource().getContents();
 		if (tggFileContents.size() > 0 && tggFileContents.get(0) instanceof TripleGraphGrammarFile) {
@@ -157,30 +158,37 @@ public class DesignServices {
 			return null;
 		}
 
-		attrCondDefList = tggFile.getLibrary() != null ? tggFile.getLibrary().getAttributeCondDefs()
+		List<AttrCondDef> attrCondDefList = tggFile.getLibrary() != null ? tggFile.getLibrary().getAttributeCondDefs()
 				: loadAttrCondDefLibrary(context).getAttributeCondDefs();
 		
+		List<String> attrCondDefNameList = new ArrayList<String>(attrCondDefList.size());
+		attrCondDefList.stream().forEach(c -> attrCondDefNameList.add(c.getName()));
+		Schema schema = null;
 		if(context instanceof NamedElements) {
 			Rule rootRule = getRootRule((NamedElements) context);
-			Schema schema = rootRule.getSchema();
+			 schema = rootRule.getSchema();
 			if (schema != null) {
-				attrCondDefList.addAll(schema.getAttributeCondDefs());
+				schema.getAttributeCondDefs().stream().forEach(c -> attrCondDefNameList.add(c.getName()));
 			}
 		}
 		
-		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
-				new NamedElementLabelProvider());
+		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(), new LabelProvider());
 		dlg.setTitle("New Attribute Condition");
 		dlg.setMessage("Select a function definition for the new attribute condition");
-		dlg.setElements(attrCondDefList.toArray());
+		dlg.setElements(attrCondDefNameList.toArray());
 		dlg.setMultipleSelection(false);
-		AttrCondDef selectedDef = null;
 
 		if (dlg.open() == Window.OK) {
-			selectedDef = (AttrCondDef) dlg.getResult()[0];
+			final String selectedDefName = (String) dlg.getResult()[0];
+			Optional<AttrCondDef> selectedDef = attrCondDefList.stream().filter(c -> c.getName().equals(selectedDefName)).findAny();
+			if(!selectedDef.isPresent() && schema != null) {
+				selectedDef = schema.getAttributeCondDefs().stream().filter(c -> c.getName().equals(selectedDefName)).findAny();
+			}
+			
+			return selectedDef.isPresent() ? selectedDef.get() : null;
 		}
 
-		return selectedDef;
+		return null;
 	}
 
 	public boolean addAttrCondition(EObject context, EObject decorator) {
