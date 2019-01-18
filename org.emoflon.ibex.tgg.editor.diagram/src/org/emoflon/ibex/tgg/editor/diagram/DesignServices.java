@@ -160,19 +160,20 @@ public class DesignServices {
 
 		List<AttrCondDef> attrCondDefList = tggFile.getLibrary() != null ? tggFile.getLibrary().getAttributeCondDefs()
 				: loadAttrCondDefLibrary(context).getAttributeCondDefs();
-		
+
 		List<String> attrCondDefNameList = new ArrayList<String>(attrCondDefList.size());
 		attrCondDefList.stream().forEach(c -> attrCondDefNameList.add(c.getName()));
 		Schema schema = null;
-		if(context instanceof NamedElements) {
+		if (context instanceof NamedElements) {
 			Rule rootRule = getRootRule((NamedElements) context);
-			 schema = rootRule.getSchema();
+			schema = rootRule.getSchema();
 			if (schema != null) {
 				schema.getAttributeCondDefs().stream().forEach(c -> attrCondDefNameList.add(c.getName()));
 			}
 		}
-		
-		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(), new LabelProvider());
+
+		ElementListSelectionDialog dlg = new ElementListSelectionDialog(Display.getCurrent().getActiveShell(),
+				new LabelProvider());
 		dlg.setTitle("New Attribute Condition");
 		dlg.setMessage("Select a function definition for the new attribute condition");
 		dlg.setElements(attrCondDefNameList.toArray());
@@ -180,11 +181,13 @@ public class DesignServices {
 
 		if (dlg.open() == Window.OK) {
 			final String selectedDefName = (String) dlg.getResult()[0];
-			Optional<AttrCondDef> selectedDef = attrCondDefList.stream().filter(c -> c.getName().equals(selectedDefName)).findAny();
-			if(!selectedDef.isPresent() && schema != null) {
-				selectedDef = schema.getAttributeCondDefs().stream().filter(c -> c.getName().equals(selectedDefName)).findAny();
+			Optional<AttrCondDef> selectedDef = attrCondDefList.stream()
+					.filter(c -> c.getName().equals(selectedDefName)).findAny();
+			if (!selectedDef.isPresent() && schema != null) {
+				selectedDef = schema.getAttributeCondDefs().stream().filter(c -> c.getName().equals(selectedDefName))
+						.findAny();
 			}
-			
+
 			return selectedDef.isPresent() ? selectedDef.get() : null;
 		}
 
@@ -322,13 +325,15 @@ public class DesignServices {
 
 		if (tgg == null)
 			return false;
-		
+
 		rootRule = getRootRule(tgg);
 		if (rootRule == null) {
 			return false;
 		}
-		correspondenceList = rootRule.getCorrespondencePatterns();
-	
+
+		correspondenceList = tgg instanceof ComplementRule ? ((ComplementRule) tgg).getCorrespondencePatterns()
+				: rootRule.getCorrespondencePatterns();
+
 		Schema schema = rootRule.getSchema();
 		if (schema == null)
 			return false;
@@ -1434,16 +1439,16 @@ public class DesignServices {
 		arrangeRequest.setPartsToArrange(partsToArrange);
 		diagramEditPart.performRequest(arrangeRequest);
 	}
-	
+
 	private Rule getRootRule(NamedElements element) {
-		if(element instanceof Rule) {
+		if (element instanceof Rule) {
 			return (Rule) element;
 		}
-		
-		if(element instanceof ComplementRule) {
+
+		if (element instanceof ComplementRule) {
 			return ((ComplementRule) element).getKernel();
 		}
-		
+
 		return null;
 	}
 
