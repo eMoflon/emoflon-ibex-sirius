@@ -1,6 +1,5 @@
 package org.emoflon.ibex.tgg.editor.diagram;
 
-import com.google.inject.Injector;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
@@ -14,9 +13,10 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.emoflon.ibex.tgg.editor.diagram.ui.XtextEmbeddedEditor;
 import org.moflon.tgg.mosl.tgg.AttrCond;
-import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.ui.internal.TGGActivator;
+
+import com.google.inject.Injector;
 
 // Wrapper for opening the Xtext embedded editor
 public class OpenXtextEmbeddedEditor {
@@ -40,11 +40,7 @@ public class OpenXtextEmbeddedEditor {
 					if (((Rule) rootElement).getAttrConditions().size() > 0) {
 						originalSemanticElement = (EObject) ((Rule) rootElement).getAttrConditions().get(0);
 					}
-				} else if (rootElement instanceof ComplementRule) {
-					if (((ComplementRule) rootElement).getAttrConditions().size() > 0) {
-						originalSemanticElement = (EObject) ((ComplementRule) rootElement).getAttrConditions().get(0);
-					}
-				}
+				} 
 			}
 		} else if (decorator instanceof DNodeListElement) {
 			String mappingName = ((DNodeListElement) decorator).getActualMapping().getName();

@@ -54,13 +54,13 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer;
+import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
+import org.emoflon.ibex.tgg.editor.diagram.ui.TGGGraphicalEditorLauncher;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseCorrPage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.BaseNodePage;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizardState;
-import org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer;
-import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
-import org.emoflon.ibex.tgg.editor.diagram.ui.TGGGraphicalEditorLauncher;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
@@ -70,7 +70,6 @@ import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
 import org.moflon.tgg.mosl.tgg.AttributeAssignment;
 import org.moflon.tgg.mosl.tgg.AttributeConstraint;
 import org.moflon.tgg.mosl.tgg.AttributeExpression;
-import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.ContextObjectVariablePattern;
 import org.moflon.tgg.mosl.tgg.CorrType;
 import org.moflon.tgg.mosl.tgg.CorrVariablePattern;
@@ -222,11 +221,6 @@ public class DesignServices {
 			corrList = ((Rule) tgg).getCorrespondencePatterns();
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
 			targetObjects = ((Rule) tgg).getTargetPatterns();
-		} else if (tgg instanceof ComplementRule) {
-			schema = ((ComplementRule) tgg).getKernel().getSchema();
-			corrList = ((ComplementRule) tgg).getCorrespondencePatterns();
-			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
-			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
 		} else {
 			return false;
 		}
@@ -273,10 +267,6 @@ public class DesignServices {
 			schema = ((Rule) tgg).getSchema();
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
 			targetObjects = ((Rule) tgg).getTargetPatterns();
-		} else if (tgg instanceof ComplementRule) {
-			schema = ((ComplementRule) tgg).getKernel().getSchema();
-			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
-			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
 		} else {
 			return false;
 		}
@@ -331,8 +321,7 @@ public class DesignServices {
 			return false;
 		}
 
-		correspondenceList = tgg instanceof ComplementRule ? ((ComplementRule) tgg).getCorrespondencePatterns()
-				: rootRule.getCorrespondencePatterns();
+		correspondenceList = rootRule.getCorrespondencePatterns();
 
 		Schema schema = rootRule.getSchema();
 		if (schema == null)
@@ -369,13 +358,7 @@ public class DesignServices {
 			sourceObjects = ((Rule) tgg).getSourcePatterns();
 			targetObjects = ((Rule) tgg).getTargetPatterns();
 			attrConditions = ((Rule) tgg).getAttrConditions();
-		} else if (tgg instanceof ComplementRule) {
-			correspondenceList = new ArrayList<CorrVariablePattern>(((ComplementRule) tgg).getCorrespondencePatterns());
-			sourceObjects = ((ComplementRule) tgg).getSourcePatterns();
-			targetObjects = ((ComplementRule) tgg).getTargetPatterns();
-			attrConditions = ((ComplementRule) tgg).getAttrConditions();
-		}
-
+		} 
 		else {
 			return false;
 		}
@@ -654,16 +637,12 @@ public class DesignServices {
 		if (isSourceNode) {
 			if (rule instanceof Rule) {
 				nodeList = ((Rule) rule).getSourcePatterns();
-			} else if (rule instanceof ComplementRule) {
-				nodeList = ((ComplementRule) rule).getSourcePatterns();
 			} else {
 				return Collections.emptyList();
 			}
 		} else {
 			if (rule instanceof Rule) {
 				nodeList = ((Rule) rule).getTargetPatterns();
-			} else if (rule instanceof ComplementRule) {
-				nodeList = ((ComplementRule) rule).getTargetPatterns();
 			} else {
 				return Collections.emptyList();
 			}
@@ -751,9 +730,7 @@ public class DesignServices {
 		}
 
 		GlobalContext newGlobalContext = new GlobalContext();
-		if (context instanceof ComplementRule) {
-			populateHelper(((ComplementRule) context).getKernel(), newGlobalContext, visitedRules, populateTask);
-		} else if (context instanceof Rule) {
+		if (context instanceof Rule) {
 			populateHelper(((Rule) context).getSupertypes(), newGlobalContext, visitedRules, populateTask);
 		}
 
@@ -773,10 +750,7 @@ public class DesignServices {
 
 		List<NamedElements> globalCorr = new ArrayList<NamedElements>();
 		GlobalContext corrGlobalContext = new GlobalContext();
-		if (context instanceof ComplementRule) {
-			corrGlobalContext = populateHelper(((ComplementRule) context).getKernel(), corrGlobalContext,
-					new ArrayList<Rule>(), "correspondences");
-		} else if (context instanceof Rule) {
+		if (context instanceof Rule) {
 			corrGlobalContext = populateHelper(((Rule) context).getSupertypes(), corrGlobalContext,
 					new ArrayList<Rule>(), "correspondences");
 		}
@@ -803,16 +777,8 @@ public class DesignServices {
 			nodeList.addAll(((Rule) diagram.getTarget()).getSourcePatterns());
 		}
 
-		else if (isSourceNode && diagram.getTarget() instanceof ComplementRule) {
-			nodeList.addAll(((ComplementRule) diagram.getTarget()).getSourcePatterns());
-		}
-
 		else if (!isSourceNode && diagram.getTarget() instanceof Rule) {
 			nodeList.addAll(((Rule) diagram.getTarget()).getTargetPatterns());
-		}
-
-		else if (!isSourceNode && diagram.getTarget() instanceof ComplementRule) {
-			nodeList.addAll(((ComplementRule) diagram.getTarget()).getTargetPatterns());
 		}
 
 		for (ObjectVariablePattern node : nodeList) {
@@ -1056,15 +1022,11 @@ public class DesignServices {
 				if (isSourceNode) {
 					if (rule instanceof Rule) {
 						((Rule) rule).getSourcePatterns().add(contextNode);
-					} else if (rule instanceof ComplementRule) {
-						((ComplementRule) rule).getSourcePatterns().add(contextNode);
-					}
+					} 
 				} else {
 					if (rule instanceof Rule) {
 						((Rule) rule).getTargetPatterns().add(contextNode);
-					} else if (rule instanceof ComplementRule) {
-						((ComplementRule) rule).getTargetPatterns().add(contextNode);
-					}
+					} 
 				}
 
 				// Trigger arrange-all
@@ -1080,11 +1042,7 @@ public class DesignServices {
 					localSourceObjects.addAll(((Rule) rule).getSourcePatterns());
 					localTargetObjects.addAll(((Rule) rule).getTargetPatterns());
 					correspondences = ((Rule) rule).getCorrespondencePatterns();
-				} else if (rule instanceof ComplementRule) {
-					localSourceObjects.addAll(((ComplementRule) rule).getSourcePatterns());
-					localTargetObjects.addAll(((ComplementRule) rule).getTargetPatterns());
-					correspondences = ((ComplementRule) rule).getCorrespondencePatterns();
-				}
+				} 
 				CorrVariablePattern contextCorrespondence = (CorrVariablePattern) EcoreUtil.copy(decorator.getTarget());
 				ObjectVariablePattern globalSourceObj = contextCorrespondence.getSource();
 				ObjectVariablePattern globalTargetObj = contextCorrespondence.getTarget();
@@ -1217,8 +1175,7 @@ public class DesignServices {
 			EObject container = r.getContents().get(0);
 			if (container instanceof TripleGraphGrammarFile) {
 				TripleGraphGrammarFile tggFile = (TripleGraphGrammarFile) container;
-				if ((tggFile.getRules() != null && tggFile.getRules().size() > 0)
-						|| (tggFile.getComplementRules() != null && tggFile.getComplementRules().size() > 0)) {
+				if ((tggFile.getRules() != null && tggFile.getRules().size() > 0)) {
 					// We only want to display tgg files containing rules or complement rules
 					tggFiles.add(tggFile);
 				} else {
@@ -1240,11 +1197,7 @@ public class DesignServices {
 			srcFile.getRules().remove(rule);
 			dstFile.getRules().add((Rule) rule);
 			saveSession(rule);
-		} else if (rule instanceof ComplementRule) {
-			srcFile.getComplementRules().remove(rule);
-			dstFile.getComplementRules().add((ComplementRule) rule);
-			saveSession(rule);
-		}
+		} 
 
 		return true;
 	}
@@ -1296,9 +1249,7 @@ public class DesignServices {
 				String repName = "";
 				if (rule instanceof Rule) {
 					repName = "TGG Rule";
-				} else if (rule instanceof ComplementRule) {
-					repName = "Complement Rule";
-				}
+				} 
 				DSemanticDiagram diagram = (DSemanticDiagram) referencer;
 				diagram.setName(rule.getName() + " - " + repName);
 				return true;
@@ -1369,8 +1320,6 @@ public class DesignServices {
 		List<AttrCond> attrCondList = null;
 		if (obj instanceof Rule) {
 			attrCondList = ((Rule) obj).getAttrConditions();
-		} else if (obj instanceof ComplementRule) {
-			attrCondList = ((ComplementRule) obj).getAttrConditions();
 		} else if (obj instanceof AttrCond) {
 			attrCondList = getAttrCondList(obj.eContainer());
 		}
@@ -1443,10 +1392,6 @@ public class DesignServices {
 	private Rule getRootRule(NamedElements element) {
 		if (element instanceof Rule) {
 			return (Rule) element;
-		}
-
-		if (element instanceof ComplementRule) {
-			return ((ComplementRule) element).getKernel();
 		}
 
 		return null;
