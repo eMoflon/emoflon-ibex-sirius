@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -42,9 +43,7 @@ import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorLauncher;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
-import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
@@ -154,8 +153,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 				}
 				TripleGraphGrammarFile castedTGGFile = (TripleGraphGrammarFile) container;
 				List<Rule> rules = castedTGGFile.getRules();
-				List<ComplementRule> complementRules = castedTGGFile.getComplementRules();
-				setLauncherParams(rules, complementRules, castedTGGFile, display, progressMonitor);
+				setLauncherParams(rules, castedTGGFile, display, progressMonitor);
 			}
 
 			repDescription = getRepresentationDescription(selectedElement, session, progressMonitor);
@@ -200,9 +198,6 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 		if (elementToShow instanceof Rule) {
 			// Rule representation
 			repDescription = tggEditor.getOwnedRepresentations().get(1);
-		} else if (elementToShow instanceof ComplementRule) {
-			// Complement Rule representation
-			repDescription = tggEditor.getOwnedRepresentations().get(2);
 		} else if (elementToShow == null && schemaFile != null) {
 			// TGG File representation
 			repDescription = tggEditor.getOwnedRepresentations().get(0);
@@ -325,25 +320,20 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 				});
 	}
 
-	private NamedElements setLauncherParams(List<Rule> rules, List<ComplementRule> complementRules,
+	private NamedElements setLauncherParams(List<Rule> rules,
 			TripleGraphGrammarFile castedTGGFile, Display display, SubMonitor progressMonitor) {
-		if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3 || rules == null
-				|| complementRules == null) {
+		if (tggEditor == null || tggEditor.getOwnedRepresentations().size() < 3 || rules == null) {
 			progressMonitor.setCanceled(true);
 			return null;
 		}
 		progressMonitor.worked(1);
 
 		progressMonitor.subTask("Getting rules representation");
-		if (rules.size() == 1 && complementRules.size() == 0) {
+		if (rules.size() == 1) {
 			selectedElement = rules.get(0);
 			// Rule representation
 			repDescription = tggEditor.getOwnedRepresentations().get(1);
-		} else if (rules.size() == 0 && complementRules.size() == 1) {
-			selectedElement = complementRules.get(0);
-			// Complement Rule representation
-			repDescription = tggEditor.getOwnedRepresentations().get(2);
-		} else if (rules.size() + complementRules.size() > 1) {
+		} else if (rules.size() > 1) {
 			display.syncExec(new Runnable() {
 
 				@Override
@@ -352,7 +342,6 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 							new NamedElementLabelProvider());
 					List<NamedElements> elements = new ArrayList<NamedElements>();
 					elements.addAll(rules);
-					elements.addAll(complementRules);
 					dlg.setTitle("Select one Rule to Open with the Graphical Editor");
 					dlg.setMessage(
 							"More than one rule were found in this file. Please select one rule to open with the graphical editor");

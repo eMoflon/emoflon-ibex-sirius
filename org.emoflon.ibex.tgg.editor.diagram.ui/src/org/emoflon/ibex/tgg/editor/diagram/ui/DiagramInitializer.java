@@ -29,7 +29,6 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
 import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
 import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
-import org.moflon.tgg.mosl.tgg.ComplementRule;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
 
@@ -94,17 +93,6 @@ public class DiagramInitializer {
 			}
 		}
 
-		else if (element instanceof ComplementRule) {
-			if (((ComplementRule) element).getKernel() != null) {
-				Rule rootRule = ((ComplementRule) element).getKernel();
-				// Check if schema already set
-				if (rootRule != null && rootRule.getSchema() != null) {
-					// Schema already set
-					return ((ComplementRule) element).getName();
-				}
-			}
-		}
-		
 		return null;
 	}
 
