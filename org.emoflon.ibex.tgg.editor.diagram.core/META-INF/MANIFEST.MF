@@ -14,3 +14,4 @@ Require-Bundle: org.eclipse.sirius,
  org.eclipse.sirius.ext.emf;bundle-version="5.0.0",
  org.eclipse.sirius.ext.emf.tx;bundle-version="5.0.0",
  org.eclipse.sirius.ext.base
+Export-Package: org.emoflon.ibex.tgg.editor.diagram.core

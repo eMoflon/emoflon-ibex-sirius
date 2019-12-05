@@ -18,4 +18,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.emoflon.ibex.tgg.editor.diagram
-Export-Package: org.emoflon.ibex.tgg.editor.diagram
+Export-Package: org.emoflon.ibex.tgg.editor.diagram,
+ org.emoflon.ibex.tgg.editor.diagram.wizards
