@@ -1,14 +1,14 @@
 # eMoflon::IBeX Sirius
 
-[Sirius](https://www.eclipse.org/sirius/) based graphical editor of TGG projects and bidirectional graph transformations for [eMoflon::IBeX Democles](https://github.com/eMoflon/emoflon-ibex-democles)
+[Sirius](https://www.eclipse.org/sirius/) based graphical editor of TGG projects and bidirectional graph transformations for [eMoflon::IBeX](https://github.com/eMoflon/emoflon-ibex)
 
 ## Requirements
 * [Sirius](http://www.eclipse.org/sirius/download.html) (minimum v5.0)
-* [eMoflon::IBeX Democles](https://github.com/eMoflon/emoflon-ibex-democles)
+* [eMoflon::IBeX](https://github.com/eMoflon/emoflon-ibex)
 
 ## Features
 * Editable and interactive diagram representation of [TGG Projects](https://github.com/eMoflon/emoflon-ibex-sirius/wiki/Representation-and-Edition-of-TGG-Projects), [Rules and Complement Rules](https://github.com/eMoflon/emoflon-ibex-sirius/wiki/Representation-and-Edition-of-Rules-and-Complement-Rules)
-* Fully integration with [eMoflon::IBeX Democles](https://github.com/eMoflon/emoflon-ibex-democles)
+* Fully integration with [eMoflon::IBeX](https://github.com/eMoflon/emoflon-ibex)
 * Two-way synchronization between TGG-code and diagrams (more information [here](https://github.com/eMoflon/emoflon-ibex-sirius/wiki/Two-way-synchronization-between-TGG-code-and-diagrams))
 
 ## Getting Started
