@@ -1251,7 +1251,7 @@ public class DesignServices {
 					repName = "TGG Rule";
 				} 
 				DSemanticDiagram diagram = (DSemanticDiagram) referencer;
-				diagram.setName(rule.getName() + " - " + repName);
+				diagram.getDescription().setName(rule.getName() + " - " + repName);
 				return true;
 			}
 		}

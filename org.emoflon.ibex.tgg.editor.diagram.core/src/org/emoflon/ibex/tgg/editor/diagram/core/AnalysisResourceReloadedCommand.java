@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.sirius.business.internal.session.danalysis.DAnalysisSessionImpl;
 import org.eclipse.sirius.viewpoint.DAnalysis;
 import org.eclipse.sirius.viewpoint.Messages;
 
@@ -29,7 +30,7 @@ import com.google.common.base.Preconditions;
  */
 public class AnalysisResourceReloadedCommand extends RecordingCommand {
 
-    private CustomDAnalysisSessionImpl session;
+    private DAnalysisSessionImpl session;
 
     private Resource resource;
 
@@ -45,7 +46,7 @@ public class AnalysisResourceReloadedCommand extends RecordingCommand {
      * @param analysisResource
      *            resource to reload
      */
-    public AnalysisResourceReloadedCommand(CustomDAnalysisSessionImpl session, TransactionalEditingDomain domain, Resource analysisResource) {
+    public AnalysisResourceReloadedCommand(DAnalysisSessionImpl session, TransactionalEditingDomain domain, Resource analysisResource) {
         super(domain, MessageFormat.format(Messages.AnalysisResourceReloadedCommand_label, analysisResource.getURI()));
         this.session = Preconditions.checkNotNull(session);
         this.resource = analysisResource;

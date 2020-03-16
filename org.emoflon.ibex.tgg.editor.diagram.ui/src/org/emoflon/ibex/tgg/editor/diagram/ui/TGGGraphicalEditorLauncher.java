@@ -314,8 +314,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 					@Override
 					protected void doExecute() {
 						// Update diagram Name
-						representation.setName(name + " - " + repDescription.getLabel());
-
+						repDescription.setName(name + " - " + repDescription.getLabel());
 					}
 				});
 	}
