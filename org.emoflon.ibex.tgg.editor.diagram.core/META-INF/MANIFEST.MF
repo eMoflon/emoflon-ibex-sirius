@@ -9,9 +9,9 @@ Bundle-Vendor: eMoflon::IBeX Developers
 Require-Bundle: org.eclipse.sirius,
  org.eclipse.sirius.ecore.extender;bundle-version="5.0.0",
  org.eclipse.sirius.common;bundle-version="5.0.0",
- org.eclipse.emf.emfstore.common,
  org.eclipse.emf.workspace;bundle-version="1.5.1",
  org.eclipse.sirius.ext.emf;bundle-version="5.0.0",
  org.eclipse.sirius.ext.emf.tx;bundle-version="5.0.0",
- org.eclipse.sirius.ext.base
+ org.eclipse.sirius.ext.base,
+ com.google.guava
 Export-Package: org.emoflon.ibex.tgg.editor.diagram.core

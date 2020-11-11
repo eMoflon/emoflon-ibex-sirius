@@ -23,6 +23,7 @@ import org.eclipse.sirius.viewpoint.Messages;
 
 import com.google.common.base.Preconditions;
 
+
 /**
  * Specific command to reload an analysis.
  * 
