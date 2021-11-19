@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.sirius.diagram;bundle-version="5.0.0",
  org.emoflon.ibex.tgg.editor,
  org.emoflon.ibex.tgg.ide
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-15
+Bundle-RequiredExecutionEnvironment: JavaSE-16
 Bundle-Vendor: %providerName
 Automatic-Module-Name: org.emoflon.ibex.tgg.editor.diagram
 Export-Package: org.emoflon.ibex.tgg.editor.diagram,
