@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
+import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
 import org.moflon.core.ui.AbstractCommandHandler;
 
 public class OpenDiagramFromProjectHandler extends AbstractCommandHandler {
@@ -38,6 +38,6 @@ public class OpenDiagramFromProjectHandler extends AbstractCommandHandler {
 	private IFile findSchemaFileInProject(IProject project) {
 		if (project == null)
 			return null;
-		return project.getFile(IbexTGGNature.SCHEMA_FILE);
+		return project.getFile(TGGBuildUtil.SCHEMA_FILE);
 	}
 }

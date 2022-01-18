@@ -43,7 +43,7 @@ import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorLauncher;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
+import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
 import org.moflon.tgg.mosl.tgg.NamedElements;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.Schema;
@@ -103,7 +103,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 		ruleURI = URI.createPlatformResourceURI(tggFile.getFullPath().toString(), true);
 		Collection<URI> ruleURIs = Collections.emptyList();
 		try {
-			ruleURIs = getRuleURIs(project.getFolder(IbexTGGBuilder.SRC_FOLDER));
+			ruleURIs = getRuleURIs(project.getFolder(TGGBuildUtil.SRC_FOLDER));
 		} catch (CoreException e1) {
 			e1.printStackTrace();
 		}
@@ -272,7 +272,7 @@ public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 		Collection<URI> URIs = new ArrayList<URI>();
 		for (IResource iResource : root.members()) {
 			if (iResource instanceof IFile) {
-				if (iResource.getName().endsWith(IbexTGGBuilder.TGG_FILE_EXTENSION)) {
+				if (iResource.getName().endsWith(TGGBuildUtil.TGG_FILE_EXTENSION)) {
 					URIs.add(URI.createPlatformResourceURI(iResource.getFullPath().toString(), true));
 				}
 			} else if (iResource instanceof IFolder) {
