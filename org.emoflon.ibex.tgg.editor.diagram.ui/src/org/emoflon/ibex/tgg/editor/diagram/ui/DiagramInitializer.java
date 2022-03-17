@@ -26,8 +26,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.emoflon.ibex.tgg.ide.admin.IbexTGGBuilder;
-import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
+import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
 import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
 import org.moflon.tgg.mosl.tgg.Rule;
 import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
@@ -67,7 +66,7 @@ public class DiagramInitializer {
 			if (schemaResource != null && schemaIsOfExpectedType(schemaResource)) {
 				// Load
 				try {
-					visitAllFiles(resourceSet, project.getFolder(IbexTGGBuilder.SRC_FOLDER), this::loadRules);
+					visitAllFiles(resourceSet, project.getFolder(TGGBuildUtil.SRC_FOLDER), this::loadRules);
 				} catch (CoreException | IOException e) {
 					e.printStackTrace();
 				}
@@ -124,7 +123,7 @@ public class DiagramInitializer {
 	private IFile findSchemaFileInProject(IProject project) {
 		if (project == null)
 			return null;
-		return project.getFile(IbexTGGNature.SCHEMA_FILE);
+		return project.getFile(TGGBuildUtil.SCHEMA_FILE);
 	}
 	
 	private static IFile findAttrCondDefLibraryFileInProject(IProject project) {
@@ -167,7 +166,7 @@ public class DiagramInitializer {
 	}
 
 	private void loadRules(IFile file, XtextResourceSet resourceSet) {
-		if (file.getName().endsWith(IbexTGGBuilder.TGG_FILE_EXTENSION)) {
+		if (file.getName().endsWith(TGGBuildUtil.TGG_FILE_EXTENSION)) {
 			resourceSet.getResource(URI.createPlatformResourceURI(file.getFullPath().toString(), true), true);
 		}
 	}

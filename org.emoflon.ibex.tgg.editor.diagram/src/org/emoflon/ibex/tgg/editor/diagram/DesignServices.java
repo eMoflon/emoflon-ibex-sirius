@@ -54,6 +54,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
+import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
 import org.emoflon.ibex.tgg.editor.diagram.ui.DiagramInitializer;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
 import org.emoflon.ibex.tgg.editor.diagram.ui.TGGGraphicalEditorLauncher;
@@ -63,7 +64,6 @@ import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.CorrWizardState;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizard;
 import org.emoflon.ibex.tgg.editor.diagram.wizards.NodeWizardState;
-import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
 import org.moflon.tgg.mosl.tgg.AttrCond;
 import org.moflon.tgg.mosl.tgg.AttrCondDef;
 import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
@@ -1180,7 +1180,7 @@ public class DesignServices {
 					tggFiles.add(tggFile);
 				} else {
 					String uri = r.getURI().toPlatformString(true);
-					if (!uri.contains(IbexTGGNature.SCHEMA_FILE)
+					if (!uri.contains(TGGBuildUtil.SCHEMA_FILE)
 							&& !uri.contains(DiagramInitializer.ATTR_COND_DEF_LIBRARY_PATH)) {
 						tggFiles.add(tggFile);
 					}
