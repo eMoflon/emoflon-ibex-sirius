@@ -11,7 +11,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.emoflon.ibex.tgg.ide.admin.IbexTGGNature;
+import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
 import org.moflon.core.ui.AbstractCommandHandler;
 
 public class OpenProjectDiagramFromSirius extends AbstractCommandHandler {
@@ -45,6 +45,6 @@ public class OpenProjectDiagramFromSirius extends AbstractCommandHandler {
 	private IFile findSchemaFileInProject(IProject project) {
 		if (project == null)
 			return null;
-		return project.getFile(IbexTGGNature.SCHEMA_FILE);
+		return project.getFile(TGGBuildUtil.SCHEMA_FILE);
 	}
 }
