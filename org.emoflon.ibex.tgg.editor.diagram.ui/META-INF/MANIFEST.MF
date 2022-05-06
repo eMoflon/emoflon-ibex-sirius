@@ -4,7 +4,7 @@ Bundle-Name: eMoflon::IBeX Editor for Triple Graph Grammars
 Bundle-SymbolicName: org.emoflon.ibex.tgg.editor.diagram.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.emoflon.ibex.tgg.editor.diagram.ui
-Bundle-RequiredExecutionEnvironment: JavaSE-16
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: eMoflon::IBeX Developers
 Require-Bundle: org.moflon.core.ui,
  org.eclipse.ui.ide;bundle-version="3.13.1",
