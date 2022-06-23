@@ -26,10 +26,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
-import org.moflon.tgg.mosl.tgg.AttrCondDefLibrary;
-import org.moflon.tgg.mosl.tgg.Rule;
-import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
+import org.emoflon.ibex.tgg.editor.builder.TGGBuildUtil;
+import org.emoflon.ibex.tgg.editor.tgg.AttrCondDefLibrary;
+import org.emoflon.ibex.tgg.editor.tgg.Rule;
+import org.emoflon.ibex.tgg.editor.tgg.TripleGraphGrammarFile;
 
 public class DiagramInitializer {
 	public static final String ATTR_COND_DEF_LIBRARY_PATH = "src/org/emoflon/ibex/tgg/csp/lib/AttrCondDefLibrary.tgg";

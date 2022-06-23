@@ -9,7 +9,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
+import org.emoflon.ibex.tgg.editor.builder.TGGBuildUtil;
 import org.moflon.core.ui.AbstractCommandHandler;
 
 public class OpenDiagramFromProjectHandler extends AbstractCommandHandler {

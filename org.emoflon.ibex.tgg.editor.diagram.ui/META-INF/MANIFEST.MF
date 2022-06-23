@@ -8,7 +8,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: eMoflon::IBeX Developers
 Require-Bundle: org.moflon.core.ui,
  org.eclipse.ui.ide;bundle-version="3.13.1",
- org.emoflon.ibex.tgg.ide,
+ org.emoflon.ibex.tgg.editor.ide,
  org.eclipse.sirius.diagram.sequence;bundle-version="5.0.0",
  org.emoflon.ibex.tgg.editor,
  org.eclipse.emf.compare;bundle-version="3.5.1",

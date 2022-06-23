@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.moflon.tgg.mosl.tgg.CorrVariablePattern;
-import org.moflon.tgg.mosl.tgg.LinkVariablePattern;
-import org.moflon.tgg.mosl.tgg.NamedElements;
-import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
+import org.emoflon.ibex.tgg.editor.tgg.CorrVariablePattern;
+import org.emoflon.ibex.tgg.editor.tgg.LinkVariablePattern;
+import org.emoflon.ibex.tgg.editor.tgg.NamedElements;
+import org.emoflon.ibex.tgg.editor.tgg.ObjectVariablePattern;
 
 // Helps to store and manage the global context of a rule
 class GlobalContext {

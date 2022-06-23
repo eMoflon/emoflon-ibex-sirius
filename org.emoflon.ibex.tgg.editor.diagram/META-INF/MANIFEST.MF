@@ -12,7 +12,7 @@ Require-Bundle: org.eclipse.sirius.diagram;bundle-version="5.0.0",
  org.emoflon.ibex.tgg.editor.ui;bundle-version="1.0.1",
  org.emoflon.ibex.tgg.editor.diagram.ui,
  org.emoflon.ibex.tgg.editor,
- org.emoflon.ibex.tgg.ide
+ org.emoflon.ibex.tgg.editor.ide
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: %providerName

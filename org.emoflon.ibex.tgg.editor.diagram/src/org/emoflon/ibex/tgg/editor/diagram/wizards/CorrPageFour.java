@@ -8,8 +8,8 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.moflon.tgg.mosl.tgg.CorrType;
-import org.moflon.tgg.mosl.tgg.TggFactory;
+import org.emoflon.ibex.tgg.editor.tgg.CorrType;
+import org.emoflon.ibex.tgg.editor.tgg.TggFactory;
 
 class CorrPageFour extends BaseCorrPage {
 	Text textField;

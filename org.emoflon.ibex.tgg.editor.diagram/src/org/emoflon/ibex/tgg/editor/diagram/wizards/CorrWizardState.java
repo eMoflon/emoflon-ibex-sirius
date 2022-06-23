@@ -2,8 +2,8 @@ package org.emoflon.ibex.tgg.editor.diagram.wizards;
 
 import java.util.List;
 
-import org.moflon.tgg.mosl.tgg.CorrType;
-import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
+import org.emoflon.ibex.tgg.editor.tgg.CorrType;
+import org.emoflon.ibex.tgg.editor.tgg.ObjectVariablePattern;
 
 public class CorrWizardState extends WizardState {
 	private List<CorrType> corrTypeList;
