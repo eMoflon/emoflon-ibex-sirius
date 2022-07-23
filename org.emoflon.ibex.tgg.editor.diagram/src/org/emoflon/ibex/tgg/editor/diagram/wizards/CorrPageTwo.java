@@ -9,7 +9,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.emoflon.ibex.tgg.editor.diagram.ui.NamedElementLabelProvider;
-import org.moflon.tgg.mosl.tgg.ObjectVariablePattern;
+import org.emoflon.ibex.tgg.editor.tgg.ObjectVariablePattern;
 
 class CorrPageTwo extends BaseCorrPage {
 	private CustomListViewer sourceSelector;

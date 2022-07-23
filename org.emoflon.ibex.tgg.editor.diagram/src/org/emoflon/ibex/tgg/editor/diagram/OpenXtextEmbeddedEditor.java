@@ -12,9 +12,9 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.emoflon.ibex.tgg.editor.diagram.ui.XtextEmbeddedEditor;
-import org.moflon.tgg.mosl.tgg.AttrCond;
-import org.moflon.tgg.mosl.tgg.Rule;
-import org.moflon.tgg.mosl.ui.internal.TGGActivator;
+import org.emoflon.ibex.tgg.editor.tgg.AttrCond;
+import org.emoflon.ibex.tgg.editor.tgg.Rule;
+import org.emoflon.ibex.tgg.editor.ui.internal.EditorActivator;
 
 import com.google.inject.Injector;
 
@@ -71,7 +71,7 @@ public class OpenXtextEmbeddedEditor {
 	 * @return
 	 */
 	private Injector getInjector() {
-		return TGGActivator.getInstance().getInjector(TGGActivator.ORG_MOFLON_TGG_MOSL_TGG);
+		return EditorActivator.getInstance().getInjector(EditorActivator.ORG_EMOFLON_IBEX_TGG_EDITOR_TGG);
 	}
 
 	private IEditorPart getActiveEditor() {

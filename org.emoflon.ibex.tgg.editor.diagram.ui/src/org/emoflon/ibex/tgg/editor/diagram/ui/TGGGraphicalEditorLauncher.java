@@ -43,11 +43,11 @@ import org.eclipse.sirius.viewpoint.description.Viewpoint;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorLauncher;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
-import org.emoflon.ibex.tgg.builder.TGGBuildUtil;
-import org.moflon.tgg.mosl.tgg.NamedElements;
-import org.moflon.tgg.mosl.tgg.Rule;
-import org.moflon.tgg.mosl.tgg.Schema;
-import org.moflon.tgg.mosl.tgg.TripleGraphGrammarFile;
+import org.emoflon.ibex.tgg.editor.builder.TGGBuildUtil;
+import org.emoflon.ibex.tgg.editor.tgg.NamedElements;
+import org.emoflon.ibex.tgg.editor.tgg.Rule;
+import org.emoflon.ibex.tgg.editor.tgg.Schema;
+import org.emoflon.ibex.tgg.editor.tgg.TripleGraphGrammarFile;
 
 public class TGGGraphicalEditorLauncher implements IEditorLauncher {
 
